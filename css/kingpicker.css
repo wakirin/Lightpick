@@ -1,0 +1,91 @@
+.kingpicker-container {
+    max-width: 215px;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+}
+.kingpicker-container.is-hidden {
+    display: none;
+}
+.kingpicker-container.rows-2 {
+    max-width: 430px;
+}
+.kingpicker-container.rows-3 {
+    max-width: 645px;
+}
+.kingpicker-container.rows-4 {
+    max-width: 860px;
+}
+.kingpicker-container > .months {
+    display: flex;
+    flex-wrap: wrap;
+}
+.kingpicker-container > .months > .month {
+    padding: 5px;
+    width: 200px;
+    border: 1px solid #eee;
+}
+.kingpicker-container > .months > .month:hover > .title {
+    color: #4285f4;
+}
+.kingpicker-container > .months > .month > .title {
+    padding: 5px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #757575;
+    display: flex;
+    justify-content: space-between;
+    line-height: 24px;
+}
+.kingpicker-container > .top-buttons {
+    text-align: right;
+}
+.kingpicker-container .prev,
+.kingpicker-container .next {
+    border: none;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    outline: none;
+}
+.kingpicker-container .prev:hover,
+.kingpicker-container .next:hover {
+    background-color: rgba(0,0,0,.07);
+    cursor: pointer;
+}
+.kingpicker-container > .months > .month > .daynames {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    padding: 5px 0;
+    font-size: 10px;
+    font-weight: 500;
+    color: #757575;
+} 
+.kingpicker-container > .months> .month > .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 10px;
+}
+.kingpicker-container > .months > .month > .days > .day {
+    padding: 6px 0;
+    color: #212121;
+    font-size: 11px;
+    border-radius: 50%;
+}
+.kingpicker-container > .months > .month > .days > .day:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+.kingpicker-container > .months > .month > .days > .day.today {
+    color: #fff;
+    font-weight: 500;
+    background-color: #4285f4;
+}
+.kingpicker-container > .months > .month > .days > .day.prev-month,
+.kingpicker-container > .months > .month > .days > .day.next-month {
+    color: #757575;
+}
+.kingpicker-container > .months > .month > .days > .day.prev-month:hover,
+.kingpicker-container > .months > .month > .days > .day.next-month:hover {
+    background-color: #f5f5f5;
+}
