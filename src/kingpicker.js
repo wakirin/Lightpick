@@ -26,37 +26,26 @@
     var document = window.document,
 
     defaults = {
-
         field: null,
-
+        secondField: null,
         firstDay: 1,
-
         parentEl: 'body',
-
         lang: 'en',
-
         prevHtml: '&lt;',
-
         nextHtml: '&gt;',
-
         format: 'YYYY-MM-DD',
-
         separator: ' - ',
-
         numberOfMonths: 1,
-
         numberOfColumns: 2,
-
         singleDate: true,
-
         autoclose: true,
-
         startDate: null,
-
         endDate: null,
-
+        minDate: null,
+        maxDate: null,
         onSelect: null,
-
+        onOpen: null,
+        onClose: null,
     },
 
     Kingpicker = function(options)
@@ -82,6 +71,9 @@
                 return;
             }
 
+            e.stopPropagation();
+            e.preventDefault();
+
             if (target.classList.contains('day') && target.classList.contains('available')) {
 
                 if (self._opts.singleDate || (!self._opts.startDate && !self._opts.endDate) || (self._opts.startDate && self._opts.endDate)) {
@@ -105,7 +97,7 @@
 
                     var endDate = moment(parseInt(target.getAttribute('data-time')));
 
-                    if (self._opts.startDate.isAfter(endDate)) {
+                    if (self._opts.startDate.isAfter(endDate, 'day')) {
                         var tmp = moment(self._opts.startDate);
                         self._opts.startDate = moment(endDate);
                         endDate = moment(tmp);
@@ -157,16 +149,15 @@
                     return;
                 }
 
-
                 self.el.querySelectorAll('.day').forEach(function(day) {
                     var dt = moment(parseInt(day.getAttribute('data-time')));
 
                     day.classList.remove('invert');
 
-                    if (dt.isValid() && dt.isSameOrAfter(self._opts.startDate) && dt.isSameOrBefore(hoverDate)) {
+                    if (dt.isValid() && dt.isSameOrAfter(self._opts.startDate, 'day') && dt.isSameOrBefore(hoverDate, 'day')) {
                         day.classList.add('in-range');
                     }
-                    else if (dt.isValid() && dt.isSameOrAfter(hoverDate) && dt.isSameOrBefore(self._opts.startDate)) {
+                    else if (dt.isValid() && dt.isSameOrAfter(hoverDate, 'day') && dt.isSameOrBefore(self._opts.startDate, 'day')) {
                         day.classList.add('in-range', 'invert');
                     }
                     else {
@@ -178,8 +169,6 @@
 
                 target.classList.add('end-date');
             }
-
-            console.log(target);
         };
         self._onChange = function(e)
         {
@@ -201,9 +190,11 @@
         {
             console.log('_onInputChange');
 
+            var target = e.target || e.srcElement;
+            
             if (self._opts.singleDate) {
                 if (!self._opts.autoclose) {
-                    self.gotoMonth(opts.field.value);
+                    self.gotoDate(opts.field.value);
                 }
 
                 self.setStartDate(opts.field.value);
@@ -214,14 +205,18 @@
             }
         };
 
-        self._onInputFocus = function()
+        self._onInputFocus = function(e)
         {
-            self.show();
+            var target = e.target || e.srcElement;
+
+            self.show(target);
         };
 
-        self._onInputClick = function()
+        self._onInputClick = function(e)
         {
-            self.show();
+            var target = e.target || e.srcElement;
+            
+            self.show(target);
         };
 
         self._onClick = function(e)
@@ -236,13 +231,11 @@
             }
 
             do {
-                if ((parentEl.classList && parentEl.classList.contains('kingpicker-container')) || parentEl === opts.field) {
+                if ((parentEl.classList && parentEl.classList.contains('kingpicker-container')) || parentEl === opts.field || (opts.secondField && parentEl === opts.secondField)) {
                     return;
                 }
             }
             while ((parentEl = parentEl.parentNode));
-
-            console.log(target, parentEl);
 
             if (self.isShowing && target !== opts.field && parentEl !== opts.field) {
                 self.hide();
@@ -258,6 +251,12 @@
         opts.field.addEventListener('change', self._onInputChange);
         opts.field.addEventListener('click', self._onInputClick);
         opts.field.addEventListener('focus', self._onInputFocus);
+
+        if (opts.secondField) {
+            opts.secondField.addEventListener('change', self._onInputChange);
+            opts.secondField.addEventListener('click', self._onInputClick);
+            opts.secondField.addEventListener('focus', self._onInputFocus);
+        }
     };
 
     Kingpicker.prototype = {
@@ -272,13 +271,23 @@
             if (opts.numberOfMonths === 1 && opts.numberOfColumns > 1) {
                 opts.numberOfColumns = 1;
             }
+
+            opts.minDate = opts.minDate && moment(opts.minDate).isValid() ? moment(opts.minDate) : null;
+
+            opts.maxDate = opts.maxDate && moment(opts.maxDate).isValid() ? moment(opts.maxDate) : null;
                 
             this._opts = Object.assign({}, opts);
 
             return opts;
         },
 
-        gotoMonth: function(date) {
+        gotoToday: function()
+        {
+            this.gotoDate(new Date());
+        },
+
+        gotoDate: function(date)
+        {
             var date = moment(date);
 
             if (!date.isValid()) {
@@ -288,6 +297,16 @@
             date.set('date', 1);
 
             this._opts.calendar = [moment(date)];
+
+            this.renderCalendar();
+        },
+
+        gotoMonth: function(month) {
+            if (isNaN(month)) {
+                return;
+            }
+
+            this._opts.calendar[0].set('month', month);
 
             this.renderCalendar();
         },
@@ -302,7 +321,7 @@
 
             this._opts.startDate = moment(date);
 
-            if (this._opts.singleDate) {
+            if (this._opts.singleDate || this._opts.secondField) {
                 this._opts.field.value = this._opts.startDate.format(this._opts.format);
             }
             else {
@@ -324,7 +343,13 @@
 
             this._opts.endDate = moment(date);
 
-            this._opts.field.value = this._opts.startDate.format(this._opts.format) + this._opts.separator + this._opts.endDate.format(this._opts.format);
+            if (this._opts.secondField) {
+                this._opts.field.value = this._opts.startDate.format(this._opts.format);
+                this._opts.secondField.value = this._opts.endDate.format(this._opts.format);
+            }
+            else {
+                this._opts.field.value = this._opts.startDate.format(this._opts.format) + this._opts.separator + this._opts.endDate.format(this._opts.format);
+            }
 
             if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
                 this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
@@ -380,6 +405,10 @@
                 day.className.push('end-date');
             }
 
+            if (this._opts.startDate && this._opts.endDate && date.isBetween(this._opts.startDate, this._opts.endDate, 'day', '[]')) {
+                day.className.push('in-range');
+            }
+
             if (moment().isSame(date, 'month')) {
                 
             }
@@ -388,6 +417,16 @@
             }
             else if (nextMonth.isSame(date, 'month')) {
                 day.className.push('next-month');
+            }
+
+            if (this._opts.minDate && date.isBefore(this._opts.minDate, 'day')) {
+                day.className.push('disabled');
+                day.className.splice(day.className.indexOf('available'), 1);
+            }
+
+            if (this._opts.maxDate && date.isAfter(this._opts.maxDate, 'day')) {
+                day.className.push('disabled');
+                day.className.splice(day.className.indexOf('available'), 1);
             }
 
             var div = document.createElement('div');
@@ -406,7 +445,7 @@
         },
 
         renderCalendar: function() {
-            console.log('renderCalendar', this._opts.startDate);
+            console.log('renderCalendar');
             var html = '',
                 opts = this._opts,
                 monthDate = moment(opts.calendar[0]);
@@ -497,17 +536,26 @@
             this.el.style.left = (rect.left + window.pageXOffset) + 'px';
         },
 
-        show: function(){
+        show: function(target){
             if (!this.isShowing) {
                 this.isShowing = true;
 
-                this.gotoMonth(this._opts.startDate);              
+                if (this._opts.secondField && this._opts.secondField === target && this._opts.endDate) {
+                    this.gotoDate(this._opts.endDate); 
+                }
+                else {
+                    this.gotoDate(this._opts.startDate); 
+                }             
 
-                document.addEventListener('click', this._onClick, true);
+                document.addEventListener('click', this._onClick);
 
                 this.updatePosition();
 
                 this.el.classList.remove('is-hidden');
+
+                if (typeof this._opts.onOpen === 'function') {
+                    this._opts.onOpen.call(this);
+                }
             }
         }, 
 
@@ -518,6 +566,11 @@
                 document.removeEventListener('click', this._onClick);
 
                 this.el.classList.add('is-hidden');
+
+
+                if (typeof this._opts.onClose === 'function') {
+                    this._opts.onClose.call(this);
+                }
             }
         },
     };

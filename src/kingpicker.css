@@ -1,24 +1,26 @@
 .kingpicker-container {
-    max-width: 215px;
+    max-width: 212px;
     font-family: Roboto,Helvetica,Arial,sans-serif;
     position: absolute;
     z-index: 9999;
+    background-color: #fff;
 }
 .kingpicker-container.is-hidden {
     display: none;
 }
 .kingpicker-container.rows-2 {
-    max-width: 430px;
+    max-width: 424px;
 }
 .kingpicker-container.rows-3 {
-    max-width: 645px;
+    max-width: 636px;
 }
 .kingpicker-container.rows-4 {
-    max-width: 860px;
+    max-width: 848px;
 }
 .kingpicker-container > .months {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 .kingpicker-container > .months > .month {
     padding: 5px;
@@ -84,7 +86,7 @@
 }
 .kingpicker-container > .months > .month > .days > .day.today {
     font-weight: 500;
-    background-color: rgb(255, 235, 59);
+    background-color: rgb(205,220,57);
 }
 .kingpicker-container > .months > .month > .days > .day.prev-month,
 .kingpicker-container > .months > .month > .days > .day.next-month {
@@ -94,6 +96,10 @@
     background-color: rgb(66,133,244,.7);
     color: #fff;
     border-radius: 0;
+}
+.kingpicker-container > .months > .month > .days > .day.disabled {
+    color: #ddd;
+    text-decoration: line-through;
 }
 .kingpicker-container > .months > .month > .days > .day.start-date.in-range,
 .kingpicker-container > .months > .month > .days > .day.end-date.in-range.invert {
