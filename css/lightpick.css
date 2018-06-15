@@ -1,4 +1,4 @@
-.kingpicker-container {
+.lightpick-container {
     max-width: 212px;
     font-family: Roboto,Helvetica,Arial,sans-serif;
     position: absolute;
@@ -6,35 +6,44 @@
     background-color: #fff;
     line-height: normal;
 }
-.kingpicker-container.is-hidden {
+.lightpick-container,
+.lightpick-container *,
+.lightpick-container:after,
+.lightpick-container:before {
+    box-sizing: border-box;
+}
+.lightpick-container.is-hidden {
     display: none;
 }
-.kingpicker-container.rows-2 {
-    max-width: 424px;
+.lightpick-container.rows-2 {
+    max-width: 400px;
 }
-.kingpicker-container.rows-3 {
-    max-width: 636px;
+.lightpick-container.rows-3 {
+    max-width: 600px;
 }
-.kingpicker-container.rows-4 {
-    max-width: 848px;
+.lightpick-container.rows-4 {
+    max-width: 800px;
 }
-.kingpicker-container > .months {
+.lightpick-container.rows-5 {
+    max-width: 1000px;
+}
+.lightpick-container > .months {
     display: -moz-webkit-flex;
     display: -webkit-flex;
     display: -ms-box;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
-.kingpicker-container > .months > .month {
+.lightpick-container > .months > .month {
     padding: 5px;
     width: 200px;
     border: 1px solid #eee;
 }
-.kingpicker-container > .months > .month:hover > .title {
+.lightpick-container > .months > .month:hover > .title {
     color: #4285f4;
 }
-.kingpicker-container > .months > .month > .title {
+.lightpick-container > .months > .month > .title {
     padding: 5px;
     font-size: 12px;
     font-weight: 400;
@@ -46,33 +55,33 @@
     justify-content: space-between;
     line-height: 24px;
 }
-.kingpicker-container > .top-buttons {
+.lightpick-container > .top-buttons {
     text-align: right;
     border: 1px solid #eee;
 }
-.kingpicker-container > .top-buttons > button {
+.lightpick-container > .top-buttons > button {
     margin-left: 5px;
     padding: 0 5px;
     font-size: 12px;
     line-height: 24px;
 }
-.kingpicker-container > .top-buttons > button.close {
+.lightpick-container > .top-buttons > button.close {
     font-size: 18px;
 }
-.kingpicker-container .prev,
-.kingpicker-container .next {
+.lightpick-container .prev,
+.lightpick-container .next {
     border: none;
     height: 24px;
     width: 24px;
     border-radius: 50%;
     outline: none;
 }
-.kingpicker-container .prev:hover,
-.kingpicker-container .next:hover {
+.lightpick-container .prev:hover,
+.lightpick-container .next:hover {
     background-color: rgba(0,0,0,.07);
     cursor: pointer;
 }
-.kingpicker-container > .months > .month > .daynames {
+.lightpick-container > .months > .month > .daynames {
     display: -ms-grid;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -83,7 +92,7 @@
     font-weight: 500;
     color: #757575;
 } 
-.kingpicker-container > .months> .month > .days {
+.lightpick-container > .months> .month > .days {
     display: -ms-grid;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -91,55 +100,55 @@
     text-align: center;
     font-size: 10px;
 }
-.kingpicker-container > .months > .month > .days > .day {
+.lightpick-container > .months > .month > .days > .day {
     padding: 7px 0;
     color: #212121;
     font-size: 11px;
     border-radius: 50%;
 }
-.kingpicker-container > .months > .month > .days > .day:hover {
+.lightpick-container > .months > .month > .days > .day:hover {
     background-color: rgb(224,224,224);
     cursor: pointer;
 }
-.kingpicker-container > .months > .month > .days > .day.today {
+.lightpick-container > .months > .month > .days > .day.today {
     font-weight: 500;
     background-color: rgb(205,220,57);
 }
-.kingpicker-container > .months > .month > .days > .day.prev-month,
-.kingpicker-container > .months > .month > .days > .day.next-month {
+.lightpick-container > .months > .month > .days > .day.prev-month,
+.lightpick-container > .months > .month > .days > .day.next-month {
     color: #757575;
 }
-.kingpicker-container > .months > .month > .days > .day.disabled {
+.lightpick-container > .months > .month > .days > .day.disabled {
     color: #ddd;
     text-decoration: line-through;
     background-color: #fff;
 }
-.kingpicker-container > .months > .month > .days > .day.in-range {
+.lightpick-container > .months > .month > .days > .day.in-range {
     background-color: rgb(66,133,244,.7);
     color: #fff;
     border-radius: 0;
 }
-.kingpicker-container > .months > .month > .days > .day.start-date.in-range,
-.kingpicker-container > .months > .month > .days > .day.end-date.in-range.invert {
+.lightpick-container > .months > .month > .days > .day.start-date.in-range,
+.lightpick-container > .months > .month > .days > .day.end-date.in-range.invert {
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
-.kingpicker-container > .months > .month > .days > .day.end-date.in-range,
-.kingpicker-container > .months > .month > .days > .day.start-date.in-range.invert {
+.lightpick-container > .months > .month > .days > .day.end-date.in-range,
+.lightpick-container > .months > .month > .days > .day.start-date.in-range.invert {
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
-.kingpicker-container > .months > .month > .days > .day.start-date.end-date {
+.lightpick-container > .months > .month > .days > .day.start-date.end-date {
     border-radius: 50%;
 }
-.kingpicker-container > .months > .month > .days > .day.start-date,
-.kingpicker-container > .months > .month > .days > .day.end-date,
-.kingpicker-container > .months > .month > .days > .day.start-date:hover,
-.kingpicker-container > .months > .month > .days > .day.end-date:hover {
+.lightpick-container > .months > .month > .days > .day.start-date,
+.lightpick-container > .months > .month > .days > .day.end-date,
+.lightpick-container > .months > .month > .days > .day.start-date:hover,
+.lightpick-container > .months > .month > .days > .day.end-date:hover {
     color: #fff;
     font-weight: 500;
     background-color: rgb(66,133,244);

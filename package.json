@@ -1,0 +1,33 @@
+{
+  "name": "lightpick",
+  "version": "0.0.1",
+  "description": "Javascript date range picker - lightweight, no jQuery",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wakirin/lightPick.git"
+  },
+  "keywords": [
+    "datepicker",
+    "date",
+    "daterange",
+    "date",
+    "picker",
+    "range"
+  ],
+  "author": {
+    "name": "Rinat G.",
+    "email": "lightpick@coding.kz",
+    "url": "http://coding.kz"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wakirin/lightPick/issues"
+  },
+  "homepage": "https://github.com/wakirin/lightPick#readme",
+  "dependencies": {
+    "moment": "^2.22.2"
+  }
+}

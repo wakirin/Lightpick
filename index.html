@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>lightPick - Javascript date range picker - lightweight, no jQuery</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/lightpick.css">
+</head>
+<body>
+    <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="https://wakirin.github.io/lightPick">lightPick</a>
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ICON</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ICON</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ICON</a>
+                    </li>
+                </ul>
+            </nav>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="jumbotron">
+                    <h1 class="text-primary">lightPick</h1>
+                    <h2 class="text-secondary">Javascript date range picker - lightweight, no jQuery</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <p><a href="#installation" class="list-inline-item">Installation</a></p> 
+                <p><a href="#usage" class="list-inline-item">Usage</a></p>
+                <p><a href="#examples" class="list-inline-item">Examples</a></p>
+                <p><a href="#configuration" class="list-inline-item">Configuration</a></p>
+                <p><a href="#methods" class="list-inline-item">Methods</a></p>
+            </div>
+            <div class="col-md-9">
+                <div id="installation">
+                    <h3><span class="text-secondary">#</span> <a href="#installation">Installation</a></h3>
+                    <hr>
+
+                    <div class="bg-light p-2">
+                        <code>npm install lightpick</code>
+                    </div>
+                    <p>or you can download and include Moment.js and lightPick files manually.</p>
+                </div>
+
+                <div id="usage" class="mt-5">
+                    <h3><span class="text-secondary">#</span> <a href="#usage">Usage</a></h3>
+                    <hr>
+
+                    <p>lightPick can be bound to an input field:</p>
+
+                    <div class="bg-light p-2">
+                        <code>&lt;input type="text" id="lightpick"/&gt;</code>
+                    </div>
+
+                    <p>Include lightPick script to the end of your document:</p>
+
+                    <div class="bg-light p-2">
+                        <code>
+                            &lt;script src="lightpick.js"&gt;&lt;/script&gt;<br>
+                            &lt;script&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;var picker = new lightPick({ field: document.getElementById('datepicker') });<br>
+                            &lt;/script&gt;
+                        </code>
+                    </div>
+                </div>
+
+                <div id="examples" class="mt-5">
+                    <h3><span class="text-secondary">#</span> <a href="#examples">Examples</a></h3>
+                    <hr>
+
+                    <p class="lead">Default configuration</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p id="result-1"></p>
+                                    <input type="text" id="demo-1" class="form-control form-control-sm"/>
+                                </div>
+                                <div class="col-md-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <p class="lead">Option: singleDate = false</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p id="result-2"></p>
+                                    <input type="text" id="demo-2" class="form-control form-control-sm"/>
+                                </div>
+                                <div class="col-md-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <p class="lead">Option: secondField</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <p id="result-3"></p>
+                                    <div class="d-flex">
+                                        <input type="text" id="demo-3_1" class="form-control form-control-sm"/>
+                                        <input type="text" id="demo-3_2" class="form-control form-control-sm"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <p class="lead">Option: numberOfMonths = 6</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p id="result-4"></p>
+                                    <input type="text" id="demo-4" class="form-control form-control-sm"/>
+                                </div>
+                                <div class="col-md-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    <br>
+
+                    <p class="lead">Option: numberOfColumns = 3</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p id="result-5"></p>
+                                    <input type="text" id="demo-5" class="form-control form-control-sm"/>
+                                </div>
+                                <div class="col-md-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <p class="lead">Options: minDate, maxDate</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p id="result-6"></p>
+                                    <input type="text" id="demo-6" class="form-control form-control-sm"/>
+                                </div>
+                                <div class="col-md-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <p class="lead">Option: selectForward = true</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p id="result-7"></p>
+                                    <input type="text" id="demo-7" class="form-control form-control-sm"/>
+                                </div>
+                                <div class="col-md-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <p class="lead">Option: selectBackward = true</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p id="result-8"></p>
+                                    <input type="text" id="demo-8" class="form-control form-control-sm"/>
+                                </div>
+                                <div class="col-md-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <p class="lead">Options: minDays, maxDays</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p id="result-9"></p>
+                                    <input type="text" id="demo-9" class="form-control form-control-sm"/>
+                                </div>
+                                <div class="col-md-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="configuration" class="mt-5">
+                    <h3><span class="text-secondary">#</span> <a href="#configuration">Configuration</a></h3>
+                    <hr>
+
+                    <p><code>field</code> - bind the datepicker to a form field</p>
+
+                    <p><code>secondField</code> - if exists then end of date range will set here.</p>
+
+                    <p><code>firstDay</code> <small class="text-secondary">(number) default: 1</small> - ISO day of the week (1: Monday, ..., 7: Sunday).</p>
+
+                    <p><code>parentEl</code> <small class="text-secondary">(string) default: 'body'</small> - selector of the parent element that the date range picker will be added to, if not provided this will be 'body'.</p>
+
+                    <p><code>lang</code> <small class="text-secondary">(string) default: 'auto'</small> - language code for names of days, months  by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" target="_blank">Date.prototype.toLocaleString()</a>. 
+                        'auto' will try detect user browser language.</p>
+
+                    <p><code>buttons</code> <small class="text-secondary">(object) default: { prev: '&lt;', next: '&gt;', close: '&times;'}</small> - text for buttons.</p>
+
+                    <p><code>format</code> <small class="text-secondary">(string) default: 'DD/MM/YYYY'</small> - the default output format.</p>
+
+                    <p><code>separator</code> <small class="text-secondary">(string) default: '-'</small> - separator between dates when one field.</p>
+
+                    <p><code>numberOfMonths</code> <small class="text-secondary">(number) default: 1</small> - number of visible months.</p>
+
+                    <p><code>numberOfColumns</code> <small class="text-secondary">(number) default: 2</small> - number of columns months.</p>
+
+                    <p><code>singleDate</code> <small class="text-secondary">(true/false) default: true</small> - choose a single date instead of a date range.</p>
+
+                    <p><code>autoclose</code> <small class="text-secondary">(true/false) default: true</small> - close calendar when picked date/range.</p>
+
+                    <p><code>minDate</code> <small class="text-secondary">(moment|string|number|date) default: null</small> - the minimum/earliest date that can be selected. Any format: moment() or '2018-06-01' or 1527811200000, new Date() </p>
+
+                    <p><code>maxDate</code> <small class="text-secondary">(moment|string|number|date) default: null</small> - the maximum/latest date that can be selected. Any format: moment() or '2018-06-01' or 1527811200000, new Date() </p>
+
+                    <p><code>disableDates</code> <small class="text-secondary">(array) default: null</small> - array of disabled dates. Array can contains ranges, allowed the same format as in options minDate, maxDate. Ex.: [moment().startOf('month'), ['2018-06-23', '2018-06-30']] </p>
+
+                    <p><code>selectForward</code> <small class="text-secondary">(true/false) default: false</small> - select second date after the first selected date.</p>
+
+                    <p><code>selectBackward</code> <small class="text-secondary">(true/false) default: false</small> - select second date before the first selected date.</p>
+
+                    <p><code>minDays</code> <small class="text-secondary">(number) default: null</small> - the minimum days of the selected range.</p>
+
+                    <p><code>maxDays</code> <small class="text-secondary">(number) default: null</small> - the maximum days of the selected range.</p>
+
+                    <p><code>onSelect</code> - callback function for when a date is selected.</p>
+
+                    <p><code>onOpen</code> - callback function for when the picker becomes visible.</p>
+
+                    <p><code>onClose</code> - callback function for when the picker is hidden.</p>
+                </div>
+
+                <div id="methods" class="mt-5">
+                    <h3><span class="text-secondary">#</span> <a href="#methods">Methods</a></h3>
+                    <hr>
+
+                    <p class="lead"><code>picker.setDate(date)</code></p>
+                    <p>
+                        Set date when singleDate is true. <code>date</code> can be moment, string, number, date.
+                        <br>Ex. <code>picker.setDate(new Date());</code>
+                    </p>
+
+                    <br>
+
+                    <p class="lead"><code>picker.getDate()</code></p>
+                    <p>
+                        Return current date as moment object.
+                    </p>
+
+                    <br>
+
+                    <p class="lead"><code>picker.getStartDate()</code></p>
+                    <p>
+                        Return current start of date range as moment object.
+                    </p>
+
+                    <br>
+
+                    <p class="lead"><code>picker.getEndDate()</code></p>
+                    <p>
+                        Return current start of date range as moment object.
+                    </p>
+
+                    <br>
+
+                    <p class="lead"><code>picker.show()</code></p>
+                    <p>
+                        Make the picker visible.
+                    </p>
+
+                    <br>
+
+                    <p class="lead"><code>picker.hide()</code></p>
+                    <p>
+                        Hide the picker.
+                    </p>
+
+                    <br>
+                    
+                    <p class="lead"><code>picker.destroy()</code></p>
+                    <p>
+                        Hide the picker and remove all event listeners.
+                    </p>
+                </div>
+                <div id="license" class="mt-5">
+                    <h3><span class="text-secondary">#</span> <a href="#license">License</a></h3>
+                    <hr>
+                    <p>Copyright 2018 Rinat G.</p>
+
+                    <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: </p>
+
+                    <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+                    <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div>
+        <input type="text" id="lightpick" class="form-control form-control-sm"/>
+        <input type="text" id="lightpick2" class="form-control form-control-sm"/>
+    </div>-->
+
+    <script type="text/javascript" src="node_modules/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="lightpick.js"></script>
+    <script type="text/javascript" src="demo.js"></script>
+</body>
+</html>
