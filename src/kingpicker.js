@@ -30,10 +30,13 @@
         secondField: null,
         firstDay: 1,
         parentEl: 'body',
-        lang: 'en',
-        prevHtml: '&lt;',
-        nextHtml: '&gt;',
-        format: 'YYYY-MM-DD',
+        lang: 'auto',
+        buttons: {
+            prev: '&lt;',
+            next: '&gt;',
+            close: '&times;',
+        },
+        format: 'DD/MM/YYYY',
         separator: ' - ',
         numberOfMonths: 1,
         numberOfColumns: 2,
@@ -46,6 +49,11 @@
         onSelect: null,
         onOpen: null,
         onClose: null,
+        disableDates: null,
+        selectForward: false,
+        selectBackward: false,
+        minDays: null,
+        maxDays: null,
     },
 
     Kingpicker = function(options)
@@ -81,16 +89,15 @@
                     self.setStartDate(moment(parseInt(target.getAttribute('data-time'))));
                     self.setEndDate(null);
 
-                    document.querySelectorAll('.day').forEach(function(day){
-                        day.classList.remove('start-date', 'in-range', 'end-date');
-                    });
-
                     target.classList.add('start-date');
 
                     if (self._opts.singleDate && self._opts.autoclose) {
                         setTimeout(function() {
                             self.hide();
                         }, 100);
+                    }
+                    else if (!self._opts.singleDate) {
+                        self.updateDates();
                     }
                 }
                 else if (self._opts.startDate && !self._opts.endDate) {
@@ -119,6 +126,9 @@
             }
             else if (target.classList.contains('next')) {
                 self.nextMonth();
+            }
+            else if (target.classList.contains('close')) {
+                self.hide();
             }
 
         };
@@ -275,6 +285,16 @@
             opts.minDate = opts.minDate && moment(opts.minDate).isValid() ? moment(opts.minDate) : null;
 
             opts.maxDate = opts.maxDate && moment(opts.maxDate).isValid() ? moment(opts.maxDate) : null;
+
+            if (opts.lang === 'auto') {
+                var browserLang = navigator.language || navigator.userLanguage;
+                if (browserLang) {
+                    opts.lang = browserLang;
+                }
+                else {
+                    opts.lang = 'en-US';
+                }
+            }
                 
             this._opts = Object.assign({}, opts);
 
@@ -311,51 +331,6 @@
             this.renderCalendar();
         },
 
-        setStartDate: function(date, preventOnSelect){
-            var date = moment(date);
-
-            if (!date.isValid()) {
-                this._opts.startDate = null;
-                return;
-            }
-
-            this._opts.startDate = moment(date);
-
-            if (this._opts.singleDate || this._opts.secondField) {
-                this._opts.field.value = this._opts.startDate.format(this._opts.format);
-            }
-            else {
-                this._opts.field.value = this._opts.startDate.format(this._opts.format) + this._opts.separator + '...'
-            }
-
-            if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
-                this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
-            }
-        },
-
-        setEndDate: function(date, preventOnSelect){
-            var date = moment(date);
-
-            if (!date.isValid()) {
-                this._opts.endDate = null;
-                return;
-            }
-
-            this._opts.endDate = moment(date);
-
-            if (this._opts.secondField) {
-                this._opts.field.value = this._opts.startDate.format(this._opts.format);
-                this._opts.secondField.value = this._opts.endDate.format(this._opts.format);
-            }
-            else {
-                this._opts.field.value = this._opts.startDate.format(this._opts.format) + this._opts.separator + this._opts.endDate.format(this._opts.format);
-            }
-
-            if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
-                this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
-            }
-        },
-
         getStartDate: function()
         {
             return moment().isValid(this._opts.startDate) ? this._opts.startDate : null;
@@ -385,27 +360,57 @@
         renderDay: function(date, dummy, extraClass){
             if (dummy) return '<div></div>';
 
-            var prevMonth = moment(date).subtract(1, 'month'),
-                nextMonth = moment(date).add(1, 'month');
+            var date = moment(date),
+                prevMonth = moment(date).subtract(1, 'month'),
+                nextMonth = moment(date).add(1, 'month'), 
+                opts = this._opts;
 
             var day = {
-                time: date.valueOf(),
-                className: ['day', 'available', extraClass]
+                time: moment(date).valueOf(),
+                className: ['day', 'available']
             };
+
+            if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
+                extraClass = extraClass.filter( function( el ) {
+                    return ['start-date', 'in-range', 'end-date'].indexOf( el ) < 0;
+                });
+                day.className = day.className.concat(extraClass);
+            }
+            else {
+                day.className.push(extraClass);
+            }
+
+            if (opts.minDays && opts.startDate) {
+                if (
+                    date.isBetween(moment(opts.startDate).subtract(opts.minDays - 1, 'day'), moment(opts.startDate).add(opts.minDays - 1, 'day'), 'day')
+                    && !date.isSame(opts.startDate, 'day')
+                ) {
+                    day.className.push('disabled');
+                }
+            }
+
+            if (opts.maxDays && opts.startDate) {
+                if (date.isSameOrBefore(moment(opts.startDate).subtract(opts.maxDays, 'day'), 'day')) {
+                    day.className.push('disabled');
+                }
+                else if (date.isSameOrAfter(moment(opts.startDate).add(opts.maxDays, 'day'), 'day')) {
+                    day.className.push('disabled');
+                }
+            }
 
             if (date.isSame(new Date(), 'day')) {
                 day.className.push('today');
             }
 
-            if (date.isSame(this._opts.startDate, 'day')) {
+            if (date.isSame(opts.startDate, 'day')) {
                 day.className.push('start-date');
             }
 
-            if (date.isSame(this._opts.endDate, 'day')) {
+            if (date.isSame(opts.endDate, 'day')) {
                 day.className.push('end-date');
             }
 
-            if (this._opts.startDate && this._opts.endDate && date.isBetween(this._opts.startDate, this._opts.endDate, 'day', '[]')) {
+            if (opts.startDate && opts.endDate && date.isBetween(opts.startDate, opts.endDate, 'day', '[]')) {
                 day.className.push('in-range');
             }
 
@@ -419,13 +424,54 @@
                 day.className.push('next-month');
             }
 
-            if (this._opts.minDate && date.isBefore(this._opts.minDate, 'day')) {
+            if (opts.minDate && date.isBefore(opts.minDate, 'day')) {
                 day.className.push('disabled');
-                day.className.splice(day.className.indexOf('available'), 1);
             }
 
-            if (this._opts.maxDate && date.isAfter(this._opts.maxDate, 'day')) {
+            if (opts.maxDate && date.isAfter(opts.maxDate, 'day')) {
                 day.className.push('disabled');
+            }
+
+            if (opts.selectForward && !opts.singleDate && opts.startDate && !opts.endDate && date.isBefore(opts.startDate, 'day')) {
+                day.className.push('disabled');
+            }
+
+            if (opts.selectBackward && !opts.singleDate && opts.startDate && !opts.endDate && date.isAfter(opts.startDate, 'day')) {
+                day.className.push('disabled');
+            }
+
+            if (opts.disableDates) {
+                for (var i = 0; i < opts.disableDates.length; i++) {
+                    if (opts.disableDates[i] instanceof Array || Object.prototype.toString.call(opts.disableDates[i]) === '[object Array]') {
+                        if (moment(opts.disableDates[i][0]).isValid() 
+                            && moment(opts.disableDates[i][1]).isValid() 
+                            && date.isBetween(moment(opts.disableDates[i][0]), moment(opts.disableDates[i][1]), 'day', '[]')){
+
+                            day.className.push('disabled');
+
+                        }
+                    }
+                    else if (moment(opts.disableDates[i]).isValid() && moment(opts.disableDates[i]).isSame(date, 'day')) {
+                        day.className.push('disabled');
+                    }
+
+                    if (day.className.indexOf('disabled') >= 0) {
+                        if (day.className.indexOf('start-date') >= 0) {
+                            this.setStartDate(null);
+                            this.setEndDate(null);
+                        }
+                        else if (day.className.indexOf('end-date') >= 0) {
+                            this.setEndDate(null);
+                        }
+                    }
+                }
+            }
+
+            day.className = day.className.filter(function(value, index, self) { 
+                return self.indexOf(value) === index;
+            });
+
+            if (day.className.indexOf('disabled') >= 0 && day.className.indexOf('available') >= 0) {
                 day.className.splice(day.className.indexOf('available'), 1);
             }
 
@@ -439,9 +485,11 @@
 
         renderTopButtons: function(){
             return '<div class="top-buttons">' 
-                 + '<button type="button" class="prev">' + this._opts.prevHtml + '</button>'
-                 + '<button type="button" class="next">' + this._opts.nextHtml + '</button>' 
-                 + '</div>';
+                + ''
+                + '<button type="button" class="prev">' + this._opts.buttons.prev + '</button>'
+                + '<button type="button" class="next">' + this._opts.buttons.next + '</button>' 
+                + (!this._opts.autoclose ? '<button type="button" class="close">' + this._opts.buttons.close + '</button>'  : '')
+                + '</div>';
         },
 
         renderCalendar: function() {
@@ -483,11 +531,9 @@
                         daysInMonth = prevMonth.daysInMonth();
 
                     for (var d = prevMonth.get('date'); d <= daysInMonth; d++) {
-
                         html += this.renderDay(prevMonth, i > 0, 'prev-month');
 
                         prevMonth.add(1, 'day');
-
                     }
                 }
 
@@ -495,25 +541,19 @@
                     today = new Date();
 
                 for (var d = 0; d < daysInMonth; d++) {
-
                     html += this.renderDay(day);
 
                     day.add(1, 'day');
-
                 }
 
                 var nextMonth = moment(day),
                     nextDays = 7 - nextMonth.isoWeekday() + opts.firstDay;
 
                 for (var d = nextMonth.get('date'); d <= nextDays; d++) {
-
                     html += this.renderDay(nextMonth, i < opts.numberOfMonths - 1, 'next-month');
 
                     nextMonth.add(1, 'day');
-
                 }
-
-
 
                 html += '</div>'; // days
 
@@ -529,11 +569,80 @@
             this.el.innerHTML = html;
         },
 
+        updateDates: function(){
+            console.log('updateDates');
+            var self = this;
+            this.el.querySelectorAll('.day').forEach(function(day) {
+                day.outerHTML = self.renderDay(parseInt(day.getAttribute('data-time')), false, day.className.split(' '));
+            });
+        },
+
         updatePosition: function(){
             var rect = this._opts.field.getBoundingClientRect();
 
             this.el.style.top = (rect.bottom + window.pageYOffset) + 'px';
             this.el.style.left = (rect.left + window.pageXOffset) + 'px';
+        },
+
+        setStartDate: function(date, preventOnSelect){
+            var date = moment(date);
+
+            if (!date.isValid()) {
+                this._opts.startDate = null;
+                this._opts.field.value = '';
+                return;
+            }
+
+            this._opts.startDate = moment(date);
+
+            if (this._opts.singleDate || this._opts.secondField) {
+                this._opts.field.value = this._opts.startDate.format(this._opts.format);
+            }
+            else {
+                this._opts.field.value = this._opts.startDate.format(this._opts.format) + this._opts.separator + '...'
+            }
+
+            if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
+                this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
+            }
+        },
+
+        setEndDate: function(date, preventOnSelect){
+            var date = moment(date);
+
+            if (!date.isValid()) {
+                this._opts.endDate = null;
+
+                if (this._opts.secondField) {
+                    this._opts.secondField.value = '';
+                }
+                else {
+                    this._opts.field.value = this._opts.startDate.format(this._opts.format) + this._opts.separator + '...'
+                }
+                return;
+            }
+
+            this._opts.endDate = moment(date);
+
+            if (this._opts.secondField) {
+                this._opts.field.value = this._opts.startDate.format(this._opts.format);
+                this._opts.secondField.value = this._opts.endDate.format(this._opts.format);
+            }
+            else {
+                this._opts.field.value = this._opts.startDate.format(this._opts.format) + this._opts.separator + this._opts.endDate.format(this._opts.format);
+            }
+
+            if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
+                this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
+            }
+        },
+
+        setDisableDates: function(dates){
+            this._opts.disableDates = dates;
+
+            if (this.isShowing) {
+                this.updateDates();
+            }
         },
 
         show: function(target){
