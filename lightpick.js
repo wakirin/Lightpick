@@ -1,5 +1,4 @@
 /**
-* @version: 0.0.2
 * @author: Rinat G. http://coding.kz
 * @copyright: Copyright (c) 2018 Rinat G.
 * @license: Licensed under the MIT license. See http://www.opensource.org/licenses/mit-license.php
