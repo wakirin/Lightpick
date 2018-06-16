@@ -29,11 +29,5 @@
   "homepage": "https://github.com/wakirin/lightPick#readme",
   "dependencies": {
     "moment": "^2.22.2"
-  },
-  "devDependencies": {
-    "expect.js": "^0.3.1",
-    "jshint": "^2.9.5",
-    "mocha": "^5.2.0",
-    "testling": "^1.7.1"
   }
 }
