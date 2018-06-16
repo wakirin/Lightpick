@@ -1,3 +1,7 @@
+[![npm version](https://badge.fury.io/js/lightpick.svg)](https://www.npmjs.com/package/lightpick) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/wakirin/lightPick/blob/master/LICENSE)
+
+
+
 lightPick
 =========
 

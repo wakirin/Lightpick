@@ -40,14 +40,11 @@
     width: 200px;
     border: 1px solid #eee;
 }
-.lightpick-container > .months > .month:hover > .title {
-    color: #4285f4;
-}
 .lightpick-container > .months > .month > .title {
     padding: 5px;
     font-size: 12px;
     font-weight: 400;
-    color: #757575;
+    color: #4285f4;
     display: -moz-webkit-flex;
     display: -webkit-flex;
     display: -ms-box;
@@ -88,7 +85,7 @@
     padding: 5px 0;
     font-size: 10px;
     font-weight: 500;
-    color: #757575;
+    color: #ff9a19;
 }
 .lightpick-container > .months> .month > .days {
     display: grid;
@@ -108,7 +105,7 @@
 }
 .lightpick-container > .months > .month > .days > .day.today {
     font-weight: 500;
-    background-color: rgb(205,220,57);
+    color: #4eb5e6;
 }
 .lightpick-container > .months > .month > .days > .day.prev-month,
 .lightpick-container > .months > .month > .days > .day.next-month {
@@ -120,8 +117,7 @@
     background-color: #fff;
 }
 .lightpick-container > .months > .month > .days > .day.in-range {
-    background-color: rgba(66,133,244,.7);
-    color: #fff;
+    background-color: rgba(92,196,239,.1);
     border-radius: 0;
 }
 .lightpick-container > .months > .month > .days > .day.start-date.in-range,
