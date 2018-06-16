@@ -17,7 +17,9 @@ Javascript date range picker - lightweight, no jQuery
 
 * * *
 
-`npm install lightpick`
+```
+npm install lightpick
+```
 
 or you can download and include Moment.js and lightPick files manually.
 
@@ -98,12 +100,22 @@ Set date when singleDate is true. `date` can be moment, string, number, date.
 Ex. `picker.setDate(new Date());`
 
   
+`picker.setDateRange(start, end)`
+
+Set date range. <code>start, end</code> can be moment, string, number, date. 
+Ex. `picker.setDateRange(new Date(), moment().add(7, 'day'));`
+  
+
+`picker.setDisableDates(array)`
+
+array of disabled dates. Array can contains ranges, allowed moment, string, number, date.
+Ex. `picker.setDisableDates([ moment().startOf('month'), ['2018-06-23', '2018-06-30'] ]);`
+
 
 `picker.getDate()`
 
 Return current date as moment object.
 
-  
 
 `picker.getStartDate()`
 

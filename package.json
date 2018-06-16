@@ -1,6 +1,6 @@
 {
   "name": "lightpick",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Javascript date range picker - lightweight, no jQuery",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -29,5 +29,11 @@
   "homepage": "https://github.com/wakirin/lightPick#readme",
   "dependencies": {
     "moment": "^2.22.2"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "jshint": "^2.9.5",
+    "mocha": "^5.2.0",
+    "testling": "^1.7.1"
   }
 }

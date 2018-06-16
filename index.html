@@ -34,14 +34,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <p><a href="#installation" class="list-inline-item">Installation</a></p> 
-                <p><a href="#usage" class="list-inline-item">Usage</a></p>
-                <p><a href="#examples" class="list-inline-item">Examples</a></p>
-                <p><a href="#configuration" class="list-inline-item">Configuration</a></p>
-                <p><a href="#methods" class="list-inline-item">Methods</a></p>
+            <div class="col-md-2">
+                <div class="sticky-top">
+                    <p><a href="#installation" class="list-inline-item">Installation</a></p> 
+                    <p><a href="#usage" class="list-inline-item">Usage</a></p>
+                    <p><a href="#examples" class="list-inline-item">Examples</a></p>
+                    <p><a href="#configuration" class="list-inline-item">Configuration</a></p>
+                    <p><a href="#methods" class="list-inline-item">Methods</a></p>
+                </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-10">
                 <div id="installation">
                     <h3><span class="text-secondary">#</span> <a href="#installation">Installation</a></h3>
                     <hr>
@@ -59,7 +61,7 @@
                     <p>lightPick can be bound to an input field:</p>
 
                     <div class="bg-light p-2">
-                        <code>&lt;input type="text" id="lightpick"/&gt;</code>
+                        <code>&lt;input type="text" id="datepicker"/&gt;</code>
                     </div>
 
                     <p>Include lightPick script to the end of your document:</p>
@@ -87,7 +89,7 @@
                                     <input type="text" id="demo-1" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7">
-
+                                    <script src="https://gist.github.com/wakirin/c0100ee7e886fe74b3256ddb74f16adf.js"></script>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +106,7 @@
                                     <input type="text" id="demo-2" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7">
-
+                                    <script src="https://gist.github.com/wakirin/d4f00465b259590233f0727f01eaba66.js"></script>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +126,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-7">
-
+                                    <script src="https://gist.github.com/wakirin/c4e84bf9c5546a9656337236491a75f6.js"></script>
                                 </div>
                             </div>
                         </div>
@@ -141,7 +143,7 @@
                                     <input type="text" id="demo-4" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7">
-
+                                    <script src="https://gist.github.com/wakirin/cdc9423464346f2de381cb3df0c78860.js"></script>
                                 </div>
                             </div>
                         </div>
@@ -159,7 +161,7 @@
                                     <input type="text" id="demo-5" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7">
-
+                                    <script src="https://gist.github.com/wakirin/917c0e596078c1fcf51bff945004a4f2.js"></script>
                                 </div>
                             </div>
                         </div>
@@ -176,7 +178,7 @@
                                     <input type="text" id="demo-6" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7">
-
+                                    <script src="https://gist.github.com/wakirin/4b9917aa9bda42f25124875c91385c7f.js"></script>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +195,7 @@
                                     <input type="text" id="demo-7" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7">
-
+                                    <script src="https://gist.github.com/wakirin/8782b1f9e3580a26fb70cdc78c4ed6d3.js"></script>
                                 </div>
                             </div>
                         </div>
@@ -210,7 +212,7 @@
                                     <input type="text" id="demo-8" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7">
-
+                                    <script src="https://gist.github.com/wakirin/a76eaf1f7860aa0add9ba384bec8e0aa.js"></script>
                                 </div>
                             </div>
                         </div>
@@ -227,7 +229,7 @@
                                     <input type="text" id="demo-9" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7">
-
+                                    <script src="https://gist.github.com/wakirin/b526e49275dc02c4ab3f3b72c3f0f3af.js"></script>
                                 </div>
                             </div>
                         </div>
@@ -292,6 +294,22 @@
                     <p>
                         Set date when singleDate is true. <code>date</code> can be moment, string, number, date.
                         <br>Ex. <code>picker.setDate(new Date());</code>
+                    </p>
+
+                    <br>
+
+                    <p class="lead"><code>picker.setDateRange(start, end)</code></p>
+                    <p>
+                        Set date range. <code>start, end</code> can be moment, string, number, date.
+                        <br>Ex. <code>picker.setDateRange(new Date(), moment().add(7, 'day'));</code>
+                    </p>
+
+                    <br>
+
+                    <p class="lead"><code>picker.setDisableDates(array)</code></p>
+                    <p>
+                        array of disabled dates. Array can contains ranges, allowed moment, string, number, date.
+                        <br>Ex. <code>picker.setDisableDates([ moment().startOf('month'), ['2018-06-23', '2018-06-30'] ]);</code>
                     </p>
 
                     <br>

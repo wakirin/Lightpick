@@ -1,5 +1,5 @@
 .lightpick-container {
-    max-width: 212px;
+    width: 200px;
     font-family: Roboto,Helvetica,Arial,sans-serif;
     position: absolute;
     z-index: 9999;
@@ -16,16 +16,16 @@
     display: none;
 }
 .lightpick-container.rows-2 {
-    max-width: 400px;
+    width: 400px;
 }
 .lightpick-container.rows-3 {
-    max-width: 600px;
+    width: 600px;
 }
 .lightpick-container.rows-4 {
-    max-width: 800px;
+    width: 800px;
 }
 .lightpick-container.rows-5 {
-    max-width: 1000px;
+    width: 1000px;
 }
 .lightpick-container > .months {
     display: -moz-webkit-flex;
@@ -82,21 +82,17 @@
     cursor: pointer;
 }
 .lightpick-container > .months > .month > .daynames {
-    display: -ms-grid;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     text-align: center;
     padding: 5px 0;
     font-size: 10px;
     font-weight: 500;
     color: #757575;
-} 
+}
 .lightpick-container > .months> .month > .days {
-    display: -ms-grid;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     text-align: center;
     font-size: 10px;
 }
@@ -124,7 +120,7 @@
     background-color: #fff;
 }
 .lightpick-container > .months > .month > .days > .day.in-range {
-    background-color: rgb(66,133,244,.7);
+    background-color: rgba(66,133,244,.7);
     color: #fff;
     border-radius: 0;
 }
@@ -152,4 +148,21 @@
     color: #fff;
     font-weight: 500;
     background-color: rgb(66,133,244);
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .lightpick-container > .months > .month > .daynames {
+        display: flex;
+        justify-content: flex-start;
+    }
+    .lightpick-container > .months > .month > .daynames > div {
+        width: 31.3px;
+    }
+    .lightpick-container > .months > .month > .days {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+    }
+    .lightpick-container > .months > .month > .days > .day {
+        width: 31.3px;
+    }
 }
