@@ -34,7 +34,7 @@ or you can download and include Moment.js and lightPick files manually.
 lightPick can be bound to an input field:
 
 ```
-<input type="text" id="lightpick"/>
+<input type="text" id="datepicker"/>
 ```
 
 Include lightPick script to the end of your document:
