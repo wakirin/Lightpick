@@ -145,6 +145,23 @@
     font-weight: 500;
     background-color: rgb(66,133,244);
 }
+.lightpick-tooltip {
+    background-color: #ffe684;
+    font-size: 11px;
+    margin-top: -5px;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+.lightpick-tooltip:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #ffe684;
+    bottom: -4px;
+    content: '';
+    left: 50%;
+    margin-left: -4px;
+    position: absolute;
+}
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     .lightpick-container > .months > .month > .daynames {
         display: flex;
