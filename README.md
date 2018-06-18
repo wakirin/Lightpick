@@ -9,15 +9,15 @@ Javascript date range picker - lightweight, no jQuery
 -----------------------------------------------------
 ![screenshot](https://wakirin.github.io/lightPick.gif)
 
-### [Demo & Docs](https://wakirin.github.io/lightPick)
+## [Demo & Docs](https://wakirin.github.io/lightPick)
 
 ----
 
-### Dependencies
+## Dependencies
 
 * Moment.js
 
-### Installation
+## Installation
 
 * * *
 
@@ -27,7 +27,7 @@ npm install lightpick
 
 or you can download and include Moment.js and lightPick files manually.
 
-### Usage
+## Usage
 
 * * *
 
@@ -46,105 +46,185 @@ var picker = new lightPick({ field: document.getElementById('datepicker') });
 </script>
 ```
 
-### Configuration
+## Configuration
 
 * * *
 
-`field` \- bind the datepicker to a form field
+### field
+- Type: `Element`
+- Default: `null` 
 
-`secondField` \- if exists then end of date range will set here.
+Bind the datepicker to a form field
 
-`firstDay` (number) default: 1 \- ISO day of the week (1: Monday, ..., 7: Sunday).
+### secondField
+- Type: `Element`
+- Default: `null` 
 
-`parentEl` (string) default: 'body' \- selector of the parent element that the date range picker will be added to, if not provided this will be 'body'.
+If exists then end of date range will set here.
 
-`lang` (string) default: 'auto' \- language code for names of days, months by [Date.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString). 'auto' will try detect user browser language.
+### firstDay
+- Type: `Number`
+- Default: `1`
 
-`buttons` (object) default: { prev: '<', next: '>', close: '×'} \- text for buttons.
+ISO day of the week (1: Monday, ..., 7: Sunday).
 
-`format` (string) default: 'DD/MM/YYYY' \- the default output format.
+### parentEl
+- Type: `String`
+- Default: `body` 
 
-`separator` (string) default: '-' \- separator between dates when one field.
+Selector of the parent element that the date range picker will be added to, if not provided this will be 'body'.
 
-`numberOfMonths` (number) default: 1 \- number of visible months.
+### lang
+- Type: `String`
+- Default: `auto`
 
-`numberOfColumns` (number) default: 2 \- number of columns months.
+Language code for names of days, months by [Date.prototype.toLocaleString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString). 'auto' will try detect user browser language.
 
-`singleDate` (true/false) default: true \- choose a single date instead of a date range.
+### format
+- Type: `String`
+- Default: `DD/MM/YYYY`
 
-`autoclose` (true/false) default: true \- close calendar when picked date/range.
+The default output format.
 
-`minDate` (moment|string|number|date) default: null \- the minimum/earliest date that can be selected. Any format: moment() or '2018-06-01' or 1527811200000, new Date()
+### separator
+- Type: `String`
+- Default: `-`
 
-`maxDate` (moment|string|number|date) default: null \- the maximum/latest date that can be selected. Any format: moment() or '2018-06-01' or 1527811200000, new Date()
+Separator between dates when one field.
 
-`disableDates` (array) default: null \- array of disabled dates. Array can contains ranges, allowed the same format as in options minDate, maxDate. Ex.: \[moment().startOf('month'), \['2018-06-23', '2018-06-30'\]\]
+### numberOfMonths
+- Type: `Number`
+- Default: `1`
 
-`selectForward` (true/false) default: false \- select second date after the first selected date.
+Number of visible months.
 
-`selectBackward` (true/false) default: false \- select second date before the first selected date.
+### numberOfColumns
+- Type: `Number`
+- Default: `2`
 
-`minDays` (number) default: null \- the minimum days of the selected range.
+Number of columns months.
 
-`maxDays` (number) default: null \- the maximum days of the selected range.
+### singleDate
+- Type: `Boolean`
+- Default: `true`
 
-`onSelect` \- callback function for when a date is selected.
+Choose a single date instead of a date range.
 
-`onOpen` \- callback function for when the picker becomes visible.
+### autoclose
+- Type: `Boolean`
+- Default: `true`
 
-`onClose` \- callback function for when the picker is hidden.
+Close calendar when picked date/range.
 
-### Methods
+### minDate
+- Type: `moment|String|Number|Date`
+- Default: `null`
+
+The minimum/earliest date that can be selected. Any format: moment() or '2018-06-01' or 1527811200000, new Date()
+
+### maxDate
+- Type: `moment|String|Number|Date`
+- Default: `null`
+
+The maximum/latest date that can be selected. Any format: moment() or '2018-06-01' or 1527811200000, new Date()
+
+### disableDates
+- Type: `Array`
+- Default: `null`
+
+Array of disabled dates. Array can contains ranges, allowed the same format as in options minDate, maxDate. Ex.: `\[moment().startOf('month'), \['2018-06-23', '2018-06-30'\]\]`
+
+### selectForward
+- Type: `Boolean`
+- Default: `false`
+
+Select second date after the first selected date.
+
+### selectBackward
+- Type: `Boolean`
+- Default: `false`
+
+Select second date before the first selected date.
+
+### minDays
+- Type: `Number`
+- Default: `null`
+
+The minimum days of the selected range.
+
+### maxDays
+- Type: `Number`
+- Default: `null`
+
+The maximum days of the selected range.
+
+### locale
+- Type: `Object`
+- Default: `{ buttons: { prev: '<', next: '>', close: '×'}, tooltip: ['day', 'days'] }`
+
+Text for buttons, tooltip.
+
+### onSelect
+- Type: `Function`
+- Default: `null`
+
+Callback function for when a date is selected.
+
+### onOpen
+- Type: `Function`
+- Default: `null`
+
+Callback function for when the picker becomes visible.
+
+### onClose
+- Type: `Function`
+- Default: `null`
+
+Callback function for when the picker is hidden.
+
+## Methods
 
 * * *
 
-`picker.setDate(date)`
+### picker.setDate(date)
 
 Set date when singleDate is true. `date` can be moment, string, number, date.  
 Ex. `picker.setDate(new Date());`
 
   
-`picker.setDateRange(start, end)`
+### picker.setDateRange(start, end)
 
 Set date range. <code>start, end</code> can be moment, string, number, date. 
 Ex. `picker.setDateRange(new Date(), moment().add(7, 'day'));`
   
 
-`picker.setDisableDates(array)`
+### picker.setDisableDates(array)
 
 array of disabled dates. Array can contains ranges, allowed moment, string, number, date.
 Ex. `picker.setDisableDates([ moment().startOf('month'), ['2018-06-23', '2018-06-30'] ]);`
 
 
-`picker.getDate()`
+### picker.getDate()
 
 Return current date as moment object.
 
 
-`picker.getStartDate()`
+### picker.getStartDate()
 
 Return current start of date range as moment object.
 
-  
-
-`picker.getEndDate()`
+### picker.getEndDate()
 
 Return current start of date range as moment object.
 
-  
-
-`picker.show()`
+### picker.show()
 
 Make the picker visible.
 
-  
-
-`picker.hide()`
+### picker.hide()
 
 Hide the picker.
 
-  
-
-`picker.destroy()`
+### picker.destroy()
 
 Hide the picker and remove all event listeners.

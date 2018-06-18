@@ -271,50 +271,160 @@
                     <h2><span class="text-secondary">#</span> <a href="#configuration">Configuration</a></h2>
                     <hr>
 
-                    <p><code>field</code> - bind the datepicker to a form field</p>
+                    <p class="lead"><code>field</code></p>
+                    <ul>
+                        <li>Type: <code>Element</code></li>
+                        <li>Default: <code>null</code></li>
+                    </ul>
+                    <p>Bind the datepicker to a form field</p>
 
-                    <p><code>secondField</code> - if exists then end of date range will set here.</p>
+                    <p class="lead"><code>secondField</code></p>
+                    <ul>
+                        <li>Type: <code>Element</code></li>
+                        <li>Default: <code>null</code></li>
+                    </ul>
+                    <p>If exists then end of date range will set here.</p>
 
-                    <p><code>firstDay</code> <small class="text-secondary">(number) default: 1</small> - ISO day of the week (1: Monday, ..., 7: Sunday).</p>
+                    <p class="lead"><code>firstDay</code></p>
+                    <ul>
+                        <li>Type: <code>Number</code></li>
+                        <li>Default: <code>1</code></li>
+                    </ul>
+                    <p>ISO day of the week (1: Monday, ..., 7: Sunday).</p>
 
-                    <p><code>parentEl</code> <small class="text-secondary">(string) default: 'body'</small> - selector of the parent element that the date range picker will be added to, if not provided this will be 'body'.</p>
+                    <p class="lead"><code>parentEl</code></p>
+                    <ul>
+                        <li>Type: <code>Element</code></li>
+                        <li>Default: <code>null</code></li>
+                    </ul>
+                    <p>Selector of the parent element that the date range picker will be added to, if not provided this will be 'body'.</p>
 
-                    <p><code>lang</code> <small class="text-secondary">(string) default: 'auto'</small> - language code for names of days, months  by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" target="_blank">Date.prototype.toLocaleString()</a>. 
+                    <p class="lead"><code>lang</code></p>
+                    <ul>
+                        <li>Type: <code>String</code></li>
+                        <li>Default: <code>auto</code></li>
+                    </ul>
+                    <p>Language code for names of days, months  by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" target="_blank">Date.prototype.toLocaleString()</a>. 
                         'auto' will try detect user browser language.</p>
 
-                    <p><code>buttons</code> <small class="text-secondary">(object) default: { prev: '&lt;', next: '&gt;', close: '&times;'}</small> - text for buttons.</p>
+                    <p class="lead"><code>format</code></p>
+                    <ul>
+                        <li>Type: <code>String</code></li>
+                        <li>Default: <code>DD/MM/YYYY</code></li>
+                    </ul>
+                    <p>The default output format.</p>
 
-                    <p><code>format</code> <small class="text-secondary">(string) default: 'DD/MM/YYYY'</small> - the default output format.</p>
+                    <p class="lead"><code>separator</code></p>
+                    <ul>
+                        <li>Type: <code>String</code></li>
+                        <li>Default: <code>-</code></li>
+                    </ul>
+                    <p>Separator between dates when one field.</p>
 
-                    <p><code>separator</code> <small class="text-secondary">(string) default: '-'</small> - separator between dates when one field.</p>
+                    <p class="lead"><code>numberOfMonths</code></p>
+                    <ul>
+                        <li>Type: <code>Number</code></li>
+                        <li>Default: <code>1</code></li>
+                    </ul>
+                    <p>Number of visible months.</p>
 
-                    <p><code>numberOfMonths</code> <small class="text-secondary">(number) default: 1</small> - number of visible months.</p>
+                    <p class="lead"><code>numberOfColumns</code></p>
+                    <ul>
+                        <li>Type: <code>Number</code></li>
+                        <li>Default: <code>2</code></li>
+                    </ul>
+                    <p>Number of columns months.</p>
 
-                    <p><code>numberOfColumns</code> <small class="text-secondary">(number) default: 2</small> - number of columns months.</p>
+                    <p class="lead"><code>singleDate</code></p>
+                    <ul>
+                        <li>Type: <code>Boolean</code></li>
+                        <li>Default: <code>true</code></li>
+                    </ul>
+                    <p>Choose a single date instead of a date range.</p>
 
-                    <p><code>singleDate</code> <small class="text-secondary">(true/false) default: true</small> - choose a single date instead of a date range.</p>
+                    <p class="lead"><code>autoclose</code></p>
+                    <ul>
+                        <li>Type: <code>Boolean</code></li>
+                        <li>Default: <code>true</code></li>
+                    </ul>
+                    <p>Close calendar when picked date/range.</p>
 
-                    <p><code>autoclose</code> <small class="text-secondary">(true/false) default: true</small> - close calendar when picked date/range.</p>
+                    <p class="lead"><code>minDate</code></p>
+                    <ul>
+                        <li>Type: <code>moment|String|Number|Date</code></li>
+                        <li>Default: <code>null</code></li>
+                    </ul>
+                    <p>The minimum/earliest date that can be selected. Any format: moment() or '2018-06-01' or 1527811200000, new Date() </p>
 
-                    <p><code>minDate</code> <small class="text-secondary">(moment|string|number|date) default: null</small> - the minimum/earliest date that can be selected. Any format: moment() or '2018-06-01' or 1527811200000, new Date() </p>
+                    <p class="lead"><code>maxDate</code></p>
+                    <ul>
+                        <li>Type: <code>moment|String|Number|Date</code></li>
+                        <li>Default: <code>null</code></li>
+                    </ul>
+                    <p>The maximum/latest date that can be selected. Any format: moment() or '2018-06-01' or 1527811200000, new Date() </p>
 
-                    <p><code>maxDate</code> <small class="text-secondary">(moment|string|number|date) default: null</small> - the maximum/latest date that can be selected. Any format: moment() or '2018-06-01' or 1527811200000, new Date() </p>
+                    <p class="lead"><code>disableDates</code></p>
+                    <ul>
+                        <li>Type: <code>Array</code></li>
+                        <li>Default: <code>null</code></li>
+                    </ul>
+                    <p>Array of disabled dates. Array can contains ranges, allowed the same format as in options minDate, maxDate. <br>Ex.: <code>[moment().startOf('month'), ['2018-06-23', '2018-06-30']]</code> </p>
 
-                    <p><code>disableDates</code> <small class="text-secondary">(array) default: null</small> - array of disabled dates. Array can contains ranges, allowed the same format as in options minDate, maxDate. Ex.: [moment().startOf('month'), ['2018-06-23', '2018-06-30']] </p>
+                    <p class="lead"><code>selectForward</code></p>
+                    <ul>
+                        <li>Type: <code>Boolean</code></li>
+                        <li>Default: <code>false</code></li>
+                    </ul>
+                    <p>Select second date after the first selected date.</p>
 
-                    <p><code>selectForward</code> <small class="text-secondary">(true/false) default: false</small> - select second date after the first selected date.</p>
+                    <p class="lead"><code>selectBackward</code></p>
+                    <ul>
+                        <li>Type: <code>Boolean</code></li>
+                        <li>Default: <code>false</code></li>
+                    </ul>
+                    <p>Select second date before the first selected date.</p>
 
-                    <p><code>selectBackward</code> <small class="text-secondary">(true/false) default: false</small> - select second date before the first selected date.</p>
+                    <p class="lead"><code>minDays</code></p>
+                    <ul>
+                        <li>Type: <code>Number</code></li>
+                        <li>Default: <code>null</code></li>
+                    </ul>
+                    <p>The minimum days of the selected range.</p>
 
-                    <p><code>minDays</code> <small class="text-secondary">(number) default: null</small> - the minimum days of the selected range.</p>
+                    <p class="lead"><code>maxDays</code></p>
+                    <ul>
+                        <li>Type: <code>Number</code></li>
+                        <li>Default: <code>null</code></li>
+                    </ul>
+                    <p>The maximum days of the selected range.</p>
 
-                    <p><code>maxDays</code> <small class="text-secondary">(number) default: null</small> - the maximum days of the selected range.</p>
+                    <p class="lead"><code>locale</code></p>
+                    <ul>
+                        <li>Type: <code>Object</code></li>
+                        <li>Default: <code>{ buttons: { prev: '<', next: '>', close: '×'}, tooltip: ['day', 'days'] }</code></li>
+                    </ul>
+                    <p>Text for buttons, tooltip.</p>
 
-                    <p><code>onSelect</code> - callback function for when a date is selected.</p>
+                    <p class="lead"><code>onSelect</code></p>
+                    <ul>
+                        <li>Type: <code>Function</code></li>
+                        <li>Default: <code>null</code></li>
+                    </ul>
+                    <p>Callback function for when a date is selected.</p>
 
-                    <p><code>onOpen</code> - callback function for when the picker becomes visible.</p>
+                    <p class="lead"><code>onOpen</code></p>
+                    <ul>
+                        <li>Type: <code>Function</code></li>
+                        <li>Default: <code>null</code></li>
+                    </ul>
+                    <p>Callback function for when the picker becomes visible.</p>
 
-                    <p><code>onClose</code> - callback function for when the picker is hidden.</p>
+                    <p class="lead"><code>onClose</code></p>
+                    <ul>
+                        <li>Type: <code>Function</code></li>
+                        <li>Default: <code>null</code></li>
+                    </ul>
+                    <p>Callback function for when the picker is hidden.</p>
                 </div>
 
                 <div id="methods" class="mt-5">
