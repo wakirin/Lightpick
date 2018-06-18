@@ -1,8 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[0.0.4] - 2018-06-18
+* Added tooltip
+* Option `buttons` moved to `locale`
+
 [0.0.2] - 2018-06-16
-* Add polyfill (Object.assign)
+* Added polyfill (Object.assign)
 * flexbox fallback for IE
 * Update docs
 

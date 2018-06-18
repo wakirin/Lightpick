@@ -27,7 +27,7 @@
 .lightpick-container.rows-5 {
     width: 1000px;
 }
-.lightpick-container > .months {
+.lightpick-container > .lightpick-inner > .months {
     display: -moz-webkit-flex;
     display: -webkit-flex;
     display: -ms-box;
@@ -35,12 +35,12 @@
     flex-wrap: wrap;
     justify-content: flex-start;
 }
-.lightpick-container > .months > .month {
+.lightpick-container > .lightpick-inner > .months > .month {
     padding: 5px;
     width: 200px;
     border: 1px solid #eee;
 }
-.lightpick-container > .months > .month > .title {
+.lightpick-container > .lightpick-inner > .months > .month > .title {
     padding: 5px;
     font-size: 12px;
     font-weight: 400;
@@ -52,17 +52,17 @@
     justify-content: space-between;
     line-height: 24px;
 }
-.lightpick-container > .top-buttons {
+.lightpick-container > .lightpick-inner > .top-buttons {
     text-align: right;
     border: 1px solid #eee;
 }
-.lightpick-container > .top-buttons > button {
+.lightpick-container > .lightpick-inner > .top-buttons > button {
     margin-left: 5px;
     padding: 0 5px;
     font-size: 12px;
     line-height: 24px;
 }
-.lightpick-container > .top-buttons > button.close {
+.lightpick-container > .lightpick-inner > .top-buttons > button.close {
     font-size: 18px;
 }
 .lightpick-container .prev,
@@ -78,7 +78,7 @@
     background-color: rgba(0,0,0,.07);
     cursor: pointer;
 }
-.lightpick-container > .months > .month > .daynames {
+.lightpick-container > .lightpick-inner > .months > .month > .daynames {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
@@ -87,75 +87,78 @@
     font-weight: 500;
     color: #ff9a19;
 }
-.lightpick-container > .months> .month > .days {
+.lightpick-container > .lightpick-inner > .months > .month > .days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
     font-size: 10px;
 }
-.lightpick-container > .months > .month > .days > .day {
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day {
     padding: 7px 0;
     color: #212121;
     font-size: 11px;
     border-radius: 50%;
 }
-.lightpick-container > .months > .month > .days > .day:hover {
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day:hover {
     background-color: rgb(224,224,224);
     cursor: pointer;
 }
-.lightpick-container > .months > .month > .days > .day.today {
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.today {
     font-weight: 500;
     color: #4eb5e6;
 }
-.lightpick-container > .months > .month > .days > .day.prev-month,
-.lightpick-container > .months > .month > .days > .day.next-month {
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.prev-month,
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.next-month {
     color: #757575;
 }
-.lightpick-container > .months > .month > .days > .day.disabled {
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.disabled {
     color: #ddd;
     text-decoration: line-through;
     background-color: #fff;
 }
-.lightpick-container > .months > .month > .days > .day.in-range {
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.in-range {
     background-color: rgba(92,196,239,.1);
     border-radius: 0;
 }
-.lightpick-container > .months > .month > .days > .day.start-date.in-range,
-.lightpick-container > .months > .month > .days > .day.end-date.in-range.invert {
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.start-date.in-range,
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.end-date.in-range.invert {
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
-.lightpick-container > .months > .month > .days > .day.end-date.in-range,
-.lightpick-container > .months > .month > .days > .day.start-date.in-range.invert {
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.end-date.in-range,
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.start-date.in-range.invert {
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
-.lightpick-container > .months > .month > .days > .day.start-date.end-date {
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.start-date.end-date {
     border-radius: 50%;
 }
-.lightpick-container > .months > .month > .days > .day.start-date,
-.lightpick-container > .months > .month > .days > .day.end-date,
-.lightpick-container > .months > .month > .days > .day.start-date:hover,
-.lightpick-container > .months > .month > .days > .day.end-date:hover {
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.start-date,
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.end-date,
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.start-date:hover,
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.end-date:hover {
     color: #fff;
     font-weight: 500;
     background-color: rgb(66,133,244);
 }
 .lightpick-tooltip {
-    background-color: #ffe684;
+    background-color: #CDDC39;
     font-size: 11px;
     margin-top: -5px;
     padding: 5px 10px;
     border-radius: 10px;
+    position: absolute;
+    pointer-events: none;
+    white-space: nowrap
 }
 .lightpick-tooltip:after {
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 4px solid #ffe684;
+    border-top: 4px solid #CDDC39;
     bottom: -4px;
     content: '';
     left: 50%;
@@ -163,19 +166,19 @@
     position: absolute;
 }
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-    .lightpick-container > .months > .month > .daynames {
+    .lightpick-container > .lightpick-inner > .months > .month > .daynames {
         display: flex;
         justify-content: flex-start;
     }
-    .lightpick-container > .months > .month > .daynames > div {
+    .lightpick-container > .lightpick-inner > .months > .month > .daynames > div {
         width: 31.3px;
     }
-    .lightpick-container > .months > .month > .days {
+    .lightpick-container > .lightpick-inner > .months > .month > .days {
         display: flex;
         flex-flow: row wrap;
         justify-content: flex-start;
     }
-    .lightpick-container > .months > .month > .days > .day {
+    .lightpick-container > .lightpick-inner > .months > .month > .days > .day {
         width: 31.3px;
     }
 }

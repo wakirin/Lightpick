@@ -60,11 +60,6 @@
         firstDay: 1,
         parentEl: 'body',
         lang: 'auto',
-        buttons: {
-            prev: '&lt;',
-            next: '&gt;',
-            close: '&times;',
-        },
         format: 'DD/MM/YYYY',
         separator: ' - ',
         numberOfMonths: 1,
@@ -83,14 +78,23 @@
         onSelect: null,
         onOpen: null,
         onClose: null,
+        hoveringTooltip: true,
+        locale: {
+            buttons: {
+                prev: '&lt;',
+                next: '&gt;',
+                close: '&times;',
+            },
+            tooltip: ['day', 'days'],
+        }
     },
 
     renderTopButtons = function(opts){
         return '<div class="top-buttons">' 
             + ''
-            + '<button type="button" class="prev">' + opts.buttons.prev + '</button>'
-            + '<button type="button" class="next">' + opts.buttons.next + '</button>' 
-            + (!opts.autoclose ? '<button type="button" class="close">' + opts.buttons.close + '</button>'  : '')
+            + '<button type="button" class="prev">' + opts.locale.buttons.prev + '</button>'
+            + '<button type="button" class="next">' + opts.locale.buttons.next + '</button>' 
+            + (!opts.autoclose ? '<button type="button" class="close">' + opts.locale.buttons.close + '</button>'  : '')
             + '</div>';
     },
 
@@ -227,12 +231,6 @@
         var html = '',
             monthDate = moment(opts.calendar[0]);
 
-        if (opts.numberOfMonths > 1) {
-            html += renderTopButtons(opts);
-        }
-
-        html += '<div class="months">';
-
         for (var i = 0; i < opts.numberOfMonths; i++) {
             var day = moment(monthDate);
 
@@ -291,11 +289,9 @@
             monthDate.add(1, 'month');
         }
 
-        html += '</div>'; // months
-
         opts.calendar[1] = moment(monthDate);
 
-        el.innerHTML = html;
+        el.querySelector('.months').innerHTML = html;
     },
 
     updateDates = function(el, opts){
@@ -303,6 +299,12 @@
         [].forEach.call(days, function(day) {
             day.outerHTML = renderDay(opts, parseInt(day.getAttribute('data-time')), false, day.className.split(' '));
         });
+    },
+
+    plural = function(value, arr) {
+        return value % 10 == 1 && value % 100 != 11 
+        ? arr[0] 
+        : (value % 10 >= 2 && value % 10 <= 4 && (value % 100 < 10 || value % 100 >= 20 ) ? arr[1] : (arr[2] || arr[1]));
     },
 
     lightPick = function(options)
@@ -313,6 +315,13 @@
         self.el = document.createElement('div');
 
         self.el.className = 'lightpick-container rows-' + opts.numberOfColumns;
+
+        self.el.innerHTML = '<div class="lightpick-inner">'
+        + (opts.numberOfMonths > 1 ? renderTopButtons(opts) : '')
+        + '<div class="months"></div>'
+        + '<div class="lightpick-tooltip" style="visibility: hidden"></div>'
+        + '</div>';
+
         document.querySelector(opts.parentEl).appendChild(self.el);
 
         self._onMouseDown = function(e)
@@ -392,7 +401,9 @@
                 return;
             }
 
-            if (self._opts.singleDate || (!self._opts.startDate && !self._opts.endDate)) {
+            var opts = self._opts;
+
+            if (opts.singleDate || (!opts.startDate && !opts.endDate)) {
                 return;
             }
 
@@ -400,22 +411,23 @@
                 return;
             }
 
-            if (self._opts.startDate && !self._opts.endDate) {
+            if (opts.startDate && !opts.endDate) {
                 var hoverDate = moment(parseInt(target.getAttribute('data-time')));
 
                 if (!hoverDate.isValid()) {
                     return;
                 }
+
                 var days = self.el.querySelectorAll('.day');
                 [].forEach.call(days, function(day) {
                     var dt = moment(parseInt(day.getAttribute('data-time')));
 
                     day.classList.remove('invert');
 
-                    if (dt.isValid() && dt.isSameOrAfter(self._opts.startDate, 'day') && dt.isSameOrBefore(hoverDate, 'day')) {
+                    if (dt.isValid() && dt.isSameOrAfter(opts.startDate, 'day') && dt.isSameOrBefore(hoverDate, 'day')) {
                         day.classList.add('in-range');
                     }
-                    else if (dt.isValid() && dt.isSameOrAfter(hoverDate, 'day') && dt.isSameOrBefore(self._opts.startDate, 'day')) {
+                    else if (dt.isValid() && dt.isSameOrAfter(hoverDate, 'day') && dt.isSameOrBefore(opts.startDate, 'day')) {
                         day.classList.add('in-range', 'invert');
                     }
                     else {
@@ -424,6 +436,35 @@
 
                     day.classList.remove('end-date');
                 });
+
+                if (opts.hoveringTooltip) {
+                    days = Math.abs(hoverDate.isAfter(opts.startDate) ? hoverDate.diff(opts.startDate, 'day') : opts.startDate.diff(hoverDate, 'day')) + 1;
+
+                    var tooltip = self.el.querySelector('.lightpick-tooltip');
+
+                    if (days > 0 && !target.classList.contains('disabled')) {
+                            var dayBounding = target.getBoundingClientRect(),
+                            pickerBouding = self.el.getBoundingClientRect(),
+                            _left = (dayBounding.left - pickerBouding.left) + (dayBounding.width / 2),
+                            _top = dayBounding.top - pickerBouding.top;
+                    
+                        tooltip.style.visibility = 'visible';
+                        tooltip.textContent = days + ' ' + plural(days, opts.locale.tooltip);
+
+                        var tooltipBounding = tooltip.getBoundingClientRect();
+                        
+                        _top -= tooltipBounding.height;
+                        _left -= (tooltipBounding.width / 2);
+
+                        setTimeout(function(){
+                            tooltip.style.top = _top + 'px';
+                            tooltip.style.left = _left + 'px';
+                        }, 10);
+                    }
+                    else {
+                        tooltip.style.visibility = 'hidden';
+                    }
+                }
 
                 target.classList.add('end-date');
             }
@@ -544,6 +585,14 @@
             if (opts.secondField && opts.singleDate) {
                 opts.singleDate = false;
             } 
+
+            if (opts.hoveringTooltip && opts.singleDate) {
+                opts.hoveringTooltip = false;
+            }
+
+            if (Object.prototype.toString.call(options.locale) === '[object Object]') {
+                opts.locale = Object.assign({}, defaults.locale, options.locale);
+            }
                 
             this._opts = Object.assign({}, opts);
 
@@ -721,6 +770,7 @@
 
                 this.el.classList.add('is-hidden');
 
+                this.el.querySelector('.lightpick-tooltip').style.visibility = 'hidden';
 
                 if (typeof this._opts.onClose === 'function') {
                     this._opts.onClose.call(this);

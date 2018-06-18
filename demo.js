@@ -93,3 +93,16 @@ new lightPick({
         document.getElementById('result-9').innerHTML = rangeText(start, end);
     }
 });
+
+// demo-10
+new lightPick({
+    field: document.getElementById('demo-10'),
+    singleDate: false,
+    lang: 'ru',
+    locale: {
+        tooltip: ['день', 'дня', 'дней'],
+    },
+    onSelect: function(start, end){
+        document.getElementById('result-10').innerHTML = rangeText(start, end);
+    }
+});
