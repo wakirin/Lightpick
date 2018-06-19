@@ -1,6 +1,6 @@
 {
   "name": "lightpick",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Javascript date range picker - lightweight, no jQuery",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -314,7 +314,7 @@
 
         self.el = document.createElement('div');
 
-        self.el.className = 'lightpick-container rows-' + opts.numberOfColumns;
+        self.el.className = 'lightpick-container is-hidden rows-' + opts.numberOfColumns;
 
         self.el.innerHTML = '<div class="lightpick-inner">'
         + (opts.numberOfMonths > 1 ? renderTopButtons(opts) : '')
@@ -542,7 +542,7 @@
         self.el.addEventListener('mouseenter', self._onMouseEnter, true);
         self.el.addEventListener('touchend', self._onMouseDown, true);
 
-        this.hide();
+        self.hide();
 
         opts.field.addEventListener('change', self._onInputChange);
         opts.field.addEventListener('click', self._onInputClick);
