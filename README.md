@@ -116,6 +116,12 @@ Choose a single date instead of a date range.
 
 Close calendar when picked date/range.
 
+### repick
+- Type: `Boolean`
+- Default: `false`
+
+Repick start/end instead of new range. This option working only when exists `secondField`.
+
 ### minDate
 - Type: `moment|String|Number|Date`
 - Default: `null`

@@ -7,7 +7,6 @@
     <meta name="google-site-verification" content="nERiBNqxg1sFpetHtzwMVydsumihA9YnyytsjfzYEGI" />
     <meta name="description" content="Javascript date range picker - lightweight, no jQuery. Date Range Picker can be attached to input element to pop up one or more calendars for selecting dates.">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/lightpick.css">
 </head>
 <body>
@@ -48,7 +47,10 @@
                     <p><a href="#configuration" class="list-inline-item">Configuration</a></p>
                     <p><a href="#methods" class="list-inline-item">Methods</a></p>
 
-                    <p><a href="https://github.com/wakirin/lightPick" class="btn btn-light"><i class="fab fa-github-square"></i>&nbsp; View on GitHub</a></p>
+                    <p>
+                        <a href="https://github.com/wakirin/lightPick" class="btn btn-light">
+                            <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" width="25" height="25">&nbsp; View on GitHub</a>
+                        </p>
                 </div>
             </div>
             <div class="col-md-10">
@@ -101,7 +103,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p id="result-1"></p>
+                                    <p id="result-1">&nbsp;</p>
                                     <input type="text" id="demo-1" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7" id="gist-1"></div>
@@ -116,7 +118,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p id="result-2"></p>
+                                    <p id="result-2">&nbsp;</p>
                                     <input type="text" id="demo-2" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7" id="gist-2"></div>
@@ -131,7 +133,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p id="result-3"></p>
+                                    <p id="result-3">&nbsp;</p>
                                     <div class="d-flex">
                                         <input type="text" id="demo-3_1" class="form-control form-control-sm"/>
                                         <input type="text" id="demo-3_2" class="form-control form-control-sm"/>
@@ -149,7 +151,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p id="result-4"></p>
+                                    <p id="result-4">&nbsp;</p>
                                     <input type="text" id="demo-4" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7" id="gist-4"></div>
@@ -165,7 +167,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p id="result-5"></p>
+                                    <p id="result-5">&nbsp;</p>
                                     <input type="text" id="demo-5" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7" id="gist-5"></div>
@@ -180,7 +182,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p id="result-6"></p>
+                                    <p id="result-6">&nbsp;</p>
                                     <input type="text" id="demo-6" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7" id="gist-6"></div>
@@ -195,7 +197,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p id="result-7"></p>
+                                    <p id="result-7">&nbsp;</p>
                                     <input type="text" id="demo-7" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7" id="gist-7"></div>
@@ -210,7 +212,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p id="result-8"></p>
+                                    <p id="result-8">&nbsp;</p>
                                     <input type="text" id="demo-8" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7" id="gist-8"></div>
@@ -225,13 +227,32 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p id="result-9"></p>
+                                    <p id="result-9">&nbsp;</p>
                                     <input type="text" id="demo-9" class="form-control form-control-sm"/>
                                 </div>
-                                <div class="col-md-7" id="gist-9">/div>
+                                <div class="col-md-7" id="gist-9"></div>
                             </div>
                         </div>
                     </div>
+
+                    <br>
+
+                    <p class="lead">Option: repick</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <p id="result-11">&nbsp;</p>
+                                    <div class="d-flex">
+                                        <input type="text" id="demo-11_1" class="form-control form-control-sm"/>
+                                        <input type="text" id="demo-11_2" class="form-control form-control-sm"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-7" id="gist-11"></div>
+                            </div>
+                        </div>
+                    </div>
+
                     <br>
 
                     <p class="lead">Options: lang: 'ru', custom locale</p>
@@ -239,7 +260,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p id="result-10"></p>
+                                    <p id="result-10">&nbsp;</p>
                                     <input type="text" id="demo-10" class="form-control form-control-sm"/>
                                 </div>
                                 <div class="col-md-7" id="gist-10"></div>
@@ -329,6 +350,13 @@
                         <li>Default: <code>true</code></li>
                     </ul>
                     <p>Close calendar when picked date/range.</p>
+
+                    <p class="lead"><code>repick</code></p>
+                    <ul>
+                        <li>Type: <code>Boolean</code></li>
+                        <li>Default: <code>false</code></li>
+                    </ul>
+                    <p>Repick start/end instead of new range. This option working only when exists `secondField`.</p>
 
                     <p class="lead"><code>minDate</code></p>
                     <ul>
@@ -490,10 +518,6 @@
             </div>
         </div>
     </div>
-    <!--<div>
-        <input type="text" id="lightpick" class="form-control form-control-sm"/>
-        <input type="text" id="lightpick2" class="form-control form-control-sm"/>
-    </div>-->
     
     <script async src="https://buttons.github.io/buttons.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>

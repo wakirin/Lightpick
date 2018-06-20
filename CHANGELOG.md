@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[0.0.6] - 2018-06-20
+* Added option `repick` 
+
 [0.0.4] - 2018-06-18
 * Added tooltip
 * Option `buttons` moved to `locale`
