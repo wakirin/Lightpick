@@ -17,7 +17,7 @@
         module.exports = factory(moment);
     } else {
         // Browser globals
-        root.lightPick = factory(root.moment);
+        root.Lightpick = factory(root.moment);
     }
 }(this, function(moment) {
     'use strict';
@@ -308,7 +308,7 @@
         : (value % 10 >= 2 && value % 10 <= 4 && (value % 100 < 10 || value % 100 >= 20 ) ? arr[1] : (arr[2] || arr[1]));
     },
 
-    lightPick = function(options)
+    Lightpick = function(options)
     {
         var self = this,
             opts = self.config(options);
@@ -593,7 +593,7 @@
         }
     };
 
-    lightPick.prototype = {
+    Lightpick.prototype = {
         config: function(options)
         {
             var opts = Object.assign({}, defaults, options);
@@ -634,6 +634,7 @@
 
             if (window.innerWidth < 480 && opts.numberOfMonths > 1) {
                 opts.numberOfMonths = 1;
+                opts.numberOfColumns = 1;
             }
 
             if (opts.repick && !opts.secondField) {
@@ -868,5 +869,5 @@
         }
     };
 
-    return lightPick;
+    return Lightpick;
 }));

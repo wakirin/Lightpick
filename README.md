@@ -1,15 +1,15 @@
-[![npm version](https://badge.fury.io/js/lightpick.svg)](https://www.npmjs.com/package/lightpick) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/wakirin/lightPick/blob/master/LICENSE)
+[![npm version](https://badge.fury.io/js/lightpick.svg)](https://www.npmjs.com/package/lightpick) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/wakirin/lightpick/blob/master/LICENSE)
 
 
 
-lightPick
+Lightpick
 =========
 
 Javascript date range picker - lightweight, no jQuery
 -----------------------------------------------------
-![screenshot](https://wakirin.github.io/lightPick.gif)
+![screenshot](https://wakirin.github.io/lightpick.gif)
 
-## [Demo & Docs](https://wakirin.github.io/lightPick)
+## [Demo & Docs](https://wakirin.github.io/lightpick)
 
 ----
 
@@ -25,24 +25,24 @@ Javascript date range picker - lightweight, no jQuery
 npm install lightpick
 ```
 
-or you can download and include Moment.js and lightPick files manually.
+or you can download and include Moment.js and Lightpick files manually.
 
 ## Usage
 
 * * *
 
-lightPick can be bound to an input field:
+Lightpick can be bound to an input field:
 
 ```
 <input type="text" id="datepicker"/>
 ```
 
-Include lightPick script to the end of your document:
+Include Lightpick script to the end of your document:
 
 ```
 <script src="lightpick.js"></script>  
 <script>  
-var picker = new lightPick({ field: document.getElementById('datepicker') });  
+var picker = new Lightpick({ field: document.getElementById('datepicker') });  
 </script>
 ```
 
