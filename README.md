@@ -7,9 +7,9 @@ Lightpick
 
 Javascript date range picker - lightweight, no jQuery
 -----------------------------------------------------
-![screenshot](https://wakirin.github.io/lightpick.gif)
+![screenshot](https://wakirin.github.io/lightpick.gif?v=20180622)
 
-## [Demo & Docs](https://wakirin.github.io/lightpick)
+## [Demo & Docs](https://wakirin.github.io/Lightpick)
 
 ----
 
