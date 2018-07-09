@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.0.3] - 2018-07-09
+* fixed bug: preventing pick a one-day-range when `minDays` option
+
+[1.0.2] - 2018-06-20
+* Added method `toString`
+
 [1.0.0] - 2018-06-20
 * Constructor name to begin with a capital letter: `lightPick` to `Lightpick`
 

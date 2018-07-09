@@ -2,7 +2,7 @@
     width: 200px;
     font-family: Roboto,Helvetica,Arial,sans-serif;
     position: absolute;
-    z-index: 9999;
+    z-index: 99999;
     background-color: #fff;
     line-height: normal;
 }
@@ -144,6 +144,11 @@
     color: #fff;
     font-weight: 500;
     background-color: rgb(66,133,244);
+    text-decoration: none;
+}
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.start-date.disabled:hover,
+.lightpick-container > .lightpick-inner > .months > .month > .days > .day.end-date.disabled:hover {
+    background-color: #ddd;
 }
 .lightpick-tooltip {
     background-color: #CDDC39;

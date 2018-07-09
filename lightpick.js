@@ -128,7 +128,6 @@
         if (opts.minDays && opts.startDate && !opts.endDate) {
             if (
                 date.isBetween(moment(opts.startDate).subtract(opts.minDays - 1, 'day'), moment(opts.startDate).add(opts.minDays - 1, 'day'), 'day')
-                && !date.isSame(opts.startDate, 'day')
             ) {
                 day.className.push('disabled');
             }
@@ -788,17 +787,37 @@
 
         getStartDate: function()
         {
-            return moment().isValid(this._opts.startDate) ? this._opts.startDate : null;
+            return moment(this._opts.startDate).isValid() ? this._opts.startDate : null;
         },
 
         getEndDate: function()
         {
-            return moment().isValid(this._opts.endDate) ? this._opts.endDate : null;
+            return moment(this._opts.endDate).isValid() ? this._opts.endDate : null;
         },
 
         getDate: function()
         {
-            return moment().isValid(this._opts.startDate) ? this._opts.startDate : null;
+            return moment(this._opts.startDate).isValid() ? this._opts.startDate : null;
+        },
+
+        toString: function(format){
+            if (this._opts.singleDate) {
+                return moment(this._opts.startDate).isValid() ? this._opts.startDate.format(format) : '';
+            }
+
+            if (moment(this._opts.startDate).isValid() && moment(this._opts.endDate).isValid()) {
+                return this._opts.startDate.format(format) + this._opts.separator + this._opts.endDate.format(format);
+            }
+
+            if (moment(this._opts.startDate).isValid() && !moment(this._opts.endDate).isValid()) {
+                return this._opts.startDate.format(format) + this._opts.separator + '...';
+            }
+
+            if (!moment(this._opts.startDate).isValid() && moment(this._opts.endDate).isValid()) {
+                return '...' + this._opts.separator + this._opts.endDate.format(format);
+            }
+
+            return '';
         },
 
         show: function(target){
