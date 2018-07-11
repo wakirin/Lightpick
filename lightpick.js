@@ -314,7 +314,7 @@
 
         self.el = document.createElement('section');
 
-        self.el.className = 'lightpick lightpick--' + opts.numberOfColumns + 'columns is-hidden';
+        self.el.className = 'lightpick lightpick--' + opts.numberOfColumns + '-columns is-hidden';
 
         self.el.innerHTML = '<div class="lightpick__inner">'
         + (opts.numberOfMonths > 1 ? renderTopButtons(opts) : '')
