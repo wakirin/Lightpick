@@ -889,7 +889,7 @@
 
         reloadOptions: function(options) {
             var opts = this._opts;
-            var newOpts = {...opts, ...options};
+            var newOpts = Object.assign(opts, options);
 
             this._opts = newOpts;
         }
