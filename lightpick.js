@@ -82,8 +82,8 @@
         hoveringTooltip: true,
         locale: {
             buttons: {
-                prev: '&lt;',
-                next: '&gt;',
+                prev: '&leftarrow; ',
+                next: '&rightarrow; ',
                 close: '&times;',
             },
             tooltip: ['day', 'days'],
@@ -234,15 +234,15 @@
         for (var i = 0; i < opts.numberOfMonths; i++) {
             var day = moment(monthDate);
 
-            html += '<div class="lightpick__month">';
-            html += '<div class="lightpick__month-title">'
-            html += '<div>' + day.toDate().toLocaleString(opts.lang, { month: 'long' }) + ' ' + day.format('YYYY')  + '</div>';
+            html += '<section class="lightpick__month">';
+            html += '<header class="lightpick__month-title-bar">'
+            html += '<h1 class="lightpick__month-title">' + day.toDate().toLocaleString(opts.lang, { month: 'long' }) + ' ' + day.format('YYYY')  + '</h1>';
 
             if (opts.numberOfMonths === 1) {
                 html += renderTopButtons(opts);
             }
 
-            html += '</div>';
+            html += '</header>'; // lightpick__month-title-bar
 
             html += '<div class="lightpick__days-of-the-week">';
             for (var w = opts.firstDay + 4; w < 7 + opts.firstDay + 4; ++w) {
@@ -284,7 +284,7 @@
 
             html += '</div>'; // lightpick__days
 
-            html += '</div>'; // lightpick__month
+            html += '</section>'; // lightpick__month
 
             monthDate.add(1, 'month');
         }
@@ -317,7 +317,7 @@
         self.el.className = 'lightpick lightpick--' + opts.numberOfColumns + '-columns is-hidden';
 
         if (opts.parentEl !== 'body') {
-            self.el.className += ' has-parent-el';
+            self.el.className += ' lightpick--inlined';
         }
 
         self.el.innerHTML = '<div class="lightpick__inner">'

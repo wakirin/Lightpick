@@ -1,12 +1,16 @@
 .lightpick {
-    width: 200px;
-    font-family: Roboto, Helvetica, Arial, sans-serif;
     position: absolute;
     z-index: 99999;
+    padding: 4px;
+    border-radius: 4px;
     background-color: #FFF;
-    line-height: normal;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    color: #000;
+    font-family: system-ui, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.125em;
 }
-.lightpick.has-parent-el {
+
+.lightpick--inlined {
     position: static;
 }
 
@@ -21,137 +25,156 @@
     display: none;
 }
 
-.lightpick--2-columns {
-    width: 400px;
-}
-
-.lightpick--3-columns {
-    width: 600px;
-}
-
-.lightpick--4-columns {
-    width: 800px;
-}
-
-.lightpick--5-columns {
-    width: 1000px;
-}
-
 .lightpick__months {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    display: grid;
+    background-color: #EEE;
+    grid-template-columns: auto;
+    grid-gap: 1px;
+}
+
+.lightpick--2-columns .lightpick__months {
+    grid-template-columns: auto auto;
+}
+
+.lightpick--3-columns .lightpick__months {
+    grid-template-columns: auto auto auto;
+}
+
+.lightpick--4-columns .lightpick__months {
+    grid-template-columns: auto auto auto auto;
+}
+
+.lightpick--5-columns .lightpick__months {
+    grid-template-columns: auto auto auto auto auto;
 }
 
 .lightpick__month {
-    padding: 5px;
-    width: 200px;
-    border: 1px solid #EEE;
+    padding: 4px;
+    width: 288px;
+    background-color: #FFF;
+}
+
+.lightpick__month-title-bar {
+    display: flex;
+    margin-bottom: 4px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .lightpick__month-title {
-    padding: 5px;
-    font-size: 12px;
-    font-weight: 400;
-    color: #4285F4;
-    display: flex;
-    justify-content: space-between;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+    font-size: 16px;
+    font-weight: bold;
     line-height: 24px;
 }
 
 .lightpick__toolbar {
+    display: flex;
     text-align: right;
+    justify-content: flex-end;
 }
 
+.lightpick__previous-action,
+.lightpick__next-action,
 .lightpick__close-action {
-    font-size: 18px;
-    margin-left: 5px;
-    padding: 0 5px;
-    line-height: 24px;
+    display: flex;
+    margin-left: 6px;
+    width: 32px;
+    height: 32px;
+    outline: none;
+    border: none;
+    border-radius: 50%;
+    background-color: #DDD;
+    justify-content: center;
+    align-items: center;
 }
 
 .lightpick__previous-action,
 .lightpick__next-action {
-    border-radius: 50%;
-    border: none;
     font-size: 12px;
-    height: 24px;
-    line-height: 24px;
-    margin-left: 5px;
-    outline: none;
-    padding: 0 5px;
-    width: 24px;
 }
 
+.lightpick__close-action {
+    font-size: 18px;
+}
+
+.lightpick__close-action:hover,
 .lightpick__previous-action:hover,
 .lightpick__next-action:hover {
-    background-color: rgba(0,0,0,.07);
     cursor: pointer;
+}
+
+.lightpick__previous-action:active,
+.lightpick__next-action:active,
+.lightpick__close-action:active {
+    color: inherit;
 }
 
 .lightpick__days-of-the-week {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    text-align: center;
-    padding: 5px 0;
-    font-size: 10px;
-    font-weight: 500;
-    color: #FF9A19;
+}
+
+.lightpick__day-of-the-week {
+    display: flex;
+    font-size: 11px;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
 }
 
 .lightpick__days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    text-align: center;
-    font-size: 10px;
 }
 
 .lightpick__day {
-    padding: 7px 0;
-    color: #212121;
-    font-size: 11px;
+    display: flex;
+    height: 40px;
     border-radius: 50%;
+    font-size: 13px;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightpick__day.is-today {
+    background-image: radial-gradient(circle closest-side at center, rgba(220, 50, 47, 0.06) 68.1%, #FFF 68.1%);
+    color: #DC322F;
 }
 
 .lightpick__day:hover {
     background-color: #E0E0E0;
+    background-image: none;
     cursor: pointer;
 }
 
-.lightpick__day.is-today {
-    font-weight: 500;
-    color: #4Eb5E6;
-}
-
+.lightpick__day.is-disabled,
 .lightpick__day.is-previous-month,
 .lightpick__day.is-next-month {
-    color: #757575;
-}
-
-.lightpick__day.is-disabled {
-    color: #DDD;
-    text-decoration: line-through;
-    background-color: #FFF;
+    opacity: 0.38;
 }
 
 .lightpick__day.is-in-range {
-    background-color: rgba(92,196,239,.1);
     border-radius: 0;
+    background-color: rgba(38, 139, 210, 0.1);
+    background-image: none;
 }
 
 .lightpick__day.is-start-date.is-in-range,
 .lightpick__day.is-end-date.is-in-range.is-flipped {
     border-top-left-radius: 50%;
-    border-bottom-left-radius: 50%;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    border-bottom-left-radius: 50%;
 }
 
 .lightpick__day.is-end-date.is-in-range,
 .lightpick__day.is-start-date.is-in-range.is-flipped {
+    border-top-left-radius: 0;
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
 
@@ -163,48 +186,52 @@
 .lightpick__day.is-end-date,
 .lightpick__day.is-start-date:hover,
 .lightpick__day.is-end-date:hover {
+    background-color: #268BD2;
+    background-image: none;
     color: #FFF;
-    font-weight: 500;
-    background-color: #4285F4;
-    text-decoration: none;
-}
-
-.lightpick__day.is-start-date.is-disabled:hover,
-.lightpick__day.is-end-date.is-disabled:hover {
-    background-color: #DDD;
+    font-weight: bold;
 }
 
 .lightpick__tooltip {
-    background-color: #CDDC39;
-    font-size: 11px;
-    margin-top: -5px;
-    padding: 5px 10px;
-    border-radius: 10px;
     position: absolute;
+    margin-top: -4px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #FFF;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+    font-size: 11px;
     pointer-events: none;
-    white-space: nowrap
+}
+
+.lightpick__tooltip::before {
+    position: absolute;
+    bottom: -5px;
+    left: calc(50% - 5px);
+    border-top: 5px solid rgba(0, 0, 0, 0.12);
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    content: '';
 }
 
 .lightpick__tooltip::after {
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 4px solid #CDDC39;
-    bottom: -4px;
-    content: '';
-    left: 50%;
-    margin-left: -4px;
     position: absolute;
+    bottom: -4px;
+    left: calc(50% - 4px);
+    border-top: 4px solid #FFF;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    content: '';
 }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-
     .lightpick__days-of-the-week {
         display: flex;
         justify-content: flex-start;
     }
 
     .lightpick__day-of-the-week {
-        width: 31.3px;
+        width: 40px;
     }
 
     .lightpick .days {
@@ -214,7 +241,6 @@
     }
 
     .lightpick .day {
-        width: 31.3px;
+        width: 40px;
     }
-
 }
