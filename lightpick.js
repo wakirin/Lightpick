@@ -885,7 +885,15 @@
             if (this.el.parentNode) {
                 this.el.parentNode.removeChild(this.el);
             }
+        },
+
+        reloadOptions: function(options) {
+            var opts = this._opts;
+            var newOpts = {...opts, ...options};
+
+            this._opts = newOpts;
         }
+
     };
 
     return Lightpick;
