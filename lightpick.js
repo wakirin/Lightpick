@@ -248,7 +248,7 @@
             for (var w = opts.firstDay + 4; w < 7 + opts.firstDay + 4; ++w) {
                 html += '<div class="lightpick__day-of-the-week" title="' + weekdayName(opts, w) + '">' + weekdayName(opts, w, true) + '</div>';
             }
-            html += '</div>';
+            html += '</div>'; // lightpick__days-of-the-week
 
             html += '<div class="lightpick__days">';
 
