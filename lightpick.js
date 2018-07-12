@@ -479,10 +479,11 @@
                     var tooltip = self.el.querySelector('.lightpick__tooltip');
 
                     if (days > 0 && !target.classList.contains('is-disabled')) {
-                            var dayBounding = target.getBoundingClientRect(),
-                            pickerBouding = self.el.getBoundingClientRect(),
-                            _left = (dayBounding.left - pickerBouding.left) + (dayBounding.width / 2),
-                            _top = dayBounding.top - pickerBouding.top;
+                            var hasParentEl = self.el.classList.contains('has-parent-el'),
+                                dayBounding = target.getBoundingClientRect(),
+                                pickerBouding = hasParentEl ? self.el.parentNode.getBoundingClientRect() : self.el.getBoundingClientRect(),
+                                _left = (dayBounding.left - pickerBouding.left) + (dayBounding.width / 2),
+                                _top = dayBounding.top - pickerBouding.top;
 
                         tooltip.style.visibility = 'visible';
                         tooltip.textContent = days + ' ' + plural(days, opts.locale.tooltip);
@@ -703,6 +704,8 @@
         },
 
         updatePosition: function(){
+            if (this.el.classList.contains('has-parent-el')) return;
+
             var rect = this._opts.field.getBoundingClientRect();
 
             this.el.style.top = (rect.bottom + window.pageYOffset) + 'px';
