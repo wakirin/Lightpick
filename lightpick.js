@@ -30,12 +30,12 @@
             if (target == null) { // TypeError if undefined or null
               throw new TypeError('Cannot convert undefined or null to object');
             }
-      
+
             var to = Object(target);
-      
+
             for (var index = 1; index < arguments.length; index++) {
               var nextSource = arguments[index];
-      
+
               if (nextSource != null) { // Skip over if undefined or null
                 for (var nextKey in nextSource) {
                   // Avoid bugs when hasOwnProperty is shadowed
@@ -91,11 +91,11 @@
     },
 
     renderTopButtons = function(opts){
-        return '<div class="top-buttons">' 
+        return '<div class="lightpick__toolbar">'
             + ''
-            + '<button type="button" class="prev">' + opts.locale.buttons.prev + '</button>'
-            + '<button type="button" class="next">' + opts.locale.buttons.next + '</button>' 
-            + (!opts.autoclose ? '<button type="button" class="close">' + opts.locale.buttons.close + '</button>'  : '')
+            + '<button type="button" class="lightpick__previous-action">' + opts.locale.buttons.prev + '</button>'
+            + '<button type="button" class="lightpick__next-action">' + opts.locale.buttons.next + '</button>'
+            + (!opts.autoclose ? '<button type="button" class="lightpick__close-action">' + opts.locale.buttons.close + '</button>'  : '')
             + '</div>';
     },
 
@@ -112,12 +112,12 @@
 
         var day = {
             time: moment(date).valueOf(),
-            className: ['day', 'available']
+            className: ['lightpick__day', 'is-available']
         };
 
         if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
             extraClass = extraClass.filter( function( el ) {
-                return ['start-date', 'in-range', 'end-date'].indexOf( el ) < 0;
+                return ['is-start-date', 'is-in-range', 'is-end-date'].indexOf( el ) < 0;
             });
             day.className = day.className.concat(extraClass);
         }
@@ -129,94 +129,94 @@
             if (
                 date.isBetween(moment(opts.startDate).subtract(opts.minDays - 1, 'day'), moment(opts.startDate).add(opts.minDays - 1, 'day'), 'day')
             ) {
-                day.className.push('disabled');
+                day.className.push('is-disabled');
             }
         }
 
         if (opts.maxDays && opts.startDate && !opts.endDate) {
             if (date.isSameOrBefore(moment(opts.startDate).subtract(opts.maxDays, 'day'), 'day')) {
-                day.className.push('disabled');
+                day.className.push('is-disabled');
             }
             else if (date.isSameOrAfter(moment(opts.startDate).add(opts.maxDays, 'day'), 'day')) {
-                day.className.push('disabled');
+                day.className.push('is-disabled');
             }
         }
 
         if (date.isSame(new Date(), 'day')) {
-            day.className.push('today');
+            day.className.push('is-today');
         }
 
         if (date.isSame(opts.startDate, 'day')) {
-            day.className.push('start-date');
+            day.className.push('is-start-date');
         }
 
         if (date.isSame(opts.endDate, 'day')) {
-            day.className.push('end-date');
+            day.className.push('is-end-date');
         }
 
         if (opts.startDate && opts.endDate && date.isBetween(opts.startDate, opts.endDate, 'day', '[]')) {
-            day.className.push('in-range');
+            day.className.push('is-in-range');
         }
 
         if (moment().isSame(date, 'month')) {
-            
+
         }
         else if (prevMonth.isSame(date, 'month')) {
-            day.className.push('prev-month');
+            day.className.push('is-previous-month');
         }
         else if (nextMonth.isSame(date, 'month')) {
-            day.className.push('next-month');
+            day.className.push('is-next-month');
         }
 
         if (opts.minDate && date.isBefore(opts.minDate, 'day')) {
-            day.className.push('disabled');
+            day.className.push('is-disabled');
         }
 
         if (opts.maxDate && date.isAfter(opts.maxDate, 'day')) {
-            day.className.push('disabled');
+            day.className.push('is-disabled');
         }
 
         if (opts.selectForward && !opts.singleDate && opts.startDate && !opts.endDate && date.isBefore(opts.startDate, 'day')) {
-            day.className.push('disabled');
+            day.className.push('is-disabled');
         }
 
         if (opts.selectBackward && !opts.singleDate && opts.startDate && !opts.endDate && date.isAfter(opts.startDate, 'day')) {
-            day.className.push('disabled');
+            day.className.push('is-disabled');
         }
 
         if (opts.disableDates) {
             for (var i = 0; i < opts.disableDates.length; i++) {
                 if (opts.disableDates[i] instanceof Array || Object.prototype.toString.call(opts.disableDates[i]) === '[object Array]') {
-                    if (moment(opts.disableDates[i][0]).isValid() 
-                        && moment(opts.disableDates[i][1]).isValid() 
+                    if (moment(opts.disableDates[i][0]).isValid()
+                        && moment(opts.disableDates[i][1]).isValid()
                         && date.isBetween(moment(opts.disableDates[i][0]), moment(opts.disableDates[i][1]), 'day', '[]')){
 
-                        day.className.push('disabled');
+                        day.className.push('is-disabled');
 
                     }
                 }
                 else if (moment(opts.disableDates[i]).isValid() && moment(opts.disableDates[i]).isSame(date, 'day')) {
-                    day.className.push('disabled');
+                    day.className.push('is-disabled');
                 }
 
-                if (day.className.indexOf('disabled') >= 0) {
-                    if (day.className.indexOf('start-date') >= 0) {
+                if (day.className.indexOf('is-disabled') >= 0) {
+                    if (day.className.indexOf('is-start-date') >= 0) {
                         this.setStartDate(null);
                         this.setEndDate(null);
                     }
-                    else if (day.className.indexOf('end-date') >= 0) {
+                    else if (day.className.indexOf('is-end-date') >= 0) {
                         this.setEndDate(null);
                     }
                 }
             }
         }
 
-        day.className = day.className.filter(function(value, index, self) { 
+        day.className = day.className.filter(function(value, index, self) {
             return self.indexOf(value) === index;
         });
 
-        if (day.className.indexOf('disabled') >= 0 && day.className.indexOf('available') >= 0) {
-            day.className.splice(day.className.indexOf('available'), 1);
+        if (day.className.indexOf('is-disabled') >= 0 && day.className.indexOf('is-available') >= 0) {
+            day.className.splice(day.className.indexOf('is-available'), 1);
         }
 
         var div = document.createElement('div');
@@ -234,8 +234,8 @@
         for (var i = 0; i < opts.numberOfMonths; i++) {
             var day = moment(monthDate);
 
-            html += '<div class="month">';
-            html += '<div class="title">'
+            html += '<div class="lightpick__month">';
+            html += '<div class="lightpick__month-title">'
             html += '<div>' + day.toDate().toLocaleString(opts.lang, { month: 'long' }) + ' ' + day.format('YYYY')  + '</div>';
 
             if (opts.numberOfMonths === 1) {
@@ -244,13 +244,13 @@
 
             html += '</div>';
 
-            html += '<div class="daynames">';
+            html += '<div class="lightpick__days-of-the-week">';
             for (var w = opts.firstDay + 4; w < 7 + opts.firstDay + 4; ++w) {
-                html += '<div title="' + weekdayName(opts, w) + '">' + weekdayName(opts, w, true) + '</div>';
+                html += '<div class="lightpick__day-of-the-week" title="' + weekdayName(opts, w) + '">' + weekdayName(opts, w, true) + '</div>';
             }
             html += '</div>';
 
-            html += '<div class="days">';
+            html += '<div class="lightpick__days">';
 
             if (day.isoWeekday() !== opts.firstDay) {
                 var prevDays = day.isoWeekday() - opts.firstDay > 0 ? day.isoWeekday() - opts.firstDay : day.isoWeekday(),
@@ -258,7 +258,7 @@
                     daysInMonth = prevMonth.daysInMonth();
 
                 for (var d = prevMonth.get('date'); d <= daysInMonth; d++) {
-                    html += renderDay(opts, prevMonth, i > 0, 'prev-month');
+                    html += renderDay(opts, prevMonth, i > 0, 'is-previous-month');
 
                     prevMonth.add(1, 'day');
                 }
@@ -277,33 +277,33 @@
                 nextDays = 7 - nextMonth.isoWeekday() + opts.firstDay;
 
             for (var d = nextMonth.get('date'); d <= nextDays; d++) {
-                html += renderDay(opts, nextMonth, i < opts.numberOfMonths - 1, 'next-month');
+                html += renderDay(opts, nextMonth, i < opts.numberOfMonths - 1, 'is-next-month');
 
                 nextMonth.add(1, 'day');
             }
 
-            html += '</div>'; // days
+            html += '</div>'; // lightpick__days
 
-            html += '</div>'; // month
+            html += '</div>'; // lightpick__month
 
             monthDate.add(1, 'month');
         }
 
         opts.calendar[1] = moment(monthDate);
 
-        el.querySelector('.months').innerHTML = html;
+        el.querySelector('.lightpick__months').innerHTML = html;
     },
 
     updateDates = function(el, opts){
-        var days = el.querySelectorAll('.day');
+        var days = el.querySelectorAll('.lightpick__day');
         [].forEach.call(days, function(day) {
             day.outerHTML = renderDay(opts, parseInt(day.getAttribute('data-time')), false, day.className.split(' '));
         });
     },
 
     plural = function(value, arr) {
-        return value % 10 == 1 && value % 100 != 11 
-        ? arr[0] 
+        return value % 10 == 1 && value % 100 != 11
+        ? arr[0]
         : (value % 10 >= 2 && value % 10 <= 4 && (value % 100 < 10 || value % 100 >= 20 ) ? arr[1] : (arr[2] || arr[1]));
     },
 
@@ -312,14 +312,14 @@
         var self = this,
             opts = self.config(options);
 
-        self.el = document.createElement('div');
+        self.el = document.createElement('section');
 
-        self.el.className = 'lightpick-container is-hidden rows-' + opts.numberOfColumns;
+        self.el.className = 'lightpick lightpick--' + opts.numberOfColumns + '-columns is-hidden';
 
-        self.el.innerHTML = '<div class="lightpick-inner">'
+        self.el.innerHTML = '<div class="lightpick__inner">'
         + (opts.numberOfMonths > 1 ? renderTopButtons(opts) : '')
-        + '<div class="months"></div>'
-        + '<div class="lightpick-tooltip" style="visibility: hidden"></div>'
+        + '<div class="lightpick__months"></div>'
+        + '<div class="lightpick__tooltip" style="visibility: hidden"></div>'
         + '</div>';
 
         document.querySelector(opts.parentEl).appendChild(self.el);
@@ -339,18 +339,18 @@
             e.stopPropagation();
             e.preventDefault();
 
-            if (target.classList.contains('day') && target.classList.contains('available')) {
+            if (target.classList.contains('lightpick__day') && target.classList.contains('is-available')) {
 
                 if (self._opts.singleDate || (!self._opts.startDate && !self._opts.endDate) || (self._opts.startDate && self._opts.endDate)) {
 
                     if (self._opts.repick && self._opts.startDate && self._opts.endDate) {
                         if (self._opts.repickTrigger === self._opts.field) {
                             self.setStartDate(moment(parseInt(target.getAttribute('data-time'))));
-                            target.classList.add('start-date');
+                            target.classList.add('is-start-date');
                         }
                         else {
                             self.setEndDate(moment(parseInt(target.getAttribute('data-time'))));
-                            target.classList.add('end-date');
+                            target.classList.add('is-end-date');
                         }
 
                         if (self._opts.startDate.isAfter(self._opts.endDate)) {
@@ -366,8 +366,8 @@
                     else {
                         self.setStartDate(moment(parseInt(target.getAttribute('data-time'))));
                         self.setEndDate(null);
-    
-                        target.classList.add('start-date');
+
+                        target.classList.add('is-start-date');
 
                         if (self._opts.singleDate && self._opts.autoclose) {
                             setTimeout(function() {
@@ -386,7 +386,7 @@
                         self.swapDate();
                     }
 
-                    target.classList.add('end-date');
+                    target.classList.add('is-end-date');
 
                     if (self._opts.autoclose) {
                         setTimeout(function() {
@@ -395,13 +395,13 @@
                     }
                 }
             }
-            else if (target.classList.contains('prev')) {
+            else if (target.classList.contains('lightpick__previous-action')) {
                 self.prevMonth();
             }
-            else if (target.classList.contains('next')) {
+            else if (target.classList.contains('lightpick__next-action')) {
                 self.nextMonth();
             }
-            else if (target.classList.contains('close')) {
+            else if (target.classList.contains('lightpick__close-action')) {
                 self.hide();
             }
 
@@ -424,7 +424,7 @@
                 return;
             }
 
-            if (!target.classList.contains('day') && !target.classList.contains('available')) {
+            if (!target.classList.contains('lightpick__day') && !target.classList.contains('is-available')) {
                 return;
             }
 
@@ -437,54 +437,54 @@
 
                 var startDate = (opts.startDate && !opts.endDate) || (opts.repick && opts.repickTrigger === opts.secondField) ? opts.startDate : opts.endDate;
 
-                var days = self.el.querySelectorAll('.day');
+                var days = self.el.querySelectorAll('.lightpick__day');
                 [].forEach.call(days, function(day) {
                     var dt = moment(parseInt(day.getAttribute('data-time')));
 
-                    day.classList.remove('invert');
+                    day.classList.remove('is-flipped');
 
                     if (dt.isValid() && dt.isSameOrAfter(startDate, 'day') && dt.isSameOrBefore(hoverDate, 'day')) {
-                        day.classList.add('in-range');
+                        day.classList.add('is-in-range');
 
                         if (opts.repickTrigger === opts.field && dt.isSameOrAfter(opts.endDate)) {
-                            day.classList.add('invert');
+                            day.classList.add('is-flipped');
                         }
                     }
                     else if (dt.isValid() && dt.isSameOrAfter(hoverDate, 'day') && dt.isSameOrBefore(startDate, 'day')) {
-                        day.classList.add('in-range');
+                        day.classList.add('is-in-range');
 
                         if (opts.repickTrigger !== opts.field) {
-                            day.classList.add('invert');
+                            day.classList.add('is-flipped');
                         }
                     }
                     else {
-                        day.classList.remove('in-range');
+                        day.classList.remove('is-in-range');
                     }
 
                     if (opts.startDate && opts.endDate && opts.repick && opts.repickTrigger === opts.field) {
-                        day.classList.remove('start-date');
+                        day.classList.remove('is-start-date');
                     }
                     else {
-                        day.classList.remove('end-date');
+                        day.classList.remove('is-end-date');
                     }
                 });
 
                 if (opts.hoveringTooltip) {
                     days = Math.abs(hoverDate.isAfter(startDate) ? hoverDate.diff(startDate, 'day') : startDate.diff(hoverDate, 'day')) + 1;
 
-                    var tooltip = self.el.querySelector('.lightpick-tooltip');
+                    var tooltip = self.el.querySelector('.lightpick__tooltip');
 
-                    if (days > 0 && !target.classList.contains('disabled')) {
+                    if (days > 0 && !target.classList.contains('is-disabled')) {
                             var dayBounding = target.getBoundingClientRect(),
                             pickerBouding = self.el.getBoundingClientRect(),
                             _left = (dayBounding.left - pickerBouding.left) + (dayBounding.width / 2),
                             _top = dayBounding.top - pickerBouding.top;
-                    
+
                         tooltip.style.visibility = 'visible';
                         tooltip.textContent = days + ' ' + plural(days, opts.locale.tooltip);
 
                         var tooltipBounding = tooltip.getBoundingClientRect();
-                        
+
                         _top -= tooltipBounding.height;
                         _left -= (tooltipBounding.width / 2);
 
@@ -499,10 +499,10 @@
                 }
 
                 if (opts.startDate && opts.endDate && opts.repick && opts.repickTrigger === opts.field) {
-                    target.classList.add('start-date');
+                    target.classList.add('is-start-date');
                 }
                 else {
-                    target.classList.add('end-date');
+                    target.classList.add('is-end-date');
                 }
             }
         };
@@ -514,10 +514,10 @@
                 return;
             }
 
-            if (target.classList.contains('lightpick-select-month')) {
+            if (target.classList.contains('is-selected-lightpick-month')) {
                 self.gotoMonth(target.value);
             }
-            else if (target.classList.contains('lightpick-select-year')) {
+            else if (target.classList.contains('is-selected-lightpick-year')) {
                 self.gotoYear(target.value);
             }
         };
@@ -525,7 +525,7 @@
         self._onInputChange = function(e)
         {
             var target = e.target || e.srcElement;
-            
+
             if (self._opts.singleDate) {
                 if (!self._opts.autoclose) {
                     self.gotoDate(opts.field.value);
@@ -549,7 +549,7 @@
         self._onInputClick = function(e)
         {
             var target = e.target || e.srcElement;
-            
+
             self.show(target);
         };
 
@@ -564,7 +564,7 @@
             }
 
             do {
-                if ((parentEl.classList && parentEl.classList.contains('lightpick-container')) || parentEl === opts.field || (opts.secondField && parentEl === opts.secondField)) {
+                if ((parentEl.classList && parentEl.classList.contains('lightpick')) || parentEl === opts.field || (opts.secondField && parentEl === opts.secondField)) {
                     return;
                 }
             }
@@ -621,7 +621,7 @@
 
             if (opts.secondField && opts.singleDate) {
                 opts.singleDate = false;
-            } 
+            }
 
             if (opts.hoveringTooltip && opts.singleDate) {
                 opts.hoveringTooltip = false;
@@ -829,10 +829,10 @@
                 }
 
                 if (this._opts.secondField && this._opts.secondField === target && this._opts.endDate) {
-                    this.gotoDate(this._opts.endDate); 
+                    this.gotoDate(this._opts.endDate);
                 }
                 else {
-                    this.gotoDate(this._opts.startDate); 
+                    this.gotoDate(this._opts.startDate);
                 }
 
                 document.addEventListener('click', this._onClick);
@@ -845,7 +845,7 @@
                     this._opts.onOpen.call(this);
                 }
             }
-        }, 
+        },
 
         hide: function(){
             if (this.isShowing) {
@@ -855,7 +855,7 @@
 
                 this.el.classList.add('is-hidden');
 
-                this.el.querySelector('.lightpick-tooltip').style.visibility = 'hidden';
+                this.el.querySelector('.lightpick__tooltip').style.visibility = 'hidden';
 
                 if (typeof this._opts.onClose === 'function') {
                     this._opts.onClose.call(this);
