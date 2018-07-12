@@ -479,7 +479,7 @@
                     var tooltip = self.el.querySelector('.lightpick__tooltip');
 
                     if (days > 0 && !target.classList.contains('is-disabled')) {
-                            var hasParentEl = self.el.classList.contains('has-parent-el'),
+                            var hasParentEl = self.el.classList.contains('lightpick--inlined'),
                                 dayBounding = target.getBoundingClientRect(),
                                 pickerBouding = hasParentEl ? self.el.parentNode.getBoundingClientRect() : self.el.getBoundingClientRect(),
                                 _left = (dayBounding.left - pickerBouding.left) + (dayBounding.width / 2),
@@ -704,7 +704,7 @@
         },
 
         updatePosition: function(){
-            if (this.el.classList.contains('has-parent-el')) return;
+            if (this.el.classList.contains('lightpick--inlined')) return;
 
             var rect = this._opts.field.getBoundingClientRect();
 
