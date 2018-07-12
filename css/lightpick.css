@@ -9,6 +9,9 @@
     font-family: system-ui, Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.125em;
 }
+.lightpick.has-parent-el {
+    position: static;
+}
 
 .lightpick,
 .lightpick *,

@@ -1,11 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.0.5] - 2018-07-12
+* new method `reloadOptions` (by Codetaal)
+* fixed bug #5
+
 [1.0.4] - 2018-07-12
 * Improves CSS (by bartvandebiezen)
 
 [1.0.3] - 2018-07-09
-* fixed bug: preventing pick a one-day-range when `minDays` option
+* fixed bug #1: preventing pick a one-day-range when `minDays` option
 
 [1.0.2] - 2018-06-20
 * Added method `toString`
