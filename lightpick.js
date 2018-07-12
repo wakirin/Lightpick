@@ -317,7 +317,7 @@
         self.el.className = 'lightpick lightpick--' + opts.numberOfColumns + '-columns is-hidden';
 
         if (opts.parentEl !== 'body') {
-            self.el.className += ' has-parent-el';
+            self.el.className += ' lightpick--inlined';
         }
 
         self.el.innerHTML = '<div class="lightpick__inner">'
