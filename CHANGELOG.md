@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.0.6] - 2018-07-12
+* Improves styling (by bartvandebiezen)
+
 [1.0.5] - 2018-07-12
 * new method `reloadOptions` (by Codetaal)
 * fixed bug #5
