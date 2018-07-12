@@ -6,6 +6,9 @@
     background-color: #FFF;
     line-height: normal;
 }
+.lightpick.has-parent-el {
+    position: static;
+}
 
 .lightpick,
 .lightpick *,

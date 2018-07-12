@@ -316,6 +316,10 @@
 
         self.el.className = 'lightpick lightpick--' + opts.numberOfColumns + '-columns is-hidden';
 
+        if (opts.parentEl !== 'body') {
+            self.el.className += ' has-parent-el';
+        }
+
         self.el.innerHTML = '<div class="lightpick__inner">'
         + (opts.numberOfMonths > 1 ? renderTopButtons(opts) : '')
         + '<div class="lightpick__months"></div>'
@@ -888,10 +892,7 @@
         },
 
         reloadOptions: function(options) {
-            var opts = this._opts;
-            var newOpts = Object.assign(opts, options);
-
-            this._opts = newOpts;
+            this._opts = Object.assign({}, this._opts, options);
         }
 
     };
