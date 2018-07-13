@@ -80,6 +80,7 @@
         onOpen: null,
         onClose: null,
         hoveringTooltip: true,
+        hideOnBodyClick: true,
         locale: {
             buttons: {
                 prev: '&leftarrow; ',
@@ -575,7 +576,7 @@
             }
             while ((parentEl = parentEl.parentNode));
 
-            if (self.isShowing && opts.autoclose && target !== opts.field && parentEl !== opts.field) {
+            if (self.isShowing && opts.hideOnBodyClick && target !== opts.field && parentEl !== opts.field) {
                 self.hide();
             }
         };
