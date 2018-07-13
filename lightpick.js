@@ -745,7 +745,7 @@
                 if (this._opts.secondField) {
                     this._opts.secondField.value = '';
                 }
-                else if (!this._opts.singleDate) {
+                else if (!this._opts.singleDate && this._opts.startDate) {
                     this._opts.field.value = this._opts.startDate.format(this._opts.format) + this._opts.separator + '...'
                 }
                 return;
