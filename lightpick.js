@@ -780,6 +780,10 @@
             this.setStartDate(start, true);
             this.setEndDate(end, true);
 
+            if (this.isShowing) {
+                updateDates(this.el, this._opts);
+            }
+
             if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
                 this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
             }
