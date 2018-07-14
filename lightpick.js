@@ -879,14 +879,14 @@
             this.el.removeEventListener('touchend', this._onMouseDown, true);
             this.el.removeEventListener('change', this._onChange, true);
 
-            opts.field.removeEventListener('change', self._onInputChange);
-            opts.field.removeEventListener('click', self._onInputClick);
-            opts.field.removeEventListener('focus', self._onInputFocus);
+            opts.field.removeEventListener('change', this._onInputChange);
+            opts.field.removeEventListener('click', this._onInputClick);
+            opts.field.removeEventListener('focus', this._onInputFocus);
 
             if (opts.secondField) {
-                opts.secondField.removeEventListener('change', self._onInputChange);
-                opts.secondField.removeEventListener('click', self._onInputClick);
-                opts.secondField.removeEventListener('focus', self._onInputFocus);
+                opts.secondField.removeEventListener('change', this._onInputChange);
+                opts.secondField.removeEventListener('click', this._onInputClick);
+                opts.secondField.removeEventListener('focus', this._onInputFocus);
             }
 
             if (this.el.parentNode) {
