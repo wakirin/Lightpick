@@ -80,6 +80,7 @@
         onOpen: null,
         onClose: null,
         hoveringTooltip: true,
+        hideOnBodyClick: true,
         locale: {
             buttons: {
                 prev: '&leftarrow; ',
@@ -575,7 +576,7 @@
             }
             while ((parentEl = parentEl.parentNode));
 
-            if (self.isShowing && target !== opts.field && parentEl !== opts.field) {
+            if (self.isShowing && opts.hideOnBodyClick && target !== opts.field && parentEl !== opts.field) {
                 self.hide();
             }
         };
@@ -744,7 +745,7 @@
                 if (this._opts.secondField) {
                     this._opts.secondField.value = '';
                 }
-                else if (!this._opts.singleDate) {
+                else if (!this._opts.singleDate && this._opts.startDate) {
                     this._opts.field.value = this._opts.startDate.format(this._opts.format) + this._opts.separator + '...'
                 }
                 return;
@@ -778,6 +779,10 @@
             }
             this.setStartDate(start, true);
             this.setEndDate(end, true);
+
+            if (this.isShowing) {
+                updateDates(this.el, this._opts);
+            }
 
             if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
                 this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());

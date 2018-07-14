@@ -116,6 +116,12 @@ Choose a single date instead of a date range.
 
 Close calendar when picked date/range.
 
+### hideOnBodyClick
+- Type: `Boolean`
+- Default: `true`
+
+Close calendar when clicked outside the elements specified in `field` or `parentEl`. Recommended use when `autoclose` is set to `false`.
+
 ### repick
 - Type: `Boolean`
 - Default: `false`
