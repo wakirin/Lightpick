@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.0.8] - 2018-07-12
+* new option `hideOnBodyClick` (by ninty9notout)
+* fixed bug #7
+
 [1.0.6] - 2018-07-12
 * Improves styling (by bartvandebiezen)
 
