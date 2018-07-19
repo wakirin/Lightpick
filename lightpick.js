@@ -118,7 +118,7 @@
 
         if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
             extraClass = extraClass.filter( function( el ) {
-                return ['is-start-date', 'is-in-range', 'is-end-date'].indexOf( el ) < 0;
+                return ['is-start-date', 'is-in-range', 'is-end-date', 'is-disabled', 'is-flipped'].indexOf( el ) < 0;
             });
             day.className = day.className.concat(extraClass);
         }
@@ -397,6 +397,9 @@
                         setTimeout(function() {
                             self.hide();
                         }, 100);
+                    }
+                    else {
+                        updateDates(self.el, self._opts);
                     }
                 }
             }
