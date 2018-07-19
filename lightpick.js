@@ -91,20 +91,23 @@
         }
     },
 
-    renderTopButtons = function(opts){
+    renderTopButtons = function(opts, viewMode)
+    {
         return '<div class="lightpick__toolbar">'
             + ''
-            + '<button type="button" class="lightpick__previous-action">' + opts.locale.buttons.prev + '</button>'
-            + '<button type="button" class="lightpick__next-action">' + opts.locale.buttons.next + '</button>'
+            + '<button type="button" class="lightpick__previous-action" data-view-mode="' + viewMode + '">' + opts.locale.buttons.prev + '</button>'
+            + '<button type="button" class="lightpick__next-action" data-view-mode="' + viewMode + '">' + opts.locale.buttons.next + '</button>'
             + (!opts.autoclose ? '<button type="button" class="lightpick__close-action">' + opts.locale.buttons.close + '</button>'  : '')
             + '</div>';
     },
 
-    weekdayName = function(opts, day, short){
+    weekdayName = function(opts, day, short)
+    {
         return new Date(1970, 0, day).toLocaleString(opts.lang, { weekday: short ? 'short' : 'long' })
     },
 
-    renderDay = function(opts, date, dummy, extraClass){
+    renderDay = function(opts, date, dummy, extraClass)
+    {
         if (dummy) return '<div></div>';
 
         var date = moment(date),
@@ -228,7 +231,8 @@
         return div.outerHTML;
     },
 
-    renderCalendar = function(el, opts) {
+    renderCalendar = function(el, opts) 
+    {
         var html = '',
             monthDate = moment(opts.calendar[0]);
 
@@ -240,7 +244,7 @@
             html += '<h1 class="lightpick__month-title">' + day.toDate().toLocaleString(opts.lang, { month: 'long' }) + ' ' + day.format('YYYY')  + '</h1>';
 
             if (opts.numberOfMonths === 1) {
-                html += renderTopButtons(opts);
+                html += renderTopButtons(opts, 'days');
             }
 
             html += '</header>'; // lightpick__month-title-bar
@@ -295,14 +299,37 @@
         el.querySelector('.lightpick__months').innerHTML = html;
     },
 
-    updateDates = function(el, opts){
+    renderMonthsOfYear = function(el, opts)
+    {
+        var yearDate = moment(opts.calendar[0]);
+
+        var html = '<header class="lightpick__month-title-bar">'
+        html += '<h1 class="lightpick__month-title">' + yearDate.format('YYYY') +  '</h1>';
+        html += renderTopButtons(opts, 'months');
+        html += '</header>';
+
+        html += '<div class="lightpick__months-of-year-list">';
+
+        for (var i = 1; i <= 12; i++) {
+            html += '<div class="lightpick__month-of-year" data-goto-month="' + yearDate.format('YYYY') + '-' + i + '">' 
+                 + moment(i, 'M').toDate().toLocaleString(opts.lang, { month: 'long' }) 
+                 + '</div>';
+        }
+        html += '</div>';
+
+        el.querySelector('.lightpick__months-of-year').innerHTML = html;
+    },
+
+    updateDates = function(el, opts)
+    {
         var days = el.querySelectorAll('.lightpick__day');
         [].forEach.call(days, function(day) {
             day.outerHTML = renderDay(opts, parseInt(day.getAttribute('data-time')), false, day.className.split(' '));
         });
     },
 
-    plural = function(value, arr) {
+    plural = function(value, arr) 
+    {
         return value % 10 == 1 && value % 100 != 11
         ? arr[0]
         : (value % 10 >= 2 && value % 10 <= 4 && (value % 100 < 10 || value % 100 >= 20 ) ? arr[1] : (arr[2] || arr[1]));
@@ -322,9 +349,10 @@
         }
 
         self.el.innerHTML = '<div class="lightpick__inner">'
-        + (opts.numberOfMonths > 1 ? renderTopButtons(opts) : '')
+        + (opts.numberOfMonths > 1 ? renderTopButtons(opts, 'days') : '')
         + '<div class="lightpick__months"></div>'
         + '<div class="lightpick__tooltip" style="visibility: hidden"></div>'
+        + '<div class="lightpick__months-of-year"></div>'
         + '</div>';
 
         document.querySelector(opts.parentEl).appendChild(self.el);
@@ -404,13 +432,49 @@
                 }
             }
             else if (target.classList.contains('lightpick__previous-action')) {
-                self.prevMonth();
+                if (target.hasAttribute('data-view-mode')) {
+                    var viewMode = target.getAttribute('data-view-mode');
+
+                    switch (viewMode) {
+                        case 'days':
+                            self.prevMonth();
+                        break;
+
+                        case 'months':
+                            self.prevYear();
+                        break;
+                    }
+                }
             }
             else if (target.classList.contains('lightpick__next-action')) {
-                self.nextMonth();
+                if (target.hasAttribute('data-view-mode')) {
+                    var viewMode = target.getAttribute('data-view-mode');
+
+                    switch (viewMode) {
+                        case 'days':
+                            self.nextMonth();
+                        break;
+
+                        case 'months':
+                            self.nextYear();
+                        break;
+                    }
+                }
             }
             else if (target.classList.contains('lightpick__close-action')) {
                 self.hide();
+            }
+            else if (target.classList.contains('lightpick__month-title')) {
+                self.el.querySelector('.lightpick__months').innerHTML = '';
+                renderMonthsOfYear(self.el, self._opts);
+            }
+            else if (target.hasAttribute('data-goto-month')) {
+                var month = moment(target.getAttribute('data-goto-month'), 'YYYY-M');
+                if (month.isValid()) {
+                    self.gotoDate(month);
+
+                    self.el.querySelector('.lightpick__months-of-year').innerHTML = '';
+                }
             }
 
         };
@@ -660,7 +724,8 @@
             return opts;
         },
 
-        swapDate: function(){
+        swapDate: function()
+        {
             var tmp = moment(this._opts.startDate);
             this.setDateRange(this._opts.endDate, tmp);
         },
@@ -685,7 +750,8 @@
             renderCalendar(this.el, this._opts);
         },
 
-        gotoMonth: function(month) {
+        gotoMonth: function(month) 
+        {
             if (isNaN(month)) {
                 return;
             }
@@ -695,19 +761,36 @@
             renderCalendar(this.el, this._opts);
         },
 
-        prevMonth: function(){
+        prevMonth: function()
+        {
             this._opts.calendar[0] = moment(this._opts.calendar[0]).subtract(this._opts.numberOfMonths, 'month');
 
             renderCalendar(this.el, this._opts);
         },
 
-        nextMonth: function(){
+        nextMonth: function()
+        {
             this._opts.calendar[0] = moment(this._opts.calendar[1]);
 
             renderCalendar(this.el, this._opts);
         },
 
-        updatePosition: function(){
+        prevYear: function()
+        {
+            this._opts.calendar[0] = moment(this._opts.calendar[0]).subtract(this._opts.numberOfMonths, 'year');
+
+            renderMonthsOfYear(this.el, this._opts);
+        },
+
+        nextYear: function()
+        {
+            this._opts.calendar[0] = moment(this._opts.calendar[0]).add(1, 'year');
+
+            renderMonthsOfYear(this.el, this._opts);
+        },
+
+        updatePosition: function()
+        {
             if (this.el.classList.contains('lightpick--inlined')) return;
 
             var rect = this._opts.field.getBoundingClientRect();
@@ -716,7 +799,8 @@
             this.el.style.left = (rect.left + window.pageXOffset) + 'px';
         },
 
-        setStartDate: function(date, preventOnSelect){
+        setStartDate: function(date, preventOnSelect)
+        {
             var date = moment(date);
 
             if (!date.isValid()) {
@@ -739,7 +823,8 @@
             }
         },
 
-        setEndDate: function(date, preventOnSelect){
+        setEndDate: function(date, preventOnSelect)
+        {
             var date = moment(date);
 
             if (!date.isValid()) {
@@ -769,14 +854,16 @@
             }
         },
 
-        setDate: function(date){
+        setDate: function(date)
+        {
             if (!this._opts.singleDate) {
                 return;
             }
             this.setStartDate(date, true);
         },
 
-        setDateRange: function(start, end, preventOnSelect){
+        setDateRange: function(start, end, preventOnSelect)
+        {
             if (this._opts.singleDate) {
                 return;
             }
@@ -792,7 +879,8 @@
             }
         },
 
-        setDisableDates: function(dates){
+        setDisableDates: function(dates)
+        {
             this._opts.disableDates = dates;
 
             if (this.isShowing) {
@@ -815,7 +903,8 @@
             return moment(this._opts.startDate).isValid() ? this._opts.startDate : null;
         },
 
-        toString: function(format){
+        toString: function(format)
+        {
             if (this._opts.singleDate) {
                 return moment(this._opts.startDate).isValid() ? this._opts.startDate.format(format) : '';
             }
@@ -835,7 +924,8 @@
             return '';
         },
 
-        show: function(target){
+        show: function(target)
+        {
             if (!this.isShowing) {
                 this.isShowing = true;
 
@@ -859,10 +949,15 @@
                 if (typeof this._opts.onOpen === 'function') {
                     this._opts.onOpen.call(this);
                 }
+
+                if (document.activeElement != document.body) {
+                    document.activeElement.blur();
+                }
             }
         },
 
-        hide: function(){
+        hide: function()
+        {
             if (this.isShowing) {
                 this.isShowing = false;
 
@@ -902,7 +997,8 @@
             }
         },
 
-        reloadOptions: function(options) {
+        reloadOptions: function(options)
+        {
             this._opts = Object.assign({}, this._opts, options);
         }
 

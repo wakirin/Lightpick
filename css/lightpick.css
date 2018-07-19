@@ -68,6 +68,12 @@
     font-size: 16px;
     font-weight: bold;
     line-height: 24px;
+    cursor: default;
+    padding: 0 4px;
+    border-radius: 4px;
+}
+.lightpick__month-title:hover {
+    background-color: #EEE;
 }
 
 .lightpick__toolbar {
@@ -226,6 +232,28 @@
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
     content: '';
+}
+
+.lightpick__months-of-year {
+    padding: 4px;
+    width: 288px;
+    background-color: #FFF;
+}
+.lightpick__months-of-year-list {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 8px;
+}
+.lightpick__month-of-year {
+    padding: 15px 0;
+    text-align: center;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    cursor: default;
+}
+.lightpick__month-of-year:hover {
+    background-color: #E0E0E0;
+    background-image: none;
 }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
