@@ -82,8 +82,8 @@
         hoveringTooltip: true,
         locale: {
             buttons: {
-                prev: '&leftarrow; ',
-                next: '&rightarrow; ',
+                prev: '&leftarrow;',
+                next: '&rightarrow;',
                 close: '&times;',
             },
             tooltip: ['day', 'days'],
@@ -236,7 +236,7 @@
 
             html += '<section class="lightpick__month">';
             html += '<header class="lightpick__month-title-bar">'
-            html += '<h1 class="lightpick__month-title">' + day.toDate().toLocaleString(opts.lang, { month: 'long' }) + ' ' + day.format('YYYY')  + '</h1>';
+            html += '<h1 class="lightpick__month-title">' + '<b class="lightpick__month-title-accent">' + day.toDate().toLocaleString(opts.lang, { month: 'long' }) + '</b> ' + day.format('YYYY')  + '</h1>';
 
             if (opts.numberOfMonths === 1) {
                 html += renderTopButtons(opts);
