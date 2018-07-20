@@ -6,7 +6,7 @@
     "element-case": "lower",
     "eof-newline": true,
     "leading-zero": true,
-    "quotes": "single",
+    "quotes": "double",
     "remove-empty-rulesets": false,
     "space-before-colon": 0,
     "space-after-colon": 1,
