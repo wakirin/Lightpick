@@ -241,7 +241,7 @@
 
             html += '<section class="lightpick__month">';
             html += '<header class="lightpick__month-title-bar">'
-            html += '<h1 class="lightpick__month-title">' + day.toDate().toLocaleString(opts.lang, { month: 'long' }) + ' ' + day.format('YYYY')  + '</h1>';
+            html += '<h1 class="lightpick__month-title" data-ym="' + day.format('YYYY-MM') + '">' + day.toDate().toLocaleString(opts.lang, { month: 'long' }) + ' ' + day.format('YYYY')  + '</h1>';
 
             if (opts.numberOfMonths === 1) {
                 html += renderTopButtons(opts, 'days');
@@ -299,25 +299,29 @@
         el.querySelector('.lightpick__months').innerHTML = html;
     },
 
-    renderMonthsOfYear = function(el, opts)
+    renderMonthsOfYear = function(el, opts, date)
     {
-        var yearDate = moment(opts.calendar[0]);
+        if (date) {
+            opts.calendar[0] = moment(date);
+        }
+        var ym = moment(opts.calendar[0]);
 
         var html = '<header class="lightpick__month-title-bar">'
-        html += '<h1 class="lightpick__month-title">' + yearDate.format('YYYY') +  '</h1>';
+        html += '<h1 class="lightpick__month-title">' + ym.format('YYYY') +  '</h1>';
         html += renderTopButtons(opts, 'months');
         html += '</header>';
 
-        html += '<div class="lightpick__months-of-year-list">';
+        html += '<div class="lightpick__months-of-the-year-list">';
 
         for (var i = 1; i <= 12; i++) {
-            html += '<div class="lightpick__month-of-year" data-goto-month="' + yearDate.format('YYYY') + '-' + i + '">' 
-                 + moment(i, 'M').toDate().toLocaleString(opts.lang, { month: 'long' }) 
+            html += '<div class="lightpick__month-of-the-year" data-goto-month="' + ym.format('YYYY') + '-' + i + '">' 
+                 + '<div>' + moment(i, 'M').toDate().toLocaleString(opts.lang, { month: 'long' }) + '</div>'
+                 + '<div>' + ym.format('YYYY') + '</div>' 
                  + '</div>';
         }
         html += '</div>';
 
-        el.querySelector('.lightpick__months-of-year').innerHTML = html;
+        el.querySelector('.lightpick__months-of-the-year').innerHTML = html;
     },
 
     updateDates = function(el, opts)
@@ -352,7 +356,7 @@
         + (opts.numberOfMonths > 1 ? renderTopButtons(opts, 'days') : '')
         + '<div class="lightpick__months"></div>'
         + '<div class="lightpick__tooltip" style="visibility: hidden"></div>'
-        + '<div class="lightpick__months-of-year"></div>'
+        + '<div class="lightpick__months-of-the-year"></div>'
         + '</div>';
 
         document.querySelector(opts.parentEl).appendChild(self.el);
@@ -465,15 +469,27 @@
                 self.hide();
             }
             else if (target.classList.contains('lightpick__month-title')) {
-                self.el.querySelector('.lightpick__months').innerHTML = '';
-                renderMonthsOfYear(self.el, self._opts);
+                if (target.hasAttribute('data-ym')) {
+                    var _toolbar = self.el.querySelector('.lightpick__inner > .lightpick__toolbar');
+                    if (_toolbar) {
+                        _toolbar.style.display = 'none';
+                    }
+
+                    self.el.querySelector('.lightpick__months').innerHTML = '';
+                    renderMonthsOfYear(self.el, self._opts, target.getAttribute('data-ym'));
+                }
             }
             else if (target.hasAttribute('data-goto-month')) {
                 var month = moment(target.getAttribute('data-goto-month'), 'YYYY-M');
                 if (month.isValid()) {
                     self.gotoDate(month);
 
-                    self.el.querySelector('.lightpick__months-of-year').innerHTML = '';
+                    self.el.querySelector('.lightpick__months-of-the-year').innerHTML = '';
+
+                    var _toolbar = self.el.querySelector('.lightpick__inner > .lightpick__toolbar');
+                    if (_toolbar) {
+                        _toolbar.style.display = 'flex';
+                    }
                 }
             }
 
@@ -777,7 +793,7 @@
 
         prevYear: function()
         {
-            this._opts.calendar[0] = moment(this._opts.calendar[0]).subtract(this._opts.numberOfMonths, 'year');
+            this._opts.calendar[0] = moment(this._opts.calendar[0]).subtract(1, 'year');
 
             renderMonthsOfYear(this.el, this._opts);
         },

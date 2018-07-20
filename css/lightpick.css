@@ -72,7 +72,7 @@
     padding: 0 4px;
     border-radius: 4px;
 }
-.lightpick__month-title:hover {
+.lightpick__month .lightpick__month-title:hover {
     background-color: #EEE;
 }
 
@@ -234,24 +234,36 @@
     content: '';
 }
 
-.lightpick__months-of-year {
+.lightpick__months-of-the-year {
     padding: 4px;
-    width: 288px;
     background-color: #FFF;
 }
-.lightpick__months-of-year-list {
+.lightpick__months-of-the-year-list {
     display: grid;
     grid-template-columns: auto auto auto;
     grid-gap: 8px;
 }
-.lightpick__month-of-year {
-    padding: 15px 0;
+.lightpick__month-of-the-year {
+    padding: 0 10px;
     text-align: center;
-    border: 1px solid #eee;
-    border-radius: 5px;
+    border-radius: 3px;
+    box-shadow: inset -1px -1px 1px 1px #E0E0E0;
     cursor: default;
+    display: flex;
+    flex-direction: column;
 }
-.lightpick__month-of-year:hover {
+.lightpick__month-of-the-year > div:first-child {
+    padding: 10px 0 2px 0;
+    font-size: .9em;
+    pointer-events: none;
+}
+.lightpick__month-of-the-year > div:last-child {
+    font-size: .7em;
+    color: #bbb;
+    padding: 2px 0 10px 0;
+    pointer-events: none;
+}
+.lightpick__month-of-the-year:hover {
     background-color: #E0E0E0;
     background-image: none;
 }
