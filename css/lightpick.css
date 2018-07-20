@@ -137,6 +137,7 @@
     font-size: 13px;
     justify-content: center;
     align-items: center;
+    cursor: default;
 }
 
 .lightpick__day.is-today {
