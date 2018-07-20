@@ -7,7 +7,7 @@ Lightpick
 
 Javascript date range picker - lightweight, no jQuery
 -----------------------------------------------------
-![screenshot](https://wakirin.github.io/lightpick.gif?v=20180622)
+![screenshot](https://wakirin.github.io/Lightpick_new_style.gif)
 
 ## [Demo & Docs](https://wakirin.github.io/Lightpick)
 
@@ -115,6 +115,12 @@ Choose a single date instead of a date range.
 - Default: `true`
 
 Close calendar when picked date/range.
+
+### hideOnBodyClick
+- Type: `Boolean`
+- Default: `true`
+
+Close calendar when clicked outside the elements specified in `field` or `parentEl`. Recommended use when `autoclose` is set to `false`.
 
 ### repick
 - Type: `Boolean`

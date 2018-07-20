@@ -161,6 +161,10 @@
     opacity: 0.38;
 }
 
+.lightpick__day.lightpick__day.is-in-range:not(.is-disabled) {
+    opacity: 1;
+}
+
 .lightpick__day.is-in-range {
     border-radius: 0;
     background-color: rgba(38, 139, 210, 0.1);

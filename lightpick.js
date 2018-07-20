@@ -80,6 +80,7 @@
         onOpen: null,
         onClose: null,
         hoveringTooltip: true,
+        hideOnBodyClick: true,
         locale: {
             buttons: {
                 prev: '&leftarrow;',
@@ -117,7 +118,7 @@
 
         if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
             extraClass = extraClass.filter( function( el ) {
-                return ['is-start-date', 'is-in-range', 'is-end-date'].indexOf( el ) < 0;
+                return ['is-start-date', 'is-in-range', 'is-end-date', 'is-disabled', 'is-flipped'].indexOf( el ) < 0;
             });
             day.className = day.className.concat(extraClass);
         }
@@ -397,6 +398,9 @@
                             self.hide();
                         }, 100);
                     }
+                    else {
+                        updateDates(self.el, self._opts);
+                    }
                 }
             }
             else if (target.classList.contains('lightpick__previous-action')) {
@@ -575,7 +579,7 @@
             }
             while ((parentEl = parentEl.parentNode));
 
-            if (self.isShowing && target !== opts.field && parentEl !== opts.field) {
+            if (self.isShowing && opts.hideOnBodyClick && target !== opts.field && parentEl !== opts.field) {
                 self.hide();
             }
         };
@@ -744,7 +748,7 @@
                 if (this._opts.secondField) {
                     this._opts.secondField.value = '';
                 }
-                else if (!this._opts.singleDate) {
+                else if (!this._opts.singleDate && this._opts.startDate) {
                     this._opts.field.value = this._opts.startDate.format(this._opts.format) + this._opts.separator + '...'
                 }
                 return;
@@ -778,6 +782,10 @@
             }
             this.setStartDate(start, true);
             this.setEndDate(end, true);
+
+            if (this.isShowing) {
+                updateDates(this.el, this._opts);
+            }
 
             if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
                 this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
@@ -879,14 +887,14 @@
             this.el.removeEventListener('touchend', this._onMouseDown, true);
             this.el.removeEventListener('change', this._onChange, true);
 
-            opts.field.removeEventListener('change', self._onInputChange);
-            opts.field.removeEventListener('click', self._onInputClick);
-            opts.field.removeEventListener('focus', self._onInputFocus);
+            opts.field.removeEventListener('change', this._onInputChange);
+            opts.field.removeEventListener('click', this._onInputClick);
+            opts.field.removeEventListener('focus', this._onInputFocus);
 
             if (opts.secondField) {
-                opts.secondField.removeEventListener('change', self._onInputChange);
-                opts.secondField.removeEventListener('click', self._onInputClick);
-                opts.secondField.removeEventListener('focus', self._onInputFocus);
+                opts.secondField.removeEventListener('change', this._onInputChange);
+                opts.secondField.removeEventListener('click', this._onInputClick);
+                opts.secondField.removeEventListener('focus', this._onInputFocus);
             }
 
             if (this.el.parentNode) {
