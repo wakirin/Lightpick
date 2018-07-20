@@ -45,10 +45,12 @@ window.onload = function () {
         'https://gist.github.com/wakirin/8fdf443726f097326d927e0e85dbc5dd.json?callback=callbackJson',
         'https://gist.github.com/wakirin/a10bbe7a2d22d1c285cd4763e4a5de80.json?callback=callbackJson',
     ];
-
-    gists.forEach(function(entry, key){
-        script(entry);
-    });
+    
+    if (!window.location.href.startsWith('file')) {
+        gists.forEach(function(entry, key){
+            script(entry);
+        });
+    }
 };
 
 // demo-1
