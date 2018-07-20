@@ -267,24 +267,3 @@
     background-color: #E0E0E0;
     background-image: none;
 }
-
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-    .lightpick__days-of-the-week {
-        display: flex;
-        justify-content: flex-start;
-    }
-
-    .lightpick__day-of-the-week {
-        width: 40px;
-    }
-
-    .lightpick .days {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: flex-start;
-    }
-
-    .lightpick .day {
-        width: 40px;
-    }
-}

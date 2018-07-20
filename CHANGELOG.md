@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.1.0] - 2018-07-20
+* drop support IE
+* now header (month name) is clickable for fast change month
+
 [1.0.9] - 2018-07-19
 * fixed bug #9
 
