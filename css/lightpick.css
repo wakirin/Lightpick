@@ -281,3 +281,43 @@
     background-color: #E0E0E0;
     background-image: none;
 }
+
+.lightpick.lightpick--1-columns .lightpick__toolbar {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.lightpick--adaptive {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+}
+
+.lightpick--adaptive .lightpick__month {
+    width: 100%;
+}
+
+.lightpick__backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    opacity: .4;
+}
+
+.lightpick--adaptive .lightpick__day.is-start-date.is-in-range,
+.lightpick--adaptive .lightpick__day.is-end-date.is-in-range.is-flipped {
+    border-top-left-radius: 15%;
+    border-bottom-left-radius: 15%;
+}
+
+.lightpick--adaptive .lightpick__day.is-end-date.is-in-range,
+.lightpick--adaptive .lightpick__day.is-start-date.is-in-range.is-flipped {
+    border-top-right-radius: 15%;
+    border-bottom-right-radius: 15%;
+}
