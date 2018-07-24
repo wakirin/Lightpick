@@ -309,8 +309,7 @@
 
     updateDates = function(el, opts)
     {
-        var days = el.querySelectorAll('.lightpick__day');
-        [].forEach.call(days, function(day) {
+        [...el.querySelectorAll('.lightpick__day')].forEach(function(day) {
             day.outerHTML = renderDay(opts, parseInt(day.getAttribute('data-time')), false, day.className.split(' '));
         });
     },
@@ -520,8 +519,7 @@
 
                 var startDate = (opts.startDate && !opts.endDate) || (opts.repick && opts.repickTrigger === opts.secondField) ? opts.startDate : opts.endDate;
 
-                var days = self.el.querySelectorAll('.lightpick__day');
-                [].forEach.call(days, function(day) {
+                [...self.el.querySelectorAll('.lightpick__day')].forEach(function(day) {
                     var dt = moment(parseInt(day.getAttribute('data-time')));
 
                     day.classList.remove('is-flipped');
@@ -553,7 +551,7 @@
                 });
 
                 if (opts.hoveringTooltip) {
-                    days = Math.abs(hoverDate.isAfter(startDate) ? hoverDate.diff(startDate, 'day') : startDate.diff(hoverDate, 'day')) + 1;
+                    var days = Math.abs(hoverDate.isAfter(startDate) ? hoverDate.diff(startDate, 'day') : startDate.diff(hoverDate, 'day')) + 1;
 
                     var tooltip = self.el.querySelector('.lightpick__tooltip');
 
