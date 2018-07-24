@@ -308,6 +308,7 @@
     left: 0;
     background-color: #000;
     opacity: .4;
+    z-index: 99990;
 }
 
 .lightpick--adaptive .lightpick__day.is-start-date.is-in-range,

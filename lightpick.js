@@ -767,7 +767,7 @@
     Lightpick.prototype = {
         config: function(options)
         {
-            var opts = Object.assign({}, defaults, options);
+            var opts = {...defaults, ...options};
 
             opts.field = (opts.field && opts.field.nodeName) ? opts.field : null;
 
@@ -800,7 +800,7 @@
             }
 
             if (isObject(options.locale)) {
-                opts.locale = Object.assign({}, defaults.locale, options.locale);
+                opts.locale = {...defaults.locale, ...options.locale};
             }
 
             if (opts.adaptive && isMobile()) {
@@ -818,7 +818,7 @@
                 opts.repick = false;
             }
 
-            this._opts = Object.assign({}, opts);
+            this._opts = {...opts};
 
             if ((opts.startDate || opts.endDate) && typeof opts.onSelect === 'function') {
                 this.setStartDate(opts.startDate, true);
@@ -1088,7 +1088,7 @@
                     this._opts.onClose.call(this);
                 }
 
-                if (this._opts && isMobile()) {
+                if (this._opts.adaptive && isMobile()) {
                     var backdrop = document.querySelector('.lightpick__backdrop');
                     if (backdrop) {
                         backdrop.parentNode.removeChild(backdrop);
@@ -1127,7 +1127,7 @@
 
         reloadOptions: function(options)
         {
-            this._opts = Object.assign({}, this._opts, options);
+            this._opts = {...this._opts, ...options};
         }
 
     };
