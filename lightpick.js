@@ -36,6 +36,11 @@
         numberOfColumns: 2,
         singleDate: true,
         autoclose: true,
+        adaptive: true,
+        animation: {
+            in: ['animated', 'slideInUp'],
+            out: ['animated', 'slideOutDown']
+        },
         repick: false,
         startDate: null,
         endDate: null,
@@ -61,13 +66,22 @@
         }
     },
 
+    isArray = function(item)
+    {
+        return item instanceof Array || Object.prototype.toString.call(item) === '[object Array]';
+    },
+    
+    isObject = function(item) {
+        return item instanceof Object || Object.prototype.toString.call(item) === '[object Object]';
+    },
+
     renderTopButtons = function(opts, viewMode)
     {
         return '<div class="lightpick__toolbar">'
             + ''
             + '<button type="button" class="lightpick__previous-action" data-view-mode="' + viewMode + '">' + opts.locale.buttons.prev + '</button>'
             + '<button type="button" class="lightpick__next-action" data-view-mode="' + viewMode + '">' + opts.locale.buttons.next + '</button>'
-            + (!opts.autoclose ? '<button type="button" class="lightpick__close-action">' + opts.locale.buttons.close + '</button>'  : '')
+            + (!opts.autoclose || (opts.adaptive && isMobile()) ? '<button type="button" class="lightpick__close-action">' + opts.locale.buttons.close + '</button>'  : '')
             + '</div>';
     },
 
@@ -89,7 +103,7 @@
             className: ['lightpick__day', 'is-available']
         };
 
-        if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
+        if (isArray(extraClass)) {
             extraClass = extraClass.filter( function( el ) {
                 return ['is-start-date', 'is-in-range', 'is-end-date', 'is-disabled', 'is-flipped'].indexOf( el ) < 0;
             });
@@ -160,7 +174,7 @@
 
         if (opts.disableDates) {
             for (var i = 0; i < opts.disableDates.length; i++) {
-                if (opts.disableDates[i] instanceof Array || Object.prototype.toString.call(opts.disableDates[i]) === '[object Array]') {
+                if (isArray(opts.disableDates[i])) {
                     if (moment(opts.disableDates[i][0]).isValid()
                         && moment(opts.disableDates[i][1]).isValid()
                         && date.isBetween(moment(opts.disableDates[i][0]), moment(opts.disableDates[i][1]), 'day', '[]')){
@@ -215,10 +229,6 @@
             + '<b class="lightpick__month-title-accent">' + day.toDate().toLocaleString(opts.lang, { month: 'long' }) + '</b> ' 
             + day.format('YYYY')  
             + '</h1>';
-
-            if (opts.numberOfMonths === 1) {
-                html += renderTopButtons(opts, 'days');
-            }
 
             html += '</header>'; // lightpick__month-title-bar
 
@@ -299,8 +309,7 @@
 
     updateDates = function(el, opts)
     {
-        var days = el.querySelectorAll('.lightpick__day');
-        [].forEach.call(days, function(day) {
+        [...el.querySelectorAll('.lightpick__day')].forEach(function(day) {
             day.outerHTML = renderDay(opts, parseInt(day.getAttribute('data-time')), false, day.className.split(' '));
         });
     },
@@ -310,6 +319,14 @@
         return value % 10 == 1 && value % 100 != 11
         ? arr[0]
         : (value % 10 >= 2 && value % 10 <= 4 && (value % 100 < 10 || value % 100 >= 20 ) ? arr[1] : (arr[2] || arr[1]));
+    },
+
+    isMobile = function()
+    {
+        // http://detectmobilebrowsers.com/
+        var check = false;
+        (function(a,b){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4)))  check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+        return check;
     },
 
     Lightpick = function(options)
@@ -325,8 +342,12 @@
             self.el.className += ' lightpick--inlined';
         }
 
+        if (opts.adaptive && isMobile()) {
+            self.el.className += ' lightpick--adaptive';
+        }
+
         self.el.innerHTML = '<div class="lightpick__inner">'
-        + (opts.numberOfMonths > 1 ? renderTopButtons(opts, 'days') : '')
+        + renderTopButtons(opts, 'days')
         + '<div class="lightpick__months"></div>'
         + '<div class="lightpick__tooltip" style="visibility: hidden"></div>'
         + '<div class="lightpick__months-of-the-year"></div>'
@@ -498,8 +519,7 @@
 
                 var startDate = (opts.startDate && !opts.endDate) || (opts.repick && opts.repickTrigger === opts.secondField) ? opts.startDate : opts.endDate;
 
-                var days = self.el.querySelectorAll('.lightpick__day');
-                [].forEach.call(days, function(day) {
+                [...self.el.querySelectorAll('.lightpick__day')].forEach(function(day) {
                     var dt = moment(parseInt(day.getAttribute('data-time')));
 
                     day.classList.remove('is-flipped');
@@ -531,7 +551,7 @@
                 });
 
                 if (opts.hoveringTooltip) {
-                    days = Math.abs(hoverDate.isAfter(startDate) ? hoverDate.diff(startDate, 'day') : startDate.diff(hoverDate, 'day')) + 1;
+                    var days = Math.abs(hoverDate.isAfter(startDate) ? hoverDate.diff(startDate, 'day') : startDate.diff(hoverDate, 'day')) + 1;
 
                     var tooltip = self.el.querySelector('.lightpick__tooltip');
 
@@ -636,6 +656,90 @@
                 self.hide();
             }
         };
+        
+        self.animationIn = function()
+        {
+            if (!opts.adaptive || !isMobile()) return;
+
+            var _animationIn = opts.animation.in,
+                _animationOut = opts.animation.out;
+
+            if (_animationOut) {
+                self.el.classList.remove(..._animationOut);
+            }
+
+            if (_animationIn) {
+                self.el.classList.add(..._animationIn);
+            }
+        },
+
+        self.animationOut = function()
+        {
+            if (!opts.adaptive || !isMobile()) {
+                self.el.classList.add('is-hidden');
+                return;
+            }
+
+            var _animationIn = opts.animation.in,
+                _animationOut = opts.animation.out;
+
+            if (_animationIn) {
+                self.el.classList.remove(..._animationIn);
+            }
+
+            if (_animationOut) {
+                self.el.classList.add(..._animationOut);
+            }
+        },
+
+        self._onResize = function()
+        {
+            self.el.classList.add('is-hidden');
+
+            var _animationIn = opts.animation.in,
+                _animationOut = opts.animation.out,
+                options = {};
+
+            if (_animationIn) {
+                self.el.classList.remove(..._animationIn);
+            }
+
+            if (_animationOut) {
+                self.el.classList.remove(..._animationOut);
+            }
+
+            if (!opts.adaptive || !isMobile()) {
+                self.el.classList.remove('lightpick--adaptive');
+
+                var backdrop = document.querySelector('.lightpick__backdrop');
+                if (backdrop) {
+                    backdrop.parentNode.removeChild(backdrop);
+                }
+                return;
+            }
+            self.el.classList.add('lightpick--adaptive');
+            self.el.removeAttribute('style');
+
+            if (opts.adaptive && isMobile()) {
+                if (window.innerWidth < 500) {
+                    options.numberOfMonths = 1;
+                    options.numberOfColumns = 1;
+
+                    self.el.classList.remove('lightpick--2-columns');
+                    self.el.classList.add('lightpick--1-columns');
+                }
+                else {
+                    options.numberOfMonths = 2;
+                    options.numberOfColumns = 2;
+
+                    self.el.classList.remove('lightpick--1-columns');
+                    self.el.classList.add('lightpick--2-columns');
+                }
+            }
+
+            self.reloadOptions(options);
+            self.hide();
+        };
 
         self.el.addEventListener('mousedown', self._onMouseDown, true);
         self.el.addEventListener('mouseenter', self._onMouseEnter, true);
@@ -652,12 +756,16 @@
             opts.secondField.addEventListener('click', self._onInputClick);
             opts.secondField.addEventListener('focus', self._onInputFocus);
         }
+
+        if (opts.adaptive || isMobile()){
+            window.addEventListener('resize', self._onResize);
+        }
     };
 
     Lightpick.prototype = {
         config: function(options)
         {
-            var opts = Object.assign({}, defaults, options);
+            var opts = {...defaults, ...options};
 
             opts.field = (opts.field && opts.field.nodeName) ? opts.field : null;
 
@@ -689,20 +797,26 @@
                 opts.hoveringTooltip = false;
             }
 
-            if (Object.prototype.toString.call(options.locale) === '[object Object]') {
-                opts.locale = Object.assign({}, defaults.locale, options.locale);
+            if (isObject(options.locale)) {
+                opts.locale = {...defaults.locale, ...options.locale};
             }
 
-            if (window.innerWidth < 480 && opts.numberOfMonths > 1) {
-                opts.numberOfMonths = 1;
-                opts.numberOfColumns = 1;
+            if (opts.adaptive && isMobile()) {
+                if (window.innerWidth < 600) {
+                    opts.numberOfMonths = 1;
+                    opts.numberOfColumns = 1;
+                }
+                else {
+                    opts.numberOfMonths = 2;
+                    opts.numberOfColumns = 2;
+                }
             }
 
             if (opts.repick && !opts.secondField) {
                 opts.repick = false;
             }
 
-            this._opts = Object.assign({}, opts);
+            this._opts = {...opts};
 
             this.setStartDate(opts.startDate, true);
             this.setEndDate(opts.endDate, true);
@@ -775,9 +889,11 @@
             renderMonthsOfYear(this.el, this._opts);
         },
 
-        updatePosition: function()
+        updatePosition: function(opts)
         {
             if (this.el.classList.contains('lightpick--inlined')) return;
+
+            if (opts.adaptive && isMobile()) return;
 
             var rect = this._opts.field.getBoundingClientRect();
 
@@ -928,9 +1044,11 @@
 
                 document.addEventListener('click', this._onClick);
 
-                this.updatePosition();
+                this.updatePosition(this._opts);
 
                 this.el.classList.remove('is-hidden');
+
+                this.animationIn();
 
                 if (typeof this._opts.onOpen === 'function') {
                     this._opts.onOpen.call(this);
@@ -940,6 +1058,12 @@
 
                 if (document.activeElement && document.activeElement != document.body) {
                     document.activeElement.blur();
+                }
+
+                if (this._opts.adaptive && isMobile()) {
+                    var backdrop = document.createElement('div');
+                    backdrop.className = 'lightpick__backdrop';
+                    document.body.appendChild(backdrop);
                 }
             }
         },
@@ -951,12 +1075,19 @@
 
                 document.removeEventListener('click', this._onClick);
 
-                this.el.classList.add('is-hidden');
+                this.animationOut();
 
                 this.el.querySelector('.lightpick__tooltip').style.visibility = 'hidden';
 
                 if (typeof this._opts.onClose === 'function') {
                     this._opts.onClose.call(this);
+                }
+
+                if (this._opts.adaptive && isMobile()) {
+                    var backdrop = document.querySelector('.lightpick__backdrop');
+                    if (backdrop) {
+                        backdrop.parentNode.removeChild(backdrop);
+                    }
                 }
             }
         },
@@ -983,11 +1114,15 @@
             if (this.el.parentNode) {
                 this.el.parentNode.removeChild(this.el);
             }
+
+            if (opts.adaptive || isMobile()){
+                window.removeEventListener('resize', this._onResize);
+            }
         },
 
         reloadOptions: function(options)
         {
-            this._opts = Object.assign({}, this._opts, options);
+            this._opts = {...this._opts, ...options};
         }
 
     };
