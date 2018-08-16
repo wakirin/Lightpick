@@ -704,11 +704,8 @@
 
             this._opts = Object.assign({}, opts);
 
-            if ((opts.startDate || opts.endDate) && typeof opts.onSelect === 'function') {
-                this.setStartDate(opts.startDate, true);
-                this.setEndDate(opts.endDate, true);
-                opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
-            }
+            this.setStartDate(opts.startDate, true);
+            this.setEndDate(opts.endDate, true);
 
             return opts;
         },
