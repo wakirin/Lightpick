@@ -281,3 +281,21 @@
     background-color: #E0E0E0;
     background-image: none;
 }
+.lightpick__footer {
+    display: flex;
+    justify-content: space-between;
+}
+.lightpick__reset-action,
+.lightpick__apply-action {
+    border-radius: 5px;
+    font-size: 12px;
+    border: none;
+}
+.lightpick__reset-action {
+    color: #fff;
+    background-color: #aeacad;
+}
+.lightpick__apply-action {
+    color: #fff;
+    background-color: #2495f3;
+}

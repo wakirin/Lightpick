@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.1.2] - 2018-08-22
+* new option: footer
+
+[1.1.1] - 2018-08-16
+* fixed bug #15
+
 [1.1.0] - 2018-07-20
 * drop support IE
 * now header (month name) is clickable for fast change month

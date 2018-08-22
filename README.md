@@ -170,9 +170,15 @@ The minimum days of the selected range.
 
 The maximum days of the selected range.
 
+### footer
+- Type: `Boolean|String`
+- Default: `false`
+
+Footer calendar, if set to `true` will use default footer (Reset/Apply buttons) or custom string (html).
+
 ### locale
 - Type: `Object`
-- Default: `{ buttons: { prev: '<', next: '>', close: '×'}, tooltip: ['day', 'days'] }`
+- Default: `{ buttons: { prev: '<', next: '>', close: '×', reset: 'Reset', apply: 'Apply'}, tooltip: ['day', 'days'] }`
 
 Text for buttons, tooltip.
 

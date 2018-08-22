@@ -51,11 +51,14 @@
         onClose: null,
         hoveringTooltip: true,
         hideOnBodyClick: true,
+        footer: false,
         locale: {
             buttons: {
                 prev: '&leftarrow;',
                 next: '&rightarrow;',
                 close: '&times;',
+                reset: 'Reset',
+                apply: 'Apply',
             },
             tooltip: ['day', 'days'],
         }
@@ -325,12 +328,27 @@
             self.el.className += ' lightpick--inlined';
         }
 
-        self.el.innerHTML = '<div class="lightpick__inner">'
+        var html = '<div class="lightpick__inner">'
         + (opts.numberOfMonths > 1 ? renderTopButtons(opts, 'days') : '')
         + '<div class="lightpick__months"></div>'
         + '<div class="lightpick__tooltip" style="visibility: hidden"></div>'
-        + '<div class="lightpick__months-of-the-year"></div>'
-        + '</div>';
+        + '<div class="lightpick__months-of-the-year"></div>';
+
+        if (opts.footer) {
+            html += '<div class="lightpick__footer">';
+            if (opts.footer === true) {
+                html += '<button type="button" class="lightpick__reset-action">' + opts.locale.buttons.reset + '</button>';
+                html += '<button type="button" class="lightpick__apply-action">' + opts.locale.buttons.apply + '</button>';
+            }
+            else {
+                html += opts.footer;
+            }
+            html += '</div>';
+        }
+
+        html += '</div>';
+
+        self.el.innerHTML = html;
 
         document.querySelector(opts.parentEl).appendChild(self.el);
 
@@ -438,8 +456,11 @@
                     }
                 }
             }
-            else if (target.classList.contains('lightpick__close-action')) {
+            else if (target.classList.contains('lightpick__close-action') || target.classList.contains('lightpick__apply-action')) {
                 self.hide();
+            }
+            else if (target.classList.contains('lightpick__reset-action')) {
+                self.reset();
             }
             else if (target.classList.contains('lightpick__month-title')) {
                 if (target.hasAttribute('data-ym')) {
@@ -514,7 +535,7 @@
                     else if (dt.isValid() && dt.isSameOrAfter(hoverDate, 'day') && dt.isSameOrBefore(startDate, 'day')) {
                         day.classList.add('is-in-range');
 
-                        if (opts.repickTrigger !== opts.field) {
+                        if (((opts.startDate && !opts.endDate) || opts.repickTrigger === opts.secondField) && dt.isSameOrBefore(opts.startDate)) {
                             day.classList.add('is-flipped');
                         }
                     }
@@ -982,6 +1003,18 @@
 
             if (this.el.parentNode) {
                 this.el.parentNode.removeChild(this.el);
+            }
+        },
+
+        reset: function()
+        {
+            this.setStartDate(null, true);
+            this.setEndDate(null, true);
+
+            updateDates(this.el, this._opts);
+
+            if (typeof this._opts.onSelect === 'function') {
+                this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
             }
         },
 

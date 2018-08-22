@@ -267,6 +267,21 @@
                             </div>
                         </div>
                     </div>
+
+                    <br>
+
+                    <p class="lead">Options: footer: true</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <p id="result-12">&nbsp;</p>
+                                    <input type="text" id="demo-12" class="form-control form-control-sm"/>
+                                </div>
+                                <div class="col-md-7" id="_gist-12"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="configuration" class="mt-5">
@@ -414,10 +429,17 @@
                     </ul>
                     <p>The maximum days of the selected range.</p>
 
+                    <p class="lead"><code>footer</code></p>
+                    <ul>
+                        <li>Type: <code>Boolean|String</code></li>
+                        <li>Default: <code>false</code></li>
+                    </ul>
+                    <p>Footer calendar, if set to `true` will use default footer (Reset/Apply buttons) or custom string (html).</p>
+
                     <p class="lead"><code>locale</code></p>
                     <ul>
                         <li>Type: <code>Object</code></li>
-                        <li>Default: <code>{ buttons: { prev: '<', next: '>', close: '×'}, tooltip: ['day', 'days'] }</code></li>
+                        <li>Default: <code>{ buttons: { prev: '<', next: '>', close: '×', reset: 'Reset', apply: 'Apply'}, tooltip: ['day', 'days'] }</code></li>
                     </ul>
                     <p>Text for buttons, tooltip.</p>
 

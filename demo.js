@@ -166,3 +166,14 @@ new Lightpick({
         document.getElementById('result-11').innerHTML = rangeText(start, end);
     }
 });
+
+// demo-12
+new Lightpick({
+    field: document.getElementById('demo-12'),
+    singleDate: false,
+    numberOfMonths: 2,
+    footer: true,
+    onSelect: function(start, end){
+        document.getElementById('result-12').innerHTML = rangeText(start, end);
+    }
+});
