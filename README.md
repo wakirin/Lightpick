@@ -176,6 +176,12 @@ The maximum days of the selected range.
 
 Footer calendar, if set to `true` will use default footer (Reset/Apply buttons) or custom string (html).
 
+### disabledDatesInRange
+- Type: `Boolean`
+- Default: `true`
+
+If set to `false` then will reset selected range when disabled dates exists in selected range.
+
 ### locale
 - Type: `Object`
 - Default: `{ buttons: { prev: '<', next: '>', close: '×', reset: 'Reset', apply: 'Apply'}, tooltip: ['day', 'days'] }`

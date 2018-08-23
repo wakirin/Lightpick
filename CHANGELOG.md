@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.2.0] - 2018-08-23
+* new option: disabledDatesInRange
+* new option: tooltipNights
+
 [1.1.2] - 2018-08-22
 * new option: footer
 
