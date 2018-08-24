@@ -163,6 +163,14 @@
     pointer-events: none;
 }
 
+.lightpick__day.is-disabled.is-forward-selected {
+    opacity: 1;
+}
+.lightpick__day.is-disabled.is-forward-selected:not(.is-start-date) {
+    background-color: rgba(38, 139, 210, 0.1);
+    background-image: none;
+}
+
 .lightpick__day.is-previous-month,
 .lightpick__day.is-next-month {
     opacity: 0.38;

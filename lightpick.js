@@ -96,7 +96,7 @@
 
         if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
             extraClass = extraClass.filter( function( el ) {
-                return ['is-start-date', 'is-in-range', 'is-end-date', 'is-disabled', 'is-flipped'].indexOf( el ) < 0;
+                return ['is-start-date', 'is-in-range', 'is-end-date', 'is-disabled', 'is-flipped', 'is-forward-selected'].indexOf( el ) < 0;
             });
             day.className = day.className.concat(extraClass);
         }
@@ -131,10 +131,13 @@
         }
 
         if (opts.minDays && opts.startDate && !opts.endDate) {
-            if (
-                date.isBetween(moment(opts.startDate).subtract(opts.minDays - 1, 'day'), moment(opts.startDate).add(opts.minDays - 1, 'day'), 'day')
-            ) {
+            if (date.isBetween(moment(opts.startDate).subtract(opts.minDays - 1, 'day'), moment(opts.startDate).add(opts.minDays - 1, 'day'), 'day')) {
                 day.className.push('is-disabled');
+
+                if (opts.selectForward && date.isSameOrAfter(opts.startDate)) {
+                    day.className.push('is-forward-selected');
+                    day.className.push('is-in-range');
+                }
             }
         }
 
