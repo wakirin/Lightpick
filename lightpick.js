@@ -49,6 +49,7 @@
         onSelect: null,
         onOpen: null,
         onClose: null,
+        onError: null,
         hoveringTooltip: true,
         hideOnBodyClick: true,
         footer: false,
@@ -322,16 +323,16 @@
             disabledArray = opts.disableDates.map(function(entry){
                 return entry instanceof Array || Object.prototype.toString.call(entry) === '[object Array]' ? entry[0] : entry;
             }),
-            closestPrev = disabledArray.filter(function(d) {
-                return d.isBefore(opts.startDate);
+            closestPrev = moment(disabledArray.filter(function(d) {
+                return moment(d).isBefore(opts.startDate);
             }).sort(function(a,b){
-                return b.isAfter(a);
-            })[0],
-            closestNext = disabledArray.filter(function(d) {
-                return d.isAfter(opts.startDate);
+                return moment(b).isAfter(moment(a));
+            })[0]),
+            closestNext = moment(disabledArray.filter(function(d) {
+                return moment(d).isAfter(opts.startDate);
             }).sort(function(a,b){
-                return a.isAfter(b);
-            })[0];
+                return moment(a).isAfter(moment(b));
+            })[0]);
 
         [].forEach.call(days, function(dayCell) {
             var day = moment(parseInt(dayCell.getAttribute('data-time')));
@@ -501,14 +502,19 @@
                         updateDates(self.el, opts);
 
                         if (opts.footer) {
-                            var footerMessage = self.el.querySelector('.lightpick__footer-message');
-    
-                            if (footerMessage) {
-                                footerMessage.innerHTML = opts.locale.not_allowed_range;
+                            if (typeof self._opts.onError === 'function') {
+                                self._opts.onError.call(self, 'Invalid range');
+                            }
+                            else {
+                                var footerMessage = self.el.querySelector('.lightpick__footer-message');
         
-                                setTimeout(function(){
-                                    footerMessage.innerHTML = '';
-                                }, 3000);
+                                if (footerMessage) {
+                                    footerMessage.innerHTML = opts.locale.not_allowed_range;
+            
+                                    setTimeout(function(){
+                                        footerMessage.innerHTML = '';
+                                    }, 3000);
+                                }
                             }
                         }
                     }

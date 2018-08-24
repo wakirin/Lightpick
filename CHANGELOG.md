@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.2.2] - 2018-08-24
+* new callback: onError
+  Calling when `disabledDatesInRange` is set to `false` and user is select range includes disabled dates.
+* minor bug fixes
+
 [1.2.0] - 2018-08-23
 * new option: disabledDatesInRange
 * new option: tooltipNights
