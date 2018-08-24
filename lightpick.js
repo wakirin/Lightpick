@@ -262,10 +262,12 @@
             var nextMonth = moment(day),
                 nextDays = 7 - nextMonth.isoWeekday() + opts.firstDay;
 
-            for (var d = nextMonth.get('date'); d <= nextDays; d++) {
-                html += renderDay(opts, nextMonth, i < opts.numberOfMonths - 1, 'is-next-month');
+            if (nextDays < 7) {
+                for (var d = nextMonth.get('date'); d <= nextDays; d++) {
+                    html += renderDay(opts, nextMonth, i < opts.numberOfMonths - 1, 'is-next-month');
 
-                nextMonth.add(1, 'day');
+                    nextMonth.add(1, 'day');
+                }
             }
 
             html += '</div>'; // lightpick__days
