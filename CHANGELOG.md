@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.2.4] - 2018-08-26
+* Tooltip on disabled days.
+
 [1.2.3] - 2018-08-24
 * Removed extra `div` days in next month.
 

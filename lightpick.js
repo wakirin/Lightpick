@@ -64,6 +64,7 @@
                 apply: 'Apply',
             },
             tooltip: ['day', 'days'],
+            tooltipOnDisabled: null,
         }
     },
 
@@ -97,7 +98,7 @@
 
         if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
             extraClass = extraClass.filter( function( el ) {
-                return ['is-start-date', 'is-in-range', 'is-end-date', 'is-disabled', 'is-flipped', 'is-forward-selected'].indexOf( el ) < 0;
+                return ['lightpick__day', 'is-available'].indexOf( el ) >= 0;
             });
             day.className = day.className.concat(extraClass);
         }
@@ -120,6 +121,11 @@
                 }
 
                 if (day.className.indexOf('is-disabled') >= 0) {
+
+                    if (opts.locale.tooltipOnDisabled && (!opts.startDate || date.isAfter(opts.startDate) || opts.startDate && opts.endDate)) {
+                        day.className.push('disabled-tooltip');
+                    }
+
                     if (day.className.indexOf('is-start-date') >= 0) {
                         this.setStartDate(null);
                         this.setEndDate(null);
@@ -598,6 +604,14 @@
 
             var opts = self._opts;
 
+            if (target.classList.contains('lightpick__day') && target.classList.contains('disabled-tooltip') && opts.locale.tooltipOnDisabled) {
+                self.showTooltip(target, opts.locale.tooltipOnDisabled);
+                return;
+            }
+            else {
+                self.hideTooltip();
+            }
+
             if (opts.singleDate || (!opts.startDate && !opts.endDate)) {
                 return;
             }
@@ -657,27 +671,10 @@
                     var tooltip = self.el.querySelector('.lightpick__tooltip');
 
                     if (days > 0 && !target.classList.contains('is-disabled')) {
-                            var hasParentEl = self.el.classList.contains('lightpick--inlined'),
-                                dayBounding = target.getBoundingClientRect(),
-                                pickerBouding = hasParentEl ? self.el.parentNode.getBoundingClientRect() : self.el.getBoundingClientRect(),
-                                _left = (dayBounding.left - pickerBouding.left) + (dayBounding.width / 2),
-                                _top = dayBounding.top - pickerBouding.top;
-
-                        tooltip.style.visibility = 'visible';
-                        tooltip.textContent = days + ' ' + plural(days, opts.locale.tooltip);
-
-                        var tooltipBounding = tooltip.getBoundingClientRect();
-
-                        _top -= tooltipBounding.height;
-                        _left -= (tooltipBounding.width / 2);
-
-                        setTimeout(function(){
-                            tooltip.style.top = _top + 'px';
-                            tooltip.style.left = _left + 'px';
-                        }, 10);
+                        self.showTooltip(target, days + ' ' + plural(days, opts.locale.tooltip));
                     }
                     else {
-                        tooltip.style.visibility = 'hidden';
+                        self.hideTooltip();
                     }
                 }
 
@@ -756,6 +753,36 @@
             if (self.isShowing && opts.hideOnBodyClick && target !== opts.field && parentEl !== opts.field) {
                 self.hide();
             }
+        };
+
+        self.showTooltip = function(target, text)
+        {
+            var tooltip = self.el.querySelector('.lightpick__tooltip');
+
+            var hasParentEl = self.el.classList.contains('lightpick--inlined'),
+            dayBounding = target.getBoundingClientRect(),
+            pickerBouding = hasParentEl ? self.el.parentNode.getBoundingClientRect() : self.el.getBoundingClientRect(),
+            _left = (dayBounding.left - pickerBouding.left) + (dayBounding.width / 2),
+            _top = dayBounding.top - pickerBouding.top;
+
+            tooltip.style.visibility = 'visible';
+            tooltip.textContent = text;
+
+            var tooltipBounding = tooltip.getBoundingClientRect();
+
+            _top -= tooltipBounding.height;
+            _left -= (tooltipBounding.width / 2);
+
+            setTimeout(function(){
+                tooltip.style.top = _top + 'px';
+                tooltip.style.left = _left + 'px';
+            }, 10);
+        };
+
+        self.hideTooltip = function()
+        {
+            var tooltip = self.el.querySelector('.lightpick__tooltip');
+            tooltip.style.visibility = 'hidden';
         };
 
         self.el.addEventListener('mousedown', self._onMouseDown, true);
