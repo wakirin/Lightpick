@@ -63,8 +63,19 @@
                 reset: 'Reset',
                 apply: 'Apply',
             },
-            tooltip: ['day', 'days'],
+            tooltip: {
+                one: 'day',
+                other: 'days',
+            },
             tooltipOnDisabled: null,
+            pluralize: function(i, locale){
+                if (typeof i === "string") i = parseInt(i, 10);
+        
+                if (i === 1 && 'one' in locale) return locale.one;
+                if ('other' in locale) return locale.other;
+        
+                return '';
+            }
         }
     },
 
@@ -352,13 +363,6 @@
                 dayCell.classList.add('is-disabled');
             }
         });
-    },
-
-    plural = function(value, arr) 
-    {
-        return value % 10 == 1 && value % 100 != 11
-        ? arr[0]
-        : (value % 10 >= 2 && value % 10 <= 4 && (value % 100 < 10 || value % 100 >= 20 ) ? arr[1] : (arr[2] || arr[1]));
     },
 
     Lightpick = function(options)
@@ -671,7 +675,13 @@
                     var tooltip = self.el.querySelector('.lightpick__tooltip');
 
                     if (days > 0 && !target.classList.contains('is-disabled')) {
-                        self.showTooltip(target, days + ' ' + plural(days, opts.locale.tooltip));
+
+                        var pluralText = '';
+                        if (typeof opts.locale.pluralize === 'function') {
+                            pluralText = opts.locale.pluralize.call(self, days, opts.locale.tooltip);
+                        }
+
+                        self.showTooltip(target, days + ' ' + pluralText);
                     }
                     else {
                         self.hideTooltip();
