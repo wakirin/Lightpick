@@ -67,6 +67,7 @@
                 one: 'day',
                 other: 'days',
             },
+            moment: [],
             tooltipOnDisabled: null,
             pluralize: function(i, locale){
                 if (typeof i === "string") i = parseInt(i, 10);
@@ -91,7 +92,7 @@
 
     weekdayName = function(opts, day, short)
     {
-        return moment(new Date(1970, 0, day)).format(short ? 'ddd' : 'dddd');
+        return moment(new Date(1970, 0, day)).locale(opts.lang).format(short ? 'ddd' : 'dddd');
     },
 
     renderDay = function(opts, date, dummy, extraClass)
@@ -237,7 +238,7 @@
             html += '<section class="lightpick__month">';
             html += '<header class="lightpick__month-title-bar">'
             html += '<h1 class="lightpick__month-title" data-ym="' + day.format('YYYY-MM') + '">'
-            + '<b class="lightpick__month-title-accent">' + day.format('MMMM') + '</b> '
+            + '<b class="lightpick__month-title-accent">' + day.locale(opts.lang).format('MMMM') + '</b> '
             + day.format('YYYY')
             + '</h1>';
 
@@ -315,7 +316,7 @@
 
         for (var i = 1; i <= 12; i++) {
             html += '<div class="lightpick__month-of-the-year" data-goto-month="' + ym.format('YYYY') + '-' + i + '">'
-                 + '<div>' + moment(i, 'M').format('MMMM') + '</div>'
+                 + '<div>' + moment(i, 'M').locale(opts.lang).format('MMMM') + '</div>'
                  + '<div>' + ym.format('YYYY') + '</div>'
                  + '</div>';
         }
@@ -370,7 +371,9 @@
         var self = this,
             opts = self.config(options);
 
-        moment.lang(opts.lang);
+        [].forEach.call(opts.locale.moment, function (locale) {
+            moment.defineLocale(locale.name, locale.config);
+        });
 
         self.el = document.createElement('section');
 
