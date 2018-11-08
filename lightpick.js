@@ -111,7 +111,7 @@
 
         if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
             extraClass = extraClass.filter( function( el ) {
-                return ['lightpick__day', 'is-available'].indexOf( el ) >= 0;
+                return ['lightpick__day', 'is-available', 'is-previous-month', 'is-next-month'].indexOf( el ) >= 0;
             });
             day.className = day.className.concat(extraClass);
         }
