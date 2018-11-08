@@ -40,6 +40,9 @@ Lightpick can be bound to an input field:
 Include Lightpick script to the end of your document:
 
 ```
+<link rel="stylesheet" type="text/css" href="css/lightpick.css">  
+...  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="lightpick.js"></script>  
 <script>  
 var picker = new Lightpick({ field: document.getElementById('datepicker') });  
@@ -187,6 +190,12 @@ If set to `false` then will reset selected range when disabled dates exists in s
 - Default: `{ buttons: { prev: '<', next: '>', close: '×', reset: 'Reset', apply: 'Apply'}, tooltip: ['day', 'days'] }`
 
 Text for buttons, tooltip.
+
+### orientation
+- Type: `String`
+- Default: `auto`
+
+A space-separated string consisting of one or two of “left” or “right”, “top” or “bottom”, and “auto” (may be omitted); for example, “top left”, “bottom” (horizontal orientation will default to “auto”), “right” (vertical orientation will default to “auto”), “auto top”. 
 
 ### onSelect
 - Type: `Function`

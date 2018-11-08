@@ -55,6 +55,7 @@
         footer: false,
         disabledDatesInRange: true,
         tooltipNights: false,
+        orientation: 'auto',
         locale: {
             buttons: {
                 prev: '&leftarrow;',
@@ -941,10 +942,56 @@
         {
             if (this.el.classList.contains('lightpick--inlined')) return;
 
-            var rect = this._opts.field.getBoundingClientRect();
+            // remove `is-hidden` class for getBoundingClientRect
+            this.el.classList.remove('is-hidden');
 
-            this.el.style.top = (rect.bottom + window.pageYOffset) + 'px';
-            this.el.style.left = (rect.left + window.pageXOffset) + 'px';
+            var rect = this._opts.field.getBoundingClientRect(),
+                calRect = this.el.getBoundingClientRect(),
+                orientation = this._opts.orientation.split(' '),
+                top = 0,
+                left = 0;
+            
+            if (orientation[0] == 'auto' || !(/top|bottom/.test(orientation[0]))) {
+                if (rect.bottom + calRect.height > window.innerHeight) {
+                    top = (rect.top + window.pageYOffset) - calRect.height;
+                }
+                else {
+                    top = rect.bottom + window.pageYOffset;
+                }
+            }
+            else {
+                top = rect[orientation[0]] + window.pageYOffset;
+
+                if (orientation[0] == 'top') {
+                    top -= calRect.height;
+                }
+            }
+
+            if (!(/left|right/.test(orientation[0])) && (!orientation[1] || orientation[1] == 'auto' || !(/left|right/.test(orientation[1])))) {
+                if (rect.left + calRect.width > window.innerWidth) {
+                    left = (rect.right + window.pageXOffset) - calRect.width;
+                }
+                else {
+                    left = rect.left + window.pageXOffset;
+                }
+            }
+            else {
+                if (/left|right/.test(orientation[0])) {
+                    left = rect[orientation[0]] + window.pageXOffset;
+                }
+                else {
+                    left = rect[orientation[1]] + window.pageXOffset;
+                }
+
+                if (orientation[0] == 'right' || orientation[1] == 'right') {
+                    left -= calRect.width;
+                }
+            }
+
+            this.el.classList.add('is-hidden');
+
+            this.el.style.top = top + 'px';
+            this.el.style.left = left + 'px';
         },
 
         setStartDate: function(date, preventOnSelect)

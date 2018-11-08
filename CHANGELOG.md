@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.2.6] - 2018-11-08
+* new option: orientation
+
 [1.2.5] - 2018-09-06
 * Improve pluralize. Now as function.
 
