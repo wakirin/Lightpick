@@ -56,6 +56,7 @@
         disabledDatesInRange: true,
         tooltipNights: false,
         orientation: 'auto',
+        disableWeekends: false,
         locale: {
             buttons: {
                 prev: '&leftarrow;',
@@ -208,6 +209,10 @@
         }
 
         if (opts.selectBackward && !opts.singleDate && opts.startDate && !opts.endDate && date.isAfter(opts.startDate, 'day')) {
+            day.className.push('is-disabled');
+        }
+
+        if (opts.disableWeekends && (date.isoWeekday() == 6 || date.isoWeekday() == 7)) {
             day.className.push('is-disabled');
         }
 

@@ -197,6 +197,12 @@ Text for buttons, tooltip.
 
 A space-separated string consisting of one or two of “left” or “right”, “top” or “bottom”, and “auto” (may be omitted); for example, “top left”, “bottom” (horizontal orientation will default to “auto”), “right” (vertical orientation will default to “auto”), “auto top”. 
 
+### disableWeekends
+- Type: `Boolean`
+- Default: `false`
+
+Disable Saturday and Sunday.
+
 ### onSelect
 - Type: `Function`
 - Default: `null`
