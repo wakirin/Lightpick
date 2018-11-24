@@ -15,7 +15,7 @@ Javascript date range picker - lightweight, no jQuery
 
 ## Dependencies
 
-* Moment.js
+* [moment.js](https://www.npmjs.com/package/moment)
 
 ## Installation
 
@@ -33,13 +33,13 @@ or you can download and include Moment.js and Lightpick files manually.
 
 Lightpick can be bound to an input field:
 
-```
+```html
 <input type="text" id="datepicker"/>
 ```
 
 Include Lightpick script to the end of your document:
 
-```
+```html
 <link rel="stylesheet" type="text/css" href="css/lightpick.css">  
 ...  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
