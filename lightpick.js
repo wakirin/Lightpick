@@ -170,6 +170,25 @@
             }
         }
 
+        if (opts.repick && (opts.minDays || opts.maxDays) && opts.startDate && opts.endDate) {
+            var tempStartDate = moment(opts.repickTrigger == opts.field ? opts.endDate : opts.startDate);
+
+            if (opts.minDays) {
+                if (date.isBetween(moment(tempStartDate).subtract(opts.minDays - 1, 'day'), moment(tempStartDate).add(opts.minDays - 1, 'day'), 'day')) {
+                    day.className.push('is-disabled');
+                }
+            }
+
+            if (opts.maxDays) {
+                if (date.isSameOrBefore(moment(tempStartDate).subtract(opts.maxDays, 'day'), 'day')) {
+                    day.className.push('is-disabled');
+                }
+                else if (date.isSameOrAfter(moment(tempStartDate).add(opts.maxDays, 'day'), 'day')) {
+                    day.className.push('is-disabled');
+                }
+            }
+        }
+
         if (date.isSame(new Date(), 'day')) {
             day.className.push('is-today');
         }

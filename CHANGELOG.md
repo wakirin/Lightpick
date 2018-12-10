@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.2.7] - 2018-12-10
+* fix bug when used both options `repick` and `minDays` (on repick date `minDays` was ignored)
+
 [1.2.6] - 2018-11-08
 * new option: orientation
 * new option: disableWeekends
