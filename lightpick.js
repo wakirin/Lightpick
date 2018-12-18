@@ -976,7 +976,7 @@
                 left = 0;
             
             if (orientation[0] == 'auto' || !(/top|bottom/.test(orientation[0]))) {
-                if (rect.bottom + calRect.height > window.innerHeight) {
+                if (rect.bottom + calRect.height > window.innerHeight && window.pageYOffset > calRect.height) {
                     top = (rect.top + window.pageYOffset) - calRect.height;
                 }
                 else {

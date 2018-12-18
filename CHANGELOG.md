@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.2.8] - 2018-12-18
+* improved option `orientation` (checking available space on top when value is `auto`)
+
 [1.2.7] - 2018-12-10
 * fix bug when used both options `repick` and `minDays` (on repick date `minDays` was ignored)
 
