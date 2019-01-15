@@ -1,6 +1,6 @@
 /**
 * @author: Rinat G. http://coding.kz
-* @copyright: Copyright (c) 2018 Rinat G.
+* @copyright: Copyright (c) 2019 Rinat G.
 * @license: Licensed under the MIT license. See http://www.opensource.org/licenses/mit-license.php
 */
 
@@ -887,10 +887,18 @@
 
             this._opts = Object.assign({}, opts);
 
-            this.setStartDate(opts.startDate, true);
-            this.setEndDate(opts.endDate, true);
+            if (this.getStartDate() === null && moment(this._opts.field.value, this._opts.format).isValid()) {
+                this._opts.startDate = moment(this._opts.field.value, this._opts.format);
+            }
 
-            return opts;
+            if (this.getEndDate() === null && this._opts.secondField && moment(this._opts.secondField.value, this._opts.format).isValid()) {
+                this._opts.endDate = moment(this._opts.secondField.value, this._opts.format);
+            }
+
+            this.setStartDate(this._opts.startDate, true);
+            this.setEndDate(this._opts.endDate, true);
+
+            return this._opts;
         },
 
         swapDate: function()
@@ -1020,15 +1028,16 @@
 
         setStartDate: function(date, preventOnSelect)
         {
-            var date = moment(date);
+            var dateISO = moment(date, moment.ISO_8601),
+                dateOptFormat = moment(date, this._opts.format);
 
-            if (!date.isValid()) {
+            if (!dateISO.isValid() && !dateOptFormat.isValid()) {
                 this._opts.startDate = null;
                 this._opts.field.value = '';
                 return;
             }
 
-            this._opts.startDate = moment(date);
+            this._opts.startDate = moment(dateISO.isValid() ? dateISO : dateOptFormat);
 
             if (this._opts.singleDate || this._opts.secondField) {
                 this._opts.field.value = this._opts.startDate.format(this._opts.format);
@@ -1044,9 +1053,10 @@
 
         setEndDate: function(date, preventOnSelect)
         {
-            var date = moment(date);
+            var dateISO = moment(date, moment.ISO_8601),
+                dateOptFormat = moment(date, this._opts.format);
 
-            if (!date.isValid()) {
+            if (!dateISO.isValid() && !dateOptFormat.isValid()) {
                 this._opts.endDate = null;
 
                 if (this._opts.secondField) {
@@ -1058,7 +1068,7 @@
                 return;
             }
 
-            this._opts.endDate = moment(date);
+            this._opts.endDate = moment(dateISO.isValid() ? dateISO : dateOptFormat);
 
             if (this._opts.secondField) {
                 this._opts.field.value = this._opts.startDate.format(this._opts.format);

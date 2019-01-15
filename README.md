@@ -147,7 +147,7 @@ The maximum/latest date that can be selected. Any format: moment() or '2018-06-0
 - Type: `Array`
 - Default: `null`
 
-Array of disabled dates. Array can contains ranges, allowed the same format as in options minDate, maxDate. Ex.: `\[moment().startOf('month'), \['2018-06-23', '2018-06-30'\]\]`
+Array of disabled dates. Array can contains ranges, allowed the same format as in options minDate, maxDate. Eg.: `\[moment().startOf('month'), \['2018-06-23', '2018-06-30'\]\]`
 
 ### selectForward
 - Type: `Boolean`
@@ -173,6 +173,12 @@ The minimum days of the selected range.
 
 The maximum days of the selected range.
 
+### hoveringTooltip
+- Type: `Boolean`
+- Default: `true`
+
+Show tooltip.
+
 ### footer
 - Type: `Boolean|String`
 - Default: `false`
@@ -185,11 +191,11 @@ Footer calendar, if set to `true` will use default footer (Reset/Apply buttons) 
 
 If set to `false` then will reset selected range when disabled dates exists in selected range.
 
-### locale
-- Type: `Object`
-- Default: `{ buttons: { prev: '<', next: '>', close: '×', reset: 'Reset', apply: 'Apply'}, tooltip: ['day', 'days'] }`
+### tooltipNights
+- Type: `Boolean`
+- Default: `false`
 
-Text for buttons, tooltip.
+Calc date range in nights. (For hotels when last date doesn't include to range)
 
 ### orientation
 - Type: `String`
@@ -202,6 +208,38 @@ A space-separated string consisting of one or two of “left” or “right”, 
 - Default: `false`
 
 Disable Saturday and Sunday.
+
+### locale
+- Type: `Object`
+- Default: 
+```
+{ 
+    buttons: { 
+        prev: '&leftarrow;', 
+        next: '&rightarrow;', 
+        close: '&times;', 
+        reset: 'Reset', 
+        apply: 'Apply'
+    }, 
+    tooltip: { 
+        one: 'day',  
+        other: 'days'
+    },
+    tooltipOnDisabled: null,
+    pluralize: function(i, locale){
+        if (typeof i === "string") i = parseInt(i, 10);
+        
+        if (i === 1 && 'one' in locale) return locale.one;
+        if ('other' in locale) return locale.other;
+        
+        return '';
+    }
+}
+```
+`buttons` - Text for buttons
+`tooltip` - Text for tooltip (one, few, many, other)
+`tooltipOnDisabled` (String) - Show tooltip text on disabled dates. (Eg. «Already booked»)
+`pluralize` (function) - Function for calc plural text. More examples for another locales on [betsol/numerous](https://github.com/betsol/numerous/tree/master/locales)
 
 ### onSelect
 - Type: `Function`
@@ -221,6 +259,13 @@ Callback function for when the picker becomes visible.
 
 Callback function for when the picker is hidden.
 
+### onError
+- Type: `Function`
+- Default: `null`
+
+Working when `disabledDatesInRange: false`
+Callback function for when user has select date range with disabled dates. 
+
 ## Methods
 
 * * *
@@ -228,19 +273,19 @@ Callback function for when the picker is hidden.
 ### picker.setDate(date)
 
 Set date when singleDate is true. `date` can be moment, string, number, date.  
-Ex. `picker.setDate(new Date());`
+Eg. `picker.setDate(new Date());`
 
   
 ### picker.setDateRange(start, end)
 
 Set date range. <code>start, end</code> can be moment, string, number, date. 
-Ex. `picker.setDateRange(new Date(), moment().add(7, 'day'));`
+Eg. `picker.setDateRange(new Date(), moment().add(7, 'day'));`
   
 
 ### picker.setDisableDates(array)
 
 array of disabled dates. Array can contains ranges, allowed moment, string, number, date.
-Ex. `picker.setDisableDates([ moment().startOf('month'), ['2018-06-23', '2018-06-30'] ]);`
+Eg. `picker.setDisableDates([ moment().startOf('month'), ['2018-06-23', '2018-06-30'] ]);`
 
 
 ### picker.getDate()

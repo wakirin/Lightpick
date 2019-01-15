@@ -432,6 +432,13 @@
                     </ul>
                     <p>The maximum days of the selected range.</p>
 
+                    <p class="lead"><code>hoveringTooltip</code></p>
+                    <ul>
+                        <li>Type: <code>Boolean</code></li>
+                        <li>Default: <code>true</code></li>
+                    </ul>
+                    <p>Show tooltip.</p>
+
                     <p class="lead"><code>footer</code></p>
                     <ul>
                         <li>Type: <code>Boolean|String</code></li>
@@ -446,12 +453,12 @@
                     </ul>
                     <p>If set to `false` then will reset selected range when disabled dates exists in selected range.</p>
 
-                    <p class="lead"><code>locale</code></p>
+                    <p class="lead"><code>tooltipNights</code></p>
                     <ul>
-                        <li>Type: <code>Object</code></li>
-                        <li>Default: <code>{ buttons: { prev: '<', next: '>', close: '×', reset: 'Reset', apply: 'Apply'}, tooltip: ['day', 'days'] }</code></li>
+                        <li>Type: <code>Boolean</code></li>
+                        <li>Default: <code>false</code></li>
                     </ul>
-                    <p>Text for buttons, tooltip.</p>
+                    <p>Calc date range in nights. (For hotels when last date doesn't include to range)</p>
 
                     <p class="lead"><code>orientation</code></p>
                     <ul>
@@ -466,6 +473,40 @@
                         <li>Default: <code>false</code></li>
                     </ul>
                     <p>Disable Saturday and Sunday.</p>
+
+                    <p class="lead"><code>locale</code></p>
+                    <ul>
+                        <li>Type: <code>Object</code></li>
+                        <li>Default: 
+                            <code><br>
+                            { <br>
+                            &nbsp;&nbsp;buttons: { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;prev: '&leftarrow;', <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;next: '&rightarrow;', <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;close: '&times;', <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;reset: 'Reset', <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;apply: 'Apply'<br>
+                            &nbsp;&nbsp;}, <br>
+                            &nbsp;&nbsp;tooltip: { <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;one: 'day',  <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;other: 'days'<br>
+                            &nbsp;&nbsp;},<br>
+                            &nbsp;&nbsp;tooltipOnDisabled: null,<br>
+                            &nbsp;&nbsp;pluralize: function(i, locale){<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;if (typeof i === "string") i = parseInt(i, 10);<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;if (i === 1 && 'one' in locale) return locale.one;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;if ('other' in locale) return locale.other;<br>
+                            <br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return '';<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                            </code></li>
+                    </ul>
+                    <p><code>buttons</code> - Text for buttons</p>
+                    <p><code>tooltip</code> - Text for tooltip (one, few, many, other)</p>
+                    <p><code>tooltipOnDisabled</code> (String) - Show tooltip text on disabled dates. (Eg. «Already booked»)</p>
+                    <p><code>pluralize</code> (function) - Function for calc plural text. More examples for another locales on <a href="https://github.com/betsol/numerous/tree/master/locales" target="_blank">betsol/numerous</a></p>
 
                     <p class="lead"><code>onSelect</code></p>
                     <ul>
@@ -574,7 +615,7 @@
                 <div id="license" class="mt-5">
                     <h2><span class="text-secondary">#</span> <a href="#license">License</a></h2>
                     <hr>
-                    <p>Copyright 2018 Rinat G.</p>
+                    <p>Copyright 2019 Rinat G.</p>
 
                     <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: </p>
 
