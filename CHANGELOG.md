@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.2.9] - 2019-01-15
+* fixed bugs #28, #29, #30
+
 [1.2.8] - 2018-12-18
 * improved option `orientation` (checking available space on top when value is `auto`)
 
