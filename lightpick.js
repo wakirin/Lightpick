@@ -752,6 +752,8 @@
                 }
             }
 
+            this.syncFields();
+
             if (!self.isShowing) {
                 self.show();
             }

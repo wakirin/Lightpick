@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.2.10] - 2019-02-12
+* fixed bug #36 
+
 [1.2.9] - 2019-01-15
 * fixed bugs #28, #29, #30
 
