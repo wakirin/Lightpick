@@ -745,8 +745,6 @@
                 if (!self._opts.autoclose) {
                     self.gotoDate(opts.field.value);
                 }
-
-                self.setStartDate(opts.field.value);
             }
 
             if (!self.isShowing) {
@@ -887,18 +885,23 @@
 
             this._opts = Object.assign({}, opts);
 
-            if (this.getStartDate() === null && moment(this._opts.field.value, this._opts.format).isValid()) {
-                this._opts.startDate = moment(this._opts.field.value, this._opts.format);
-            }
-
-            if (this.getEndDate() === null && this._opts.secondField && moment(this._opts.secondField.value, this._opts.format).isValid()) {
-                this._opts.endDate = moment(this._opts.secondField.value, this._opts.format);
-            }
+            this.syncFields();
 
             this.setStartDate(this._opts.startDate, true);
             this.setEndDate(this._opts.endDate, true);
 
             return this._opts;
+        },
+
+        syncFields: function()
+        {
+            if (moment(this._opts.field.value, this._opts.format).isValid()) {
+                this._opts.startDate = moment(this._opts.field.value, this._opts.format);
+            }
+
+            if (this._opts.secondField && moment(this._opts.secondField.value, this._opts.format).isValid()) {
+                this._opts.endDate = moment(this._opts.secondField.value, this._opts.format);
+            }
         },
 
         swapDate: function()
@@ -1162,6 +1165,8 @@
                     this._opts.repickTrigger = target;
                 }
 
+                this.syncFields();
+                
                 if (this._opts.secondField && this._opts.secondField === target && this._opts.endDate) {
                     this.gotoDate(this._opts.endDate);
                 }
