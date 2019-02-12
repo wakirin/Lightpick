@@ -72,10 +72,10 @@
             tooltipOnDisabled: null,
             pluralize: function(i, locale){
                 if (typeof i === "string") i = parseInt(i, 10);
-        
+
                 if (i === 1 && 'one' in locale) return locale.one;
                 if ('other' in locale) return locale.other;
-        
+
                 return '';
             }
         }
@@ -251,7 +251,7 @@
         return div.outerHTML;
     },
 
-    renderCalendar = function(el, opts) 
+    renderCalendar = function(el, opts)
     {
         var html = '',
             monthDate = moment(opts.calendar[0]);
@@ -261,9 +261,9 @@
 
             html += '<section class="lightpick__month">';
             html += '<header class="lightpick__month-title-bar">'
-            html += '<h1 class="lightpick__month-title" data-ym="' + day.format('YYYY-MM') + '">' 
-            + '<b class="lightpick__month-title-accent">' + day.toDate().toLocaleString(opts.lang, { month: 'long' }) + '</b> ' 
-            + day.format('YYYY')  
+            html += '<h1 class="lightpick__month-title" data-ym="' + day.format('YYYY-MM') + '">'
+            + '<b class="lightpick__month-title-accent">' + day.toDate().toLocaleString(opts.lang, { month: 'long' }) + '</b> '
+            + day.format('YYYY')
             + '</h1>';
 
             if (opts.numberOfMonths === 1) {
@@ -339,9 +339,9 @@
         html += '<div class="lightpick__months-of-the-year-list">';
 
         for (var i = 1; i <= 12; i++) {
-            html += '<div class="lightpick__month-of-the-year" data-goto-month="' + ym.format('YYYY') + '-' + i + '">' 
+            html += '<div class="lightpick__month-of-the-year" data-goto-month="' + ym.format('YYYY') + '-' + i + '">'
                  + '<div>' + moment(i, 'M').toDate().toLocaleString(opts.lang, { month: 'long' }) + '</div>'
-                 + '<div>' + ym.format('YYYY') + '</div>' 
+                 + '<div>' + ym.format('YYYY') + '</div>'
                  + '</div>';
         }
         html += '</div>';
@@ -381,7 +381,7 @@
         [].forEach.call(days, function(dayCell) {
             var day = moment(parseInt(dayCell.getAttribute('data-time')));
             if (
-                (closestPrev && day.isBefore(closestPrev) && opts.startDate.isAfter(closestPrev)) 
+                (closestPrev && day.isBefore(closestPrev) && opts.startDate.isAfter(closestPrev))
                 || (closestNext && day.isAfter(closestNext) && closestNext.isAfter(opts.startDate))
             ) {
                 dayCell.classList.remove('is-available');
@@ -426,7 +426,12 @@
 
         self.el.innerHTML = html;
 
-        document.querySelector(opts.parentEl).appendChild(self.el);
+
+        if (opts.parentEl instanceof Node) {
+            opts.parentEl.appendChild(self.el)
+        } else {
+            document.querySelector(opts.parentEl).appendChild(self.el);
+        }
 
         self._onMouseDown = function(e)
         {
@@ -452,15 +457,15 @@
                 if (!opts.disabledDatesInRange && opts.disableDates && opts.startDate) {
                     var start = day.isAfter(opts.startDate) ? moment(opts.startDate) : moment(day),
                         end = day.isAfter(opts.startDate) ? moment(day) : moment(opts.startDate),
-                        
+
                         isInvalidRange = opts.disableDates.filter(function(d) {
                         if (d instanceof Array || Object.prototype.toString.call(d) === '[object Array]') {
                             var _from = moment(d[0]),
                                 _to = moment(d[1]);
-        
+
                             return _from.isValid() && _to.isValid() && (_from.isBetween(start, end, 'day', '[]') || _to.isBetween(start, end, 'day', '[]'));
                         }
-                        
+
                         return moment(d).isBetween(start, end, 'day', '[]');
                     });
 
@@ -544,10 +549,10 @@
                             }
                             else {
                                 var footerMessage = self.el.querySelector('.lightpick__footer-message');
-        
+
                                 if (footerMessage) {
                                     footerMessage.innerHTML = opts.locale.not_allowed_range;
-            
+
                                     setTimeout(function(){
                                         footerMessage.innerHTML = '';
                                     }, 3000);
@@ -930,7 +935,7 @@
             renderCalendar(this.el, this._opts);
         },
 
-        gotoMonth: function(month) 
+        gotoMonth: function(month)
         {
             if (isNaN(month)) {
                 return;
@@ -985,7 +990,7 @@
                 orientation = this._opts.orientation.split(' '),
                 top = 0,
                 left = 0;
-            
+
             if (orientation[0] == 'auto' || !(/top|bottom/.test(orientation[0]))) {
                 if (rect.bottom + calRect.height > window.innerHeight && window.pageYOffset > calRect.height) {
                     top = (rect.top + window.pageYOffset) - calRect.height;
