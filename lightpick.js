@@ -752,7 +752,7 @@
                 }
             }
 
-            this.syncFields();
+            self.syncFields();
 
             if (!self.isShowing) {
                 self.show();
@@ -902,12 +902,27 @@
 
         syncFields: function()
         {
-            if (moment(this._opts.field.value, this._opts.format).isValid()) {
-                this._opts.startDate = moment(this._opts.field.value, this._opts.format);
-            }
+            if (this._opts.singleDate || this._opts.secondField) {
+                if (moment(this._opts.field.value, this._opts.format).isValid()) {
+                    this._opts.startDate = moment(this._opts.field.value, this._opts.format);
+                }
 
-            if (this._opts.secondField && moment(this._opts.secondField.value, this._opts.format).isValid()) {
-                this._opts.endDate = moment(this._opts.secondField.value, this._opts.format);
+                if (this._opts.secondField && moment(this._opts.secondField.value, this._opts.format).isValid()) {
+                    this._opts.endDate = moment(this._opts.secondField.value, this._opts.format);
+                }
+            }
+            else {
+                var dates = this._opts.field.value.split(this._opts.separator);
+
+                if (dates.length === 2) {
+                    if (moment(dates[0], this._opts.format).isValid()) {
+                        this._opts.startDate = moment(dates[0], this._opts.format);
+                    }
+
+                    if (moment(dates[1], this._opts.format).isValid()) {
+                        this._opts.endDate = moment(dates[1], this._opts.format);
+                    }
+                }
             }
         },
 

@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.2.11] - 2019-02-13
+* Improve sync values with fields
+
 [1.2.10] - 2019-02-12
 * fixed bug #36 
 
