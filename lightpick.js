@@ -485,10 +485,16 @@
                     if (opts.repick && opts.startDate && opts.endDate) {
                         if (opts.repickTrigger === opts.field) {
                             self.setStartDate(day);
+                            self.el.querySelectorAll('.is-start-date').forEach(function (element) {
+                                element.classList.remove('is-start-date');
+                            });
                             target.classList.add('is-start-date');
                         }
                         else {
                             self.setEndDate(day);
+                            self.el.querySelectorAll('.is-end-date').forEach(function (element) {
+                                element.classList.remove('is-end-date');
+                            });
                             target.classList.add('is-end-date');
                         }
 
@@ -505,6 +511,10 @@
                     else {
                         self.setStartDate(day);
                         self.setEndDate(null);
+
+                        self.el.querySelectorAll('.is-start-date').forEach(function (element) {
+                            element.classList.remove('is-start-date');
+                        });
 
                         target.classList.add('is-start-date');
 
@@ -524,6 +534,10 @@
                     if (opts.startDate.isAfter(opts.endDate)) {
                         self.swapDate();
                     }
+
+                    self.el.querySelectorAll('.is-end-date').forEach(function (element) {
+                        element.classList.remove('is-end-date');
+                    });
 
                     target.classList.add('is-end-date');
 
@@ -1188,7 +1202,7 @@
                 }
 
                 this.syncFields();
-                
+
                 if (this._opts.secondField && this._opts.secondField === target && this._opts.endDate) {
                     this.gotoDate(this._opts.endDate);
                 }
