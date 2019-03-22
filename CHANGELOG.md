@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.3.0] - 2019-03-22
+* Dropdown list months, years
+
 [1.2.11] - 2019-02-13
 * Improve sync values with fields
 

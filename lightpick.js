@@ -57,6 +57,10 @@
         tooltipNights: false,
         orientation: 'auto',
         disableWeekends: false,
+        years: {
+            min: 1900,
+            max: null,
+        },
         locale: {
             buttons: {
                 prev: '&leftarrow;',
@@ -78,15 +82,15 @@
 
                 return '';
             }
-        }
+        },
     },
 
-    renderTopButtons = function(opts, viewMode)
+    renderTopButtons = function(opts)
     {
         return '<div class="lightpick__toolbar">'
             + ''
-            + '<button type="button" class="lightpick__previous-action" data-view-mode="' + viewMode + '">' + opts.locale.buttons.prev + '</button>'
-            + '<button type="button" class="lightpick__next-action" data-view-mode="' + viewMode + '">' + opts.locale.buttons.next + '</button>'
+            + '<button type="button" class="lightpick__previous-action">' + opts.locale.buttons.prev + '</button>'
+            + '<button type="button" class="lightpick__next-action">' + opts.locale.buttons.next + '</button>'
             + (!opts.autoclose ? '<button type="button" class="lightpick__close-action">' + opts.locale.buttons.close + '</button>'  : '')
             + '</div>';
     },
@@ -251,6 +255,67 @@
         return div.outerHTML;
     },
 
+    renderMonthsList = function(date, opts) 
+    {
+        var d = moment(date),
+            select = document.createElement('select');
+
+        for (var idx = 0; idx < 12; idx++) {
+            d.set('month', idx);
+
+            var option = document.createElement('option');
+            option.value = d.toDate().getMonth();
+            option.text = d.toDate().toLocaleString(opts.lang, { month: 'long' });
+
+            if (idx === date.toDate().getMonth()) {
+                option.setAttribute('selected', 'selected');
+            }
+
+            select.appendChild(option);
+        }
+
+        select.className = 'lightpick__select lightpick__select-months';
+        
+        // for text align to right
+        select.dir = 'rtl';
+    
+        return select.outerHTML;
+    },
+
+    renderYearsList = function(date, opts)
+    {
+        var d = moment(date),
+            select = document.createElement('select'),
+            minYear = opts.years.min ? opts.years.min : 1900,
+            maxYear = opts.years.max ? opts.years.max : Number.parseInt(moment().format('YYYY'));
+
+        if (Number.parseInt(date.format('YYYY')) < minYear) {
+            minYear = Number.parseInt(date.format('YYYY'));
+        }
+
+        if (Number.parseInt(date.format('YYYY')) > maxYear) {
+            maxYear = Number.parseInt(date.format('YYYY'));
+        }
+
+        for (var idx = minYear; idx <= maxYear; idx++) {
+            d.set('year', idx);
+
+            var option = document.createElement('option');
+            option.value = d.toDate().getFullYear();
+            option.text = d.toDate().getFullYear();
+
+            if (idx === date.toDate().getFullYear()) {
+                option.setAttribute('selected', 'selected');
+            }
+
+            select.appendChild(option);
+        }
+
+        select.className = 'lightpick__select lightpick__select-years';
+
+        return select.outerHTML;
+    },
+
     renderCalendar = function(el, opts)
     {
         var html = '',
@@ -261,10 +326,10 @@
 
             html += '<section class="lightpick__month">';
             html += '<header class="lightpick__month-title-bar">'
-            html += '<h1 class="lightpick__month-title" data-ym="' + day.format('YYYY-MM') + '">'
-            + '<b class="lightpick__month-title-accent">' + day.toDate().toLocaleString(opts.lang, { month: 'long' }) + '</b> '
-            + day.format('YYYY')
-            + '</h1>';
+            html += '<div class="lightpick__month-title">'
+            + renderMonthsList(day, opts)
+            + renderYearsList(day, opts)
+            + '</div>';
 
             if (opts.numberOfMonths === 1) {
                 html += renderTopButtons(opts, 'days');
@@ -324,31 +389,6 @@
         el.querySelector('.lightpick__months').innerHTML = html;
     },
 
-    renderMonthsOfYear = function(el, opts, date)
-    {
-        if (date) {
-            opts.calendar[0] = moment(date);
-        }
-        var ym = moment(opts.calendar[0]);
-
-        var html = '<header class="lightpick__month-title-bar">'
-        html += '<h1 class="lightpick__month-title">' + ym.format('YYYY') +  '</h1>';
-        html += renderTopButtons(opts, 'months');
-        html += '</header>';
-
-        html += '<div class="lightpick__months-of-the-year-list">';
-
-        for (var i = 1; i <= 12; i++) {
-            html += '<div class="lightpick__month-of-the-year" data-goto-month="' + ym.format('YYYY') + '-' + i + '">'
-                 + '<div>' + moment(i, 'M').toDate().toLocaleString(opts.lang, { month: 'long' }) + '</div>'
-                 + '<div>' + ym.format('YYYY') + '</div>'
-                 + '</div>';
-        }
-        html += '</div>';
-
-        el.querySelector('.lightpick__months-of-the-year').innerHTML = html;
-    },
-
     updateDates = function(el, opts)
     {
         var days = el.querySelectorAll('.lightpick__day');
@@ -406,8 +446,7 @@
         var html = '<div class="lightpick__inner">'
         + (opts.numberOfMonths > 1 ? renderTopButtons(opts, 'days') : '')
         + '<div class="lightpick__months"></div>'
-        + '<div class="lightpick__tooltip" style="visibility: hidden"></div>'
-        + '<div class="lightpick__months-of-the-year"></div>';
+        + '<div class="lightpick__tooltip" style="visibility: hidden"></div>';
 
         if (opts.footer) {
             html += '<div class="lightpick__footer">';
@@ -446,7 +485,10 @@
             }
 
             e.stopPropagation();
-            e.preventDefault();
+
+            if (!target.classList.contains('lightpick__select')) {
+                e.preventDefault();
+            }
 
             var opts = self._opts;
 
@@ -563,34 +605,10 @@
                 }
             }
             else if (target.classList.contains('lightpick__previous-action')) {
-                if (target.hasAttribute('data-view-mode')) {
-                    var viewMode = target.getAttribute('data-view-mode');
-
-                    switch (viewMode) {
-                        case 'days':
-                            self.prevMonth();
-                        break;
-
-                        case 'months':
-                            self.prevYear();
-                        break;
-                    }
-                }
+                self.prevMonth();
             }
             else if (target.classList.contains('lightpick__next-action')) {
-                if (target.hasAttribute('data-view-mode')) {
-                    var viewMode = target.getAttribute('data-view-mode');
-
-                    switch (viewMode) {
-                        case 'days':
-                            self.nextMonth();
-                        break;
-
-                        case 'months':
-                            self.nextYear();
-                        break;
-                    }
-                }
+                self.nextMonth();
             }
             else if (target.classList.contains('lightpick__close-action') || target.classList.contains('lightpick__apply-action')) {
                 self.hide();
@@ -598,31 +616,6 @@
             else if (target.classList.contains('lightpick__reset-action')) {
                 self.reset();
             }
-            else if (target.classList.contains('lightpick__month-title')) {
-                if (target.hasAttribute('data-ym')) {
-                    var _toolbar = self.el.querySelector('.lightpick__inner > .lightpick__toolbar');
-                    if (_toolbar) {
-                        _toolbar.style.display = 'none';
-                    }
-
-                    self.el.querySelector('.lightpick__months').innerHTML = '';
-                    renderMonthsOfYear(self.el, opts, target.getAttribute('data-ym'));
-                }
-            }
-            else if (target.hasAttribute('data-goto-month')) {
-                var month = moment(target.getAttribute('data-goto-month'), 'YYYY-M');
-                if (month.isValid()) {
-                    self.gotoDate(month);
-
-                    self.el.querySelector('.lightpick__months-of-the-year').innerHTML = '';
-
-                    var _toolbar = self.el.querySelector('.lightpick__inner > .lightpick__toolbar');
-                    if (_toolbar) {
-                        _toolbar.style.display = 'flex';
-                    }
-                }
-            }
-
         };
         self._onMouseEnter = function(e)
         {
@@ -734,10 +727,10 @@
                 return;
             }
 
-            if (target.classList.contains('is-selected-lightpick-month')) {
+            if (target.classList.contains('lightpick__select-months')) {
                 self.gotoMonth(target.value);
             }
-            else if (target.classList.contains('is-selected-lightpick-year')) {
+            else if (target.classList.contains('lightpick__select-years')) {
                 self.gotoYear(target.value);
             }
         };
@@ -828,6 +821,7 @@
         self.el.addEventListener('mousedown', self._onMouseDown, true);
         self.el.addEventListener('mouseenter', self._onMouseEnter, true);
         self.el.addEventListener('touchend', self._onMouseDown, true);
+        self.el.addEventListener('change', self._onChange, true);
 
         self.hide();
 
@@ -963,6 +957,17 @@
             renderCalendar(this.el, this._opts);
         },
 
+        gotoYear: function(year)
+        {
+            if (isNaN(year)) {
+                return;
+            }
+
+            this._opts.calendar[0].set('year', year);
+
+            renderCalendar(this.el, this._opts);
+        },
+
         prevMonth: function()
         {
             this._opts.calendar[0] = moment(this._opts.calendar[0]).subtract(this._opts.numberOfMonths, 'month');
@@ -979,20 +984,6 @@
             renderCalendar(this.el, this._opts);
 
             checkDisabledDatesInRange(this.el, this._opts);
-        },
-
-        prevYear: function()
-        {
-            this._opts.calendar[0] = moment(this._opts.calendar[0]).subtract(1, 'year');
-
-            renderMonthsOfYear(this.el, this._opts);
-        },
-
-        nextYear: function()
-        {
-            this._opts.calendar[0] = moment(this._opts.calendar[0]).add(1, 'year');
-
-            renderMonthsOfYear(this.el, this._opts);
         },
 
         updatePosition: function()
@@ -1206,8 +1197,6 @@
                     this._opts.onOpen.call(this);
                 }
 
-                this.el.querySelector('.lightpick__months-of-the-year').innerHTML = '';
-
                 if (document.activeElement && document.activeElement != document.body) {
                     document.activeElement.blur();
                 }
@@ -1236,9 +1225,11 @@
             var opts = this._opts;
 
             this.hide();
-            this.el.removeEventListener('mousedown', this._onMouseDown, true);
-            this.el.removeEventListener('touchend', this._onMouseDown, true);
-            this.el.removeEventListener('change', this._onChange, true);
+
+            this.el.removeEventListener('mousedown', self._onMouseDown, true);
+            this.el.removeEventListener('mouseenter', self._onMouseEnter, true);
+            this.el.removeEventListener('touchend', self._onMouseDown, true);
+            this.el.removeEventListener('change', self._onChange, true);
 
             opts.field.removeEventListener('change', this._onInputChange);
             opts.field.removeEventListener('click', this._onInputClick);
