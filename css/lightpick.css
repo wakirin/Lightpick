@@ -11,7 +11,8 @@
 }
 
 .lightpick--inlined {
-    position: static;
+    position: relative;
+    display: inline-block;
 }
 
 .lightpick,

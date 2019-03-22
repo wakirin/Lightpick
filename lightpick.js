@@ -57,6 +57,7 @@
         tooltipNights: false,
         orientation: 'auto',
         disableWeekends: false,
+        inline: false,
         years: {
             min: 1900,
             max: null,
@@ -91,7 +92,7 @@
             + ''
             + '<button type="button" class="lightpick__previous-action">' + opts.locale.buttons.prev + '</button>'
             + '<button type="button" class="lightpick__next-action">' + opts.locale.buttons.next + '</button>'
-            + (!opts.autoclose ? '<button type="button" class="lightpick__close-action">' + opts.locale.buttons.close + '</button>'  : '')
+            + (!opts.autoclose && !opts.inline ? '<button type="button" class="lightpick__close-action">' + opts.locale.buttons.close + '</button>'  : '')
             + '</div>';
     },
 
@@ -439,7 +440,7 @@
 
         self.el.className = 'lightpick lightpick--' + opts.numberOfColumns + '-columns is-hidden';
 
-        if (opts.parentEl !== 'body') {
+        if (opts.inline) {
             self.el.className += ' lightpick--inlined';
         }
 
@@ -468,7 +469,11 @@
 
         if (opts.parentEl instanceof Node) {
             opts.parentEl.appendChild(self.el)
-        } else {
+        } 
+        else if (opts.parentEl === 'body' && opts.inline) {
+            opts.field.parentNode.appendChild(self.el);
+        }
+        else {
             document.querySelector(opts.parentEl).appendChild(self.el);
         }
 
@@ -555,7 +560,7 @@
                                 self.hide();
                             }, 100);
                         }
-                        else if (!opts.singleDate) {
+                        else if (!opts.singleDate || opts.inline) {
                             updateDates(self.el, opts);
                         }
                     }
@@ -823,7 +828,12 @@
         self.el.addEventListener('touchend', self._onMouseDown, true);
         self.el.addEventListener('change', self._onChange, true);
 
-        self.hide();
+        if (opts.inline) {
+            self.show();
+        }
+        else {
+            self.hide();
+        }
 
         opts.field.addEventListener('change', self._onInputChange);
         opts.field.addEventListener('click', self._onInputClick);
@@ -882,6 +892,11 @@
 
             if (opts.repick && !opts.secondField) {
                 opts.repick = false;
+            }
+
+            if (opts.inline) {
+                opts.autoclose = false;
+                opts.hideOnBodyClick = false;
             }
 
             this._opts = Object.assign({}, opts);

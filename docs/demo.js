@@ -189,3 +189,12 @@ new Lightpick({
         document.getElementById('result-12').innerHTML = rangeText(start, end);
     }
 });
+
+// demo-13
+new Lightpick({
+    field: document.getElementById('demo-13'),
+    inline: true,
+    onSelect: function(date){
+        document.getElementById('result-13').innerHTML = date.format('Do MMMM YYYY');
+    }
+});

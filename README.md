@@ -209,6 +209,12 @@ A space-separated string consisting of one or two of “left” or “right”, 
 
 Disable Saturday and Sunday.
 
+### inline
+- Type: `Boolean`
+- Default: `false`
+
+Show calendar inline. If `true` and `parentEl` is not provided then will use `parentNode` of field.
+
 ### locale
 - Type: `Object`
 - Default: 
