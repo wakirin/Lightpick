@@ -46,10 +46,6 @@
         selectBackward: false,
         minDays: null,
         maxDays: null,
-        onSelect: null,
-        onOpen: null,
-        onClose: null,
-        onError: null,
         hoveringTooltip: true,
         hideOnBodyClick: true,
         footer: false,
@@ -58,9 +54,12 @@
         orientation: 'auto',
         disableWeekends: false,
         inline: false,
-        years: {
-            min: 1900,
-            max: null,
+        dropdowns: {
+            years: {
+                min: 1900,
+                max: null,
+            },
+            months: true,
         },
         locale: {
             buttons: {
@@ -82,8 +81,13 @@
                 if ('other' in locale) return locale.other;
 
                 return '';
-            }
+            },
         },
+
+        onSelect: null,
+        onOpen: null,
+        onClose: null,
+        onError: null,
     },
 
     renderTopButtons = function(opts)
@@ -279,6 +283,10 @@
         
         // for text align to right
         select.dir = 'rtl';
+
+        if (!opts.dropdowns || !opts.dropdowns.months) {
+            select.disabled = true;
+        }
     
         return select.outerHTML;
     },
@@ -287,8 +295,9 @@
     {
         var d = moment(date),
             select = document.createElement('select'),
-            minYear = opts.years.min ? opts.years.min : 1900,
-            maxYear = opts.years.max ? opts.years.max : Number.parseInt(moment().format('YYYY'));
+            years = opts.dropdowns && opts.dropdowns.years ? opts.dropdowns.years : null,
+            minYear = years && years.min ? years.min : 1900,
+            maxYear = years && years.max ? years.max : Number.parseInt(moment().format('YYYY'));
 
         if (Number.parseInt(date.format('YYYY')) < minYear) {
             minYear = Number.parseInt(date.format('YYYY'));
@@ -313,6 +322,10 @@
         }
 
         select.className = 'lightpick__select lightpick__select-years';
+
+        if (!opts.dropdowns || !opts.dropdowns.years) {
+            select.disabled = true;
+        }
 
         return select.outerHTML;
     },

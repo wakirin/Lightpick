@@ -215,6 +215,23 @@ Disable Saturday and Sunday.
 
 Show calendar inline. If `true` and `parentEl` is not provided then will use `parentNode` of field.
 
+### dropdowns
+- Type: `Object|Boolean`
+- Default: 
+```
+{ 
+    years: { 
+        min: 1900, 
+        max: null, 
+    }, 
+    months: true, 
+}
+```
+Dropdown selections for years, months. Can be `false` for disable both dropdowns. 
+`years` _(Object|Boolean)_ - Object must contains `min` and `max` range of years or can be `false` for disable dropdown of years. 
+`months` _(Boolean)_ - `true/false` for enable/disable dropdown of months. 
+
+
 ### locale
 - Type: `Object`
 - Default: 
@@ -242,10 +259,10 @@ Show calendar inline. If `true` and `parentEl` is not provided then will use `pa
     }
 }
 ```
-`buttons` - Text for buttons
-`tooltip` - Text for tooltip (one, few, many, other)
-`tooltipOnDisabled` (String) - Show tooltip text on disabled dates. (Eg. «Already booked»)
-`pluralize` (function) - Function for calc plural text. More examples for another locales on [betsol/numerous](https://github.com/betsol/numerous/tree/master/locales)
+`buttons` - Text for buttons 
+`tooltip` - Text for tooltip (one, few, many, other) 
+`tooltipOnDisabled` (String) - Show tooltip text on disabled dates. (Eg. «Already booked») 
+`pluralize` (function) - Function for calc plural text. More examples for another locales on [betsol/numerous](https://github.com/betsol/numerous/tree/master/locales) 
 
 ### onSelect
 - Type: `Function`

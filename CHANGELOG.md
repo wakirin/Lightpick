@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.3.2] - 2019-03-22
+* New option: `dropdowns` 
+
 [1.3.1] - 2019-03-22
 * New option: `inline` (default is `false`)
 

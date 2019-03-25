@@ -82,6 +82,9 @@
     -webkit-appearance: none;
     appearance: none;
 }
+.lightpick__month-title > .lightpick__select:disabled {
+    color: #333;
+}
 
 .lightpick__month-title > .lightpick__select-months {
     font-weight: bold;
