@@ -252,15 +252,20 @@
             day.className.splice(day.className.indexOf('is-available'), 1);
         }
 
-        var div = document.createElement('div');
-        div.className = day.className.join(' ');
-        div.innerHTML = date.get('date');
-        div.setAttribute('data-time', day.time);
+        var dateEl = document.createElement('div');
+        if (opts.inline) {
+            // Changing date element to a "button" for inline calendar for accessibility
+            dateEl = document.createElement('button');
+            dateEl.setAttribute('type', 'button');
+        }
+        dateEl.className = day.className.join(' ');
+        dateEl.innerHTML = date.get('date');
+        dateEl.setAttribute('data-time', day.time);
 
-        return div.outerHTML;
+        return dateEl.outerHTML;
     },
 
-    renderMonthsList = function(date, opts) 
+    renderMonthsList = function(date, opts)
     {
         var d = moment(date),
             select = document.createElement('select');
@@ -280,14 +285,14 @@
         }
 
         select.className = 'lightpick__select lightpick__select-months';
-        
+
         // for text align to right
         select.dir = 'rtl';
 
         if (!opts.dropdowns || !opts.dropdowns.months) {
             select.disabled = true;
         }
-    
+
         return select.outerHTML;
     },
 
@@ -482,7 +487,7 @@
 
         if (opts.parentEl instanceof Node) {
             opts.parentEl.appendChild(self.el)
-        } 
+        }
         else if (opts.parentEl === 'body' && opts.inline) {
             opts.field.parentNode.appendChild(self.el);
         }
@@ -1207,7 +1212,7 @@
                 }
 
                 this.syncFields();
-                
+
                 if (this._opts.secondField && this._opts.secondField === target && this._opts.endDate) {
                     this.gotoDate(this._opts.endDate);
                 }
