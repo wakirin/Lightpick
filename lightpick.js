@@ -1093,6 +1093,10 @@
             if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
                 this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
             }
+
+            if (this._opts.inline) {
+                updateDates(this.el, this._opts);
+            }
         },
 
         setEndDate: function(date, preventOnSelect)
@@ -1124,6 +1128,10 @@
 
             if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
                 this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
+            }
+
+            if (this._opts.inline) {
+                updateDates(this.el, this._opts);
             }
         },
 

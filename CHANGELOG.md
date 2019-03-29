@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.3.3] - 2019-03-29
+* fixed bug #51
+
 [1.3.2] - 2019-03-25
 * New option: `dropdowns` 
 
