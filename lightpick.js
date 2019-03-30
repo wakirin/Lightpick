@@ -1093,10 +1093,6 @@
             if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
                 this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
             }
-
-            if (this._opts.inline) {
-                updateDates(this.el, this._opts);
-            }
         },
 
         setEndDate: function(date, preventOnSelect)
@@ -1129,18 +1125,18 @@
             if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
                 this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
             }
-
-            if (this._opts.inline) {
-                updateDates(this.el, this._opts);
-            }
         },
 
-        setDate: function(date)
+        setDate: function(date, preventOnSelect)
         {
             if (!this._opts.singleDate) {
                 return;
             }
-            this.setStartDate(date, true);
+            this.setStartDate(date, preventOnSelect);
+
+            if (this.isShowing) {
+                updateDates(this.el, this._opts);
+            }
         },
 
         setDateRange: function(start, end, preventOnSelect)
