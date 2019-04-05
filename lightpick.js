@@ -88,6 +88,7 @@
         onOpen: null,
         onClose: null,
         onError: null,
+        dayClasses: null
     },
 
     renderTopButtons = function(opts)
@@ -117,6 +118,10 @@
             time: moment(date).valueOf(),
             className: ['lightpick__day', 'is-available']
         };
+
+        if(opts.dayClasses && typeof opts.dayClasses === "function") {
+            day.className = day.className.concat(opts.dayClasses(day) || []);
+        }
 
         if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
             extraClass = extraClass.filter( function( el ) {
