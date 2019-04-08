@@ -160,8 +160,9 @@
 }
 
 .lightpick__day.is-today {
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle fill='rgba(220, 50, 47, 0.06)' cx='16' cy='16' r='16'/%3E%3C/svg%3E");
-    background-size: 61.8% auto;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle fill='rgba(220, 50, 47, .5)' cx='16' cy='16' r='16'/%3E%3C/svg%3E");
+    background-size: 18.8% auto;
+    background-position: center bottom;
     color: #DC322F;
 }
 
@@ -236,6 +237,8 @@
 .lightpick__day.is-start-date:hover,
 .lightpick__day.is-end-date:hover {
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle fill='%23268BD2' cx='16' cy='16' r='16'/%3E%3C/svg%3E");
+    background-size: auto;
+    background-position: center;
     color: #FFF;
     font-weight: bold;
 }

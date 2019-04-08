@@ -1132,12 +1132,16 @@
             }
         },
 
-        setDate: function(date)
+        setDate: function(date, preventOnSelect)
         {
             if (!this._opts.singleDate) {
                 return;
             }
-            this.setStartDate(date, true);
+            this.setStartDate(date, preventOnSelect);
+
+            if (this.isShowing) {
+                updateDates(this.el, this._opts);
+            }
         },
 
         setDateRange: function(start, end, preventOnSelect)
