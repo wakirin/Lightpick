@@ -256,17 +256,12 @@
             day.className.splice(day.className.indexOf('is-available'), 1);
         }
 
-        var dateEl = document.createElement('div');
-        if (opts.inline) {
-            // Changing date element to a "button" for inline calendar for accessibility
-            dateEl = document.createElement('button');
-            dateEl.setAttribute('type', 'button');
-        }
-        dateEl.className = day.className.join(' ');
-        dateEl.innerHTML = date.get('date');
-        dateEl.setAttribute('data-time', day.time);
+        var div = document.createElement('div');
+        div.className = day.className.join(' ');
+        div.innerHTML = date.get('date');
+        div.setAttribute('data-time', day.time);
 
-        return dateEl.outerHTML;
+        return div.outerHTML;
     },
 
     renderMonthsList = function(date, opts)
