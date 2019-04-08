@@ -85,6 +85,10 @@
         },
 
         onSelect: null,
+        // Callback applicable only for date range selection
+        onSelectStart: null,
+        // Callback applicable only for date range selection
+        onSelectEnd: null,
         onOpen: null,
         onClose: null,
         onError: null,
@@ -1098,6 +1102,9 @@
             if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
                 this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
             }
+            if (!preventOnSelect && !this._opts.singleDate && typeof this._opts.onSelectStart === 'function') {
+                this._opts.onSelectStart.call(this, this.getStartDate());
+            }
         },
 
         setEndDate: function(date, preventOnSelect)
@@ -1129,6 +1136,9 @@
 
             if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
                 this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
+            }
+            if (!preventOnSelect && !this._opts.singleDate && typeof this._opts.onSelectEnd === 'function') {
+                this._opts.onSelectEnd.call(this, this.getEndDate());
             }
         },
 
