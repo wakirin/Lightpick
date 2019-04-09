@@ -88,7 +88,8 @@
         onOpen: null,
         onClose: null,
         onError: null,
-        dayClasses: null
+        dayClasses: null,
+        dayChlidren: null
     },
 
     renderTopButtons = function(opts)
@@ -261,7 +262,10 @@
         div.className = day.className.join(' ');
         div.innerHTML = date.get('date');
         div.setAttribute('data-time', day.time);
-
+        
+        if(opts.dayChildren && typeof opts.dayChildren === "function") {
+            opts.dayChildren(div, date);
+        }
         return div.outerHTML;
     },
 
