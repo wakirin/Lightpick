@@ -120,7 +120,7 @@
         };
 
         if(opts.dayClasses && typeof opts.dayClasses === "function") {
-            day.className = day.className.concat(opts.dayClasses(day) || []);
+            day.className = day.className.concat(opts.dayClasses(date) || []);
         }
 
         if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
