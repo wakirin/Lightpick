@@ -89,7 +89,7 @@
         onClose: null,
         onError: null,
         dayClasses: null,
-        dayChlidren: null
+        dayMutator: null
     },
 
     renderTopButtons = function(opts)
@@ -263,8 +263,8 @@
         div.innerHTML = date.get('date');
         div.setAttribute('data-time', day.time);
         
-        if(opts.dayChildren && typeof opts.dayChildren === "function") {
-            opts.dayChildren(div, date);
+        if(opts.dayMutator && typeof opts.dayMutator === "function") {
+            opts.dayMutator(div, date);
         }
         return div.outerHTML;
     },
