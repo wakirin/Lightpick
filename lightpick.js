@@ -128,10 +128,6 @@
 
         if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
             extraClass = extraClass.filter( function( el ) {
-            	// renderDayHook - extra call for selected date
-                if(typeof opts.hooks.renderDay == 'function'){
-                    div = opts.hooks.renderDay(div, date);
-                }
                 return ['lightpick__day', 'is-available', 'is-previous-month', 'is-next-month'].indexOf( el ) >= 0;
             });
             day.className = day.className.concat(extraClass);
@@ -271,7 +267,7 @@
 		
 		// renderDayHook
         if(typeof opts.hooks.renderDay == 'function'){
-            div = opts.hooks.renderDay(div, date);
+            div = opts.hooks.renderDay(div);
         }
 
         return div.outerHTML;
