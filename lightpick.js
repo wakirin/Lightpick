@@ -54,6 +54,7 @@
         orientation: 'auto',
         disableWeekends: false,
         inline: false,
+        positionToSecondField: false,
         dropdowns: {
             years: {
                 min: 1900,
@@ -82,6 +83,13 @@
 
                 return '';
             },
+        },
+
+        // Functions to hang into the render functions
+        hooks: {
+            // accepts $day-div and returns it afterwards
+            // renderDay: function(div) { return div; }
+            renderDay: null
         },
 
         onSelect: null,
@@ -256,6 +264,11 @@
         div.className = day.className.join(' ');
         div.innerHTML = date.get('date');
         div.setAttribute('data-time', day.time);
+		
+		// renderDayHook
+        if(typeof opts.hooks.renderDay == 'function'){
+            div = opts.hooks.renderDay(div);
+        }
 
         return div.outerHTML;
     },
@@ -1020,8 +1033,10 @@
 
             // remove `is-hidden` class for getBoundingClientRect
             this.el.classList.remove('is-hidden');
+            
+            var field = (this._opts.positionToSecondField ? this._opts.secondField : this._opts.field);
 
-            var rect = this._opts.field.getBoundingClientRect(),
+            var rect = field.getBoundingClientRect(),
                 calRect = this.el.getBoundingClientRect(),
                 orientation = this._opts.orientation.split(' '),
                 top = 0,
