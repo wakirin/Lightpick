@@ -85,6 +85,13 @@
             },
         },
 
+        // Functions to hang into the render functions
+        hooks: {
+            // accepts $day-div and returns it afterwards
+            // renderDay: function(div) { return div; }
+            renderDay: null
+        },
+
         onSelect: null,
         onOpen: null,
         onClose: null,
@@ -121,6 +128,10 @@
 
         if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
             extraClass = extraClass.filter( function( el ) {
+            	// renderDayHook - extra call for selected date
+                if(typeof opts.hooks.renderDay == 'function'){
+                    div = opts.hooks.renderDay(div, date);
+                }
                 return ['lightpick__day', 'is-available', 'is-previous-month', 'is-next-month'].indexOf( el ) >= 0;
             });
             day.className = day.className.concat(extraClass);
@@ -257,6 +268,11 @@
         div.className = day.className.join(' ');
         div.innerHTML = date.get('date');
         div.setAttribute('data-time', day.time);
+		
+		// renderDayHook
+        if(typeof opts.hooks.renderDay == 'function'){
+            div = opts.hooks.renderDay(div, date);
+        }
 
         return div.outerHTML;
     },
