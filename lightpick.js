@@ -300,39 +300,39 @@
 
     renderYearsList = function(date, opts)
     {
-        var d = moment(date),
-            select = document.createElement('select'),
-            years = opts.dropdowns && opts.dropdowns.years ? opts.dropdowns.years : null,
-            minYear = years && years.min ? years.min : 1900,
-            maxYear = years && years.max ? years.max : Number.parseInt(moment().format('YYYY'));
+        var d = moment(date);
+        var disableSelect = (!opts.dropdowns || !opts.dropdowns.years);
+        var select = document.createElement(disableSelect ? 'div' : 'select');
 
-        if (Number.parseInt(date.format('YYYY')) < minYear) {
-            minYear = Number.parseInt(date.format('YYYY'));
-        }
+        if (!disableSelect) {
+            var years = opts.dropdowns && opts.dropdowns.years ? opts.dropdowns.years : null;
+            var minYear = years && years.min ? years.min : 1900;
+            var maxYear = years && years.max ? years.max : Number.parseInt(moment().format('YYYY'));
 
-        if (Number.parseInt(date.format('YYYY')) > maxYear) {
-            maxYear = Number.parseInt(date.format('YYYY'));
-        }
-
-        for (var idx = minYear; idx <= maxYear; idx++) {
-            d.set('year', idx);
-
-            var option = document.createElement('option');
-            option.value = d.toDate().getFullYear();
-            option.text = d.toDate().getFullYear();
-
-            if (idx === date.toDate().getFullYear()) {
-                option.setAttribute('selected', 'selected');
+            if (Number.parseInt(date.format('YYYY')) < minYear) {
+                minYear = Number.parseInt(date.format('YYYY'));
             }
 
-            select.appendChild(option);
+            if (Number.parseInt(date.format('YYYY')) > maxYear) {
+                maxYear = Number.parseInt(date.format('YYYY'));
+            }
+
+            for (var idx = minYear; idx <= maxYear; idx++) {
+                d.set('year', idx);
+
+                var option = document.createElement('option');
+                option.value = d.toDate().getFullYear();
+                option.text = d.toDate().getFullYear();
+
+                if (idx === date.toDate().getFullYear()) {
+                    option.setAttribute('selected', 'selected');
+                }
+
+                select.appendChild(option);
+            }
         }
 
         select.className = 'lightpick__select lightpick__select-years';
-
-        if (!opts.dropdowns || !opts.dropdowns.years) {
-            select.disabled = true;
-        }
 
         return select.outerHTML;
     },
