@@ -271,30 +271,28 @@
 
     renderMonthsList = function(date, opts)
     {
-        var d = moment(date),
-            select = document.createElement('select');
-
-        for (var idx = 0; idx < 12; idx++) {
-            d.set('month', idx);
-
-            var option = document.createElement('option');
-            option.value = d.toDate().getMonth();
-            option.text = d.toDate().toLocaleString(opts.lang, { month: 'long' });
-
-            if (idx === date.toDate().getMonth()) {
-                option.setAttribute('selected', 'selected');
-            }
-
-            select.appendChild(option);
-        }
+        var d = moment(date);
+        var disableSelect = (!opts.dropdowns || !opts.dropdowns.months);
+        var select = document.createElement(disableSelect ? 'div' : 'select');
 
         select.className = 'lightpick__select lightpick__select-months';
 
-        // for text align to right
-        select.dir = 'rtl';
+        if (!disableSelect) {
+            for (var idx = 0; idx < 12; idx++) {
+                d.set('month', idx);
 
-        if (!opts.dropdowns || !opts.dropdowns.months) {
-            select.disabled = true;
+                var option = document.createElement('option');
+                option.value = d.toDate().getMonth();
+                option.text = d.toDate().toLocaleString(opts.lang, { month: 'long' });
+
+                if (idx === date.toDate().getMonth()) {
+                    option.setAttribute('selected', 'selected');
+                }
+
+                select.appendChild(option);
+            }
+            // for text align to right
+            select.dir = 'rtl';
         }
 
         return select.outerHTML;
