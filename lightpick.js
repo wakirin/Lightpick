@@ -92,12 +92,15 @@
 
     renderTopButtons = function(opts)
     {
-        return '<div class="lightpick__toolbar">'
-            + ''
-            + '<button type="button" class="lightpick__previous-action">' + opts.locale.buttons.prev + '</button>'
-            + '<button type="button" class="lightpick__next-action">' + opts.locale.buttons.next + '</button>'
-            + (!opts.autoclose && !opts.inline ? '<button type="button" class="lightpick__close-action">' + opts.locale.buttons.close + '</button>'  : '')
-            + '</div>';
+        var prevDisabled = (opts.minDate && opts.minDate > opts.calendar[0]) ? 'disabled="disabled"' : '';
+        var nextDisabled = (opts.maxDate && opts.maxDate < opts.calendar[0].clone().endOf('month')) ? 'disabled="disabled"' : '';
+        return [
+            '<div class="lightpick__toolbar">',
+                '<button type="button" class="lightpick__action lightpick__action-previous" ' + prevDisabled + '>' + opts.locale.buttons.prev + '</button>',
+                '<button type="button" class="lightpick__action lightpick__action-next" ' + nextDisabled + '>' + opts.locale.buttons.next + '</button>',
+                (!opts.autoclose && !opts.inline ? '<button type="button" class="lightpick__action lightpick__action-close">' + opts.locale.buttons.close + '</button>'  : ''),
+            '</div>',
+        ].join('');
     },
 
     weekdayName = function(opts, day, short)
@@ -622,10 +625,10 @@
                     }
                 }
             }
-            else if (target.classList.contains('lightpick__previous-action')) {
+            else if (target.classList.contains('lightpick__action-previous') && !target.classList.contains('is-disabled')) {
                 self.prevMonth();
             }
-            else if (target.classList.contains('lightpick__next-action')) {
+            else if (target.classList.contains('lightpick__action-next') && !target.classList.contains('is-disabled')) {
                 self.nextMonth();
             }
             else if (target.classList.contains('lightpick__close-action') || target.classList.contains('lightpick__apply-action')) {
