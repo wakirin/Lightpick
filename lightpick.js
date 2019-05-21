@@ -93,7 +93,7 @@
     renderTopButtons = function(opts)
     {
         var prevDisabled = (opts.minDate && opts.minDate > opts.calendar[0]) ? 'disabled="disabled"' : '';
-        var nextDisabled = (opts.maxDate && opts.maxDate < opts.calendar[0].clone().endOf('month')) ? 'disabled="disabled"' : '';
+        var nextDisabled = (opts.maxDate && opts.maxDate < opts.calendar[0].clone().add(opts.numberOfMonths, 'months').startOf('month')) ? 'disabled="disabled"' : '';
         return [
             '<div class="lightpick__toolbar">',
                 '<button type="button" class="lightpick__action lightpick__action-previous" ' + prevDisabled + '>' + opts.locale.buttons.prev + '</button>',
@@ -263,7 +263,7 @@
         return div.outerHTML;
     },
 
-    renderMonthsList = function(date, opts) 
+    renderMonthsList = function(date, opts)
     {
         var d = moment(date),
             select = document.createElement('select');
@@ -283,14 +283,14 @@
         }
 
         select.className = 'lightpick__select lightpick__select-months';
-        
+
         // for text align to right
         select.dir = 'rtl';
 
         if (!opts.dropdowns || !opts.dropdowns.months) {
             select.disabled = true;
         }
-    
+
         return select.outerHTML;
     },
 
@@ -485,7 +485,7 @@
 
         if (opts.parentEl instanceof Node) {
             opts.parentEl.appendChild(self.el)
-        } 
+        }
         else if (opts.parentEl === 'body' && opts.inline) {
             opts.field.parentNode.appendChild(self.el);
         }
@@ -627,9 +627,15 @@
             }
             else if (target.classList.contains('lightpick__action-previous') && !target.classList.contains('is-disabled')) {
                 self.prevMonth();
+                if (opts.numberOfMonths > 1) {
+                    self.reRenderTopButtons();
+                }
             }
             else if (target.classList.contains('lightpick__action-next') && !target.classList.contains('is-disabled')) {
                 self.nextMonth();
+                if (opts.numberOfMonths > 1) {
+                    self.reRenderTopButtons();
+                }
             }
             else if (target.classList.contains('lightpick__close-action') || target.classList.contains('lightpick__apply-action')) {
                 self.hide();
@@ -750,9 +756,15 @@
 
             if (target.classList.contains('lightpick__select-months')) {
                 self.gotoMonth(target.value);
+                if (opts.numberOfMonths > 1) {
+                    self.reRenderTopButtons();
+                }
             }
             else if (target.classList.contains('lightpick__select-years')) {
                 self.gotoYear(target.value);
+                if (opts.numberOfMonths > 1) {
+                    self.reRenderTopButtons();
+                }
             }
         };
 
@@ -999,6 +1011,10 @@
             renderCalendar(this.el, this._opts);
         },
 
+        reRenderTopButtons: function () {
+            this.el.querySelector('.lightpick__toolbar').outerHTML = renderTopButtons(this._opts);
+        },
+
         prevMonth: function()
         {
             this._opts.calendar[0] = moment(this._opts.calendar[0]).subtract(this._opts.numberOfMonths, 'month');
@@ -1214,7 +1230,7 @@
                 }
 
                 this.syncFields();
-                
+
                 if (this._opts.secondField && this._opts.secondField === target && this._opts.endDate) {
                     this.gotoDate(this._opts.endDate);
                 }
