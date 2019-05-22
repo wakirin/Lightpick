@@ -1219,7 +1219,7 @@
                     this.gotoDate(this._opts.startDate);
                 }
 
-                document.addEventListener('click', this._onClick);
+                document.addEventListener('mousedown', this._onClick);
 
                 this.updatePosition();
 
@@ -1240,7 +1240,7 @@
             if (this.isShowing) {
                 this.isShowing = false;
 
-                document.removeEventListener('click', this._onClick);
+                document.removeEventListener('mousedown', this._onClick);
 
                 this.el.classList.add('is-hidden');
 
