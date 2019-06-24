@@ -283,7 +283,7 @@
         }
 
         div.className = 'lightpick__label';
-        span.className = 'lightpick__label lightpick__label-month';
+        span.className = 'lightpick__label-month';
         select.className = 'lightpick__select lightpick__select-months';
 
         if (!opts.dropdowns || !opts.dropdowns.months) {
@@ -330,7 +330,7 @@
         }
 
         div.className = 'lightpick__label';
-        span.className = 'lightpick__label lightpick__label-year';
+        span.className = 'lightpick__label-year';
         select.className = 'lightpick__select lightpick__select-years';
 
         if (!opts.dropdowns || !opts.dropdowns.years) {

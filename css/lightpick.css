@@ -95,7 +95,7 @@
     z-index: 9999;
 }
 
-.lightpick__label > .lightpick__label-month {
+.lightpick__label-month {
     font-weight: bold;
     font-size: 1em;
     margin-right: .5em;
