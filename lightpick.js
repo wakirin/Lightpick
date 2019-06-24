@@ -263,6 +263,8 @@
     renderMonthsList = function(date, opts) 
     {
         var d = moment(date),
+            div = document.createElement('div'),
+            span = document.createElement('span'),
             select = document.createElement('select');
 
         for (var idx = 0; idx < 12; idx++) {
@@ -274,27 +276,32 @@
 
             if (idx === date.toDate().getMonth()) {
                 option.setAttribute('selected', 'selected');
+                span.innerText = option.text;
             }
 
             select.appendChild(option);
         }
 
+        div.className = 'lightpick__label';
+        span.className = 'lightpick__label lightpick__label-month';
         select.className = 'lightpick__select lightpick__select-months';
-        
-        // for text align to right
-        select.dir = 'rtl';
 
         if (!opts.dropdowns || !opts.dropdowns.months) {
             select.disabled = true;
         }
+        
+        div.appendChild(span);
+        div.appendChild(select);
     
-        return select.outerHTML;
+        return div.outerHTML;
     },
 
     renderYearsList = function(date, opts)
     {
         var d = moment(date),
+            div = document.createElement('div'),
             select = document.createElement('select'),
+            span = document.createElement('span'),
             years = opts.dropdowns && opts.dropdowns.years ? opts.dropdowns.years : null,
             minYear = years && years.min ? years.min : 1900,
             maxYear = years && years.max ? years.max : Number.parseInt(moment().format('YYYY'));
@@ -316,18 +323,24 @@
 
             if (idx === date.toDate().getFullYear()) {
                 option.setAttribute('selected', 'selected');
+                span.innerText = option.text;
             }
 
             select.appendChild(option);
         }
 
+        div.className = 'lightpick__label';
+        span.className = 'lightpick__label lightpick__label-year';
         select.className = 'lightpick__select lightpick__select-years';
 
         if (!opts.dropdowns || !opts.dropdowns.years) {
             select.disabled = true;
         }
 
-        return select.outerHTML;
+        div.appendChild(span);
+        div.appendChild(select);
+
+        return div.outerHTML;
     },
 
     renderCalendar = function(el, opts)
