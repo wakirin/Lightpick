@@ -88,7 +88,7 @@
     z-index: 9998;
 }
 
-.lightpick__label {
+.lightpick__month-title > .lightpick__label {
     overflow: hidden;
     display: inline-block;
     position: relative;
