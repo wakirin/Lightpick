@@ -72,7 +72,7 @@ If exists then end of date range will set here.
 ISO day of the week (1: Monday, ..., 7: Sunday).
 
 ### parentEl
-- Type: `String`
+- Type: `String | Element`
 - Default: `body` 
 
 Selector of the parent element that the date range picker will be added to, if not provided this will be 'body'.
