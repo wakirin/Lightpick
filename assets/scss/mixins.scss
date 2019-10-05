@@ -1,0 +1,43 @@
+// px to rems
+@function rem($size) {
+  $remSize: $size / $base-font;
+  @return #{$remSize}rem;
+}
+
+@mixin fontSize($size) {
+  font-size: $size;
+  font-size: rem($size);
+}
+
+@mixin flex-grid-break($size) {
+  @media (min-width: map-get($flex-grid-breakpoints, $size)) {
+    @content;
+  }
+}
+
+@mixin calendarIsEndDate() {
+  &:after{
+    z-index: -1;
+    content: '';
+    position: absolute;
+    right: rem(-15px);
+    background-color: $information01-color;
+    width: rem(30px);
+    height: rem(30px);
+    //transform: translateZ(-1px);
+  }
+}
+
+@mixin calendarIsStartDate() {
+  border: none;
+  &:before{
+    z-index: 1;
+    content: '';
+    position: absolute;
+    left: 0;
+    border: rem(1px) solid $information-color;
+    border-radius: 50%;
+    width: rem(29px);
+    height: rem(29px);
+  }
+}

@@ -2,14 +2,13 @@
   "name": "lightpick",
   "version": "1.3.4",
   "description": "Javascript date range picker - lightweight, no jQuery",
-  "main": "lightpick.js",
+  "main": "dist/lightpick.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build --no-content-hash assets/js/index.js --out-file lightpick.js",
+    "watch": "parcel demo/index.html --out-dir watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wakirin/lightpick.git"
-  },
+  "repository": "https://github.com/wakirin/lightpick.git",
   "keywords": [
     "datepicker",
     "date",
@@ -18,17 +17,17 @@
     "picker",
     "range"
   ],
-  "author": {
-    "name": "Rinat G.",
-    "email": "lightpick@coding.kz",
-    "url": "http://coding.kz"
-  },
+  "author": "Rinat G. <lightpick@coding.kz> (http://coding.kz)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wakirin/lightpick/issues"
   },
   "homepage": "https://github.com/wakirin/lightpick#readme",
   "dependencies": {
-    "moment": "^2.22.2"
+    "moment": "^2.22.2",
+    "parcel": "^1.12.3"
+  },
+  "devDependencies": {
+    "sass": "^1.23.0"
   }
 }
