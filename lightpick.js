@@ -260,7 +260,7 @@
         return div.outerHTML;
     },
 
-    renderMonthsList = function(date, opts) 
+    renderMonthsList = function(date, opts)
     {
         var d = moment(date),
             select = document.createElement('select');
@@ -280,14 +280,14 @@
         }
 
         select.className = 'lightpick__select lightpick__select-months';
-        
+
         // for text align to right
         select.dir = 'rtl';
 
         if (!opts.dropdowns || !opts.dropdowns.months) {
             select.disabled = true;
         }
-    
+
         return select.outerHTML;
     },
 
@@ -482,7 +482,7 @@
 
         if (opts.parentEl instanceof Node) {
             opts.parentEl.appendChild(self.el)
-        } 
+        }
         else if (opts.parentEl === 'body' && opts.inline) {
             opts.field.parentNode.appendChild(self.el);
         }
@@ -872,9 +872,9 @@
                 opts.numberOfColumns = 1;
             }
 
-            opts.minDate = opts.minDate && moment(opts.minDate).isValid() ? moment(opts.minDate) : null;
+            opts.minDate = opts.minDate && moment(opts.minDate, opts.format).isValid() ? moment(opts.minDate, opts.format) : null;
 
-            opts.maxDate = opts.maxDate && moment(opts.maxDate).isValid() ? moment(opts.maxDate) : null;
+            opts.maxDate = opts.maxDate && moment(opts.maxDate, opts.format).isValid() ? moment(opts.maxDate, opts.format) : null;
 
             if (opts.lang === 'auto') {
                 var browserLang = navigator.language || navigator.userLanguage;
@@ -1211,7 +1211,7 @@
                 }
 
                 this.syncFields();
-                
+
                 if (this._opts.secondField && this._opts.secondField === target && this._opts.endDate) {
                     this.gotoDate(this._opts.endDate);
                 }
