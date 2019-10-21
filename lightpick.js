@@ -54,6 +54,7 @@
         orientation: 'auto',
         disableWeekends: false,
         inline: false,
+        weekdayStyle: 'short',
         dropdowns: {
             years: {
                 min: 1900,
@@ -100,9 +101,9 @@
             + '</div>';
     },
 
-    weekdayName = function(opts, day, short)
+    weekdayName = function(opts, day, weekdayStyle)
     {
-        return new Date(1970, 0, day).toLocaleString(opts.lang, { weekday: short ? 'short' : 'long' })
+        return new Date(1970, 0, day).toLocaleString(opts.lang, { weekday: weekdayStyle || opts.weekdayStyle });
     },
 
     renderDay = function(opts, date, dummy, extraClass)
@@ -260,7 +261,7 @@
         return div.outerHTML;
     },
 
-    renderMonthsList = function(date, opts) 
+    renderMonthsList = function(date, opts)
     {
         var d = moment(date),
             select = document.createElement('select');
@@ -280,14 +281,14 @@
         }
 
         select.className = 'lightpick__select lightpick__select-months';
-        
+
         // for text align to right
         select.dir = 'rtl';
 
         if (!opts.dropdowns || !opts.dropdowns.months) {
             select.disabled = true;
         }
-    
+
         return select.outerHTML;
     },
 
@@ -353,7 +354,7 @@
 
             html += '<div class="lightpick__days-of-the-week">';
             for (var w = opts.firstDay + 4; w < 7 + opts.firstDay + 4; ++w) {
-                html += '<div class="lightpick__day-of-the-week" title="' + weekdayName(opts, w) + '">' + weekdayName(opts, w, true) + '</div>';
+                html += '<div class="lightpick__day-of-the-week" title="' + weekdayName(opts, w, 'long') + '">' + weekdayName(opts, w) + '</div>';
             }
             html += '</div>'; // lightpick__days-of-the-week
 
@@ -482,7 +483,7 @@
 
         if (opts.parentEl instanceof Node) {
             opts.parentEl.appendChild(self.el)
-        } 
+        }
         else if (opts.parentEl === 'body' && opts.inline) {
             opts.field.parentNode.appendChild(self.el);
         }
@@ -1211,7 +1212,7 @@
                 }
 
                 this.syncFields();
-                
+
                 if (this._opts.secondField && this._opts.secondField === target && this._opts.endDate) {
                     this.gotoDate(this._opts.endDate);
                 }

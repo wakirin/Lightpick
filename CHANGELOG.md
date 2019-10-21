@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.3.5] - 
+* New option `weekdayStyle` - Weekday display style added.
+    Possible values are 'long', 'short' or 'narrow'.
+    Implementation of #91
+
 [1.3.4] - 2019-03-30
 * fixed bug #51
 
