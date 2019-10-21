@@ -89,6 +89,8 @@
         onOpen: null,
         onClose: null,
         onError: null,
+        dayClasses: null,
+        dayMutator: null
     },
 
     renderTopButtons = function(opts)
@@ -118,6 +120,10 @@
             time: moment(date).valueOf(),
             className: ['lightpick__day', 'is-available']
         };
+
+        if(opts.dayClasses && typeof opts.dayClasses === "function") {
+            day.className = day.className.concat(opts.dayClasses(date) || []);
+        }
 
         if (extraClass instanceof Array || Object.prototype.toString.call(extraClass) === '[object Array]') {
             extraClass = extraClass.filter( function( el ) {
@@ -257,7 +263,10 @@
         div.className = day.className.join(' ');
         div.innerHTML = date.get('date');
         div.setAttribute('data-time', day.time);
-
+        
+        if(opts.dayMutator && typeof opts.dayMutator === "function") {
+            opts.dayMutator(div, date);
+        }
         return div.outerHTML;
     },
 
