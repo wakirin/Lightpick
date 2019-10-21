@@ -215,6 +215,14 @@ Disable Saturday and Sunday.
 
 Show calendar inline. If `true` and `parentEl` is not provided then will use `parentNode` of field.
 
+### weekdayStyle
+- Type: `String`
+- Default: `short`
+
+Determines the weekday display style.
+Possible values are: `long` (e.g., Thursday), `short` (e.g., Thu), `narrow` (e.g., T).
+Two weekdays may have the same narrow style for some locales (e.g. Tuesday's narrow style is also T).
+
 ### dropdowns
 - Type: `Object|Boolean`
 - Default: 
