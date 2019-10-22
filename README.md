@@ -297,6 +297,18 @@ Callback function for when the picker is hidden.
 Working when `disabledDatesInRange: false`
 Callback function for when user has select date range with disabled dates. 
 
+### onMonthsChange
+- Type: `Function`
+- Default: `null`
+
+Callback function for when the months select is changed.
+
+### onYearsChange
+- Type: `Function`
+- Default: `null`
+
+Callback function for when the years select is changed.
+
 ## Methods
 
 * * *

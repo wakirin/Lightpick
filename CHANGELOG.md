@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 [1.3.5] - 
+* New options `onMonthsChange` and `onYearsChange` - Events fire when months or years select changed.
+    `onMonthsChange` throws zero based number of month. Ex: January = 0
+    `onYearsChange` throws year. Ex: 2019
+    Implementation of #59
+
+[1.3.5] - 
 * New option `weekdayStyle` - Weekday display style added.
     Possible values are 'long', 'short' or 'narrow'.
     Implementation of #91
