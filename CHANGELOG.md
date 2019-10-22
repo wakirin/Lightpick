@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-[1.3.5] - 
+[1.3.6] - 
 * New options `onMonthsChange` and `onYearsChange` - Events fire when months or years select changed.
     `onMonthsChange` throws zero based number of month. Ex: January = 0
     `onYearsChange` throws year. Ex: 2019
