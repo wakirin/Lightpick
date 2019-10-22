@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.4.0] - 2019-10-22
+* Fix minDate, maxDate, disableDates and value (gotoDate) of input now respects format parameter.
+
 [1.3.6] - 2019-10-22
 * New options `onMonthsChange` and `onYearsChange` - Events fire when months or years select changed.
     `onMonthsChange` throws zero based number of month. Ex: January = 0

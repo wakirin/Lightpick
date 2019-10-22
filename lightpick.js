@@ -134,14 +134,14 @@
         if (opts.disableDates) {
             for (var i = 0; i < opts.disableDates.length; i++) {
                 if (opts.disableDates[i] instanceof Array || Object.prototype.toString.call(opts.disableDates[i]) === '[object Array]') {
-                    var _from = moment(opts.disableDates[i][0]),
-                        _to = moment(opts.disableDates[i][1]);
+                    var _from = moment(opts.disableDates[i][0], opts.format),
+                        _to = moment(opts.disableDates[i][1], opts.format);
 
                     if (_from.isValid() && _to.isValid() && date.isBetween(_from, _to, 'day', '[]')){
                         day.className.push('is-disabled');
                     }
                 }
-                else if (moment(opts.disableDates[i]).isValid() && moment(opts.disableDates[i]).isSame(date, 'day')) {
+                else if (moment(opts.disableDates[i], opts.format).isValid() && moment(opts.disableDates[i], opts.format).isSame(date, 'day')) {
                     day.className.push('is-disabled');
                 }
 
@@ -883,9 +883,9 @@
                 opts.numberOfColumns = 1;
             }
 
-            opts.minDate = opts.minDate && moment(opts.minDate).isValid() ? moment(opts.minDate) : null;
+            opts.minDate = opts.minDate && moment(opts.minDate, opts.format).isValid() ? moment(opts.minDate, opts.format) : null;
 
-            opts.maxDate = opts.maxDate && moment(opts.maxDate).isValid() ? moment(opts.maxDate) : null;
+            opts.maxDate = opts.maxDate && moment(opts.maxDate, opts.format).isValid() ? moment(opts.maxDate, opts.format) : null;
 
             if (opts.lang === 'auto') {
                 var browserLang = navigator.language || navigator.userLanguage;
@@ -972,7 +972,7 @@
 
         gotoDate: function(date)
         {
-            var date = moment(date);
+            var date = moment(date, this._opts.format);
 
             if (!date.isValid()) {
                 date = moment();
