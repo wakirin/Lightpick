@@ -89,6 +89,8 @@
         onOpen: null,
         onClose: null,
         onError: null,
+        onMonthsChange: null,
+        onYearsChange: null
     },
 
     renderTopButtons = function(opts)
@@ -747,9 +749,17 @@
             }
 
             if (target.classList.contains('lightpick__select-months')) {
+                if (typeof self._opts.onMonthsChange === 'function') {
+                    self._opts.onMonthsChange.call(this, target.value);
+                }
+
                 self.gotoMonth(target.value);
             }
             else if (target.classList.contains('lightpick__select-years')) {
+                if (typeof self._opts.onYearsChange === 'function') {
+                    self._opts.onYearsChange.call(this, target.value);
+                }
+
                 self.gotoYear(target.value);
             }
         };
