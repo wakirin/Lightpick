@@ -105,7 +105,7 @@
 
     weekdayName = function(opts, day, weekdayStyle)
     {
-        return new Date(1970, 0, day).toLocaleString(opts.lang, { weekday: weekdayStyle || opts.weekdayStyle });
+        return new Date(1970, 0, day, 12, 0, 0, 0).toLocaleString(opts.lang, { weekday: weekdayStyle || opts.weekdayStyle });
     },
 
     renderDay = function(opts, date, dummy, extraClass)
