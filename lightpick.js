@@ -54,6 +54,7 @@
         orientation: 'auto',
         disableWeekends: false,
         inline: false,
+        weekdayStyle: 'short',
         dropdowns: {
             years: {
                 min: 1900,
@@ -88,6 +89,8 @@
         onOpen: null,
         onClose: null,
         onError: null,
+        onMonthsChange: null,
+        onYearsChange: null
     },
 
     renderTopButtons = function(opts)
@@ -100,9 +103,9 @@
             + '</div>';
     },
 
-    weekdayName = function(opts, day, short)
+    weekdayName = function(opts, day, weekdayStyle)
     {
-        return new Date(1970, 0, day, 12, 0, 0, 0).toLocaleString(opts.lang, { weekday: short ? 'short' : 'long' })
+        return new Date(1970, 0, day, 12, 0, 0, 0).toLocaleString(opts.lang, { weekday: weekdayStyle || opts.weekdayStyle });
     },
 
     renderDay = function(opts, date, dummy, extraClass)
@@ -131,14 +134,14 @@
         if (opts.disableDates) {
             for (var i = 0; i < opts.disableDates.length; i++) {
                 if (opts.disableDates[i] instanceof Array || Object.prototype.toString.call(opts.disableDates[i]) === '[object Array]') {
-                    var _from = moment(opts.disableDates[i][0]),
-                        _to = moment(opts.disableDates[i][1]);
+                    var _from = moment(opts.disableDates[i][0], opts.format),
+                        _to = moment(opts.disableDates[i][1], opts.format);
 
                     if (_from.isValid() && _to.isValid() && date.isBetween(_from, _to, 'day', '[]')){
                         day.className.push('is-disabled');
                     }
                 }
-                else if (moment(opts.disableDates[i]).isValid() && moment(opts.disableDates[i]).isSame(date, 'day')) {
+                else if (moment(opts.disableDates[i], opts.format).isValid() && moment(opts.disableDates[i], opts.format).isSame(date, 'day')) {
                     day.className.push('is-disabled');
                 }
 
@@ -260,7 +263,7 @@
         return div.outerHTML;
     },
 
-    renderMonthsList = function(date, opts) 
+    renderMonthsList = function(date, opts)
     {
         var d = moment(date),
             select = document.createElement('select');
@@ -280,14 +283,14 @@
         }
 
         select.className = 'lightpick__select lightpick__select-months';
-        
+
         // for text align to right
         select.dir = 'rtl';
 
         if (!opts.dropdowns || !opts.dropdowns.months) {
             select.disabled = true;
         }
-    
+
         return select.outerHTML;
     },
 
@@ -353,7 +356,7 @@
 
             html += '<div class="lightpick__days-of-the-week">';
             for (var w = opts.firstDay + 4; w < 7 + opts.firstDay + 4; ++w) {
-                html += '<div class="lightpick__day-of-the-week" title="' + weekdayName(opts, w) + '">' + weekdayName(opts, w, true) + '</div>';
+                html += '<div class="lightpick__day-of-the-week" title="' + weekdayName(opts, w, 'long') + '">' + weekdayName(opts, w) + '</div>';
             }
             html += '</div>'; // lightpick__days-of-the-week
 
@@ -482,7 +485,7 @@
 
         if (opts.parentEl instanceof Node) {
             opts.parentEl.appendChild(self.el)
-        } 
+        }
         else if (opts.parentEl === 'body' && opts.inline) {
             opts.field.parentNode.appendChild(self.el);
         }
@@ -746,9 +749,17 @@
             }
 
             if (target.classList.contains('lightpick__select-months')) {
+                if (typeof self._opts.onMonthsChange === 'function') {
+                    self._opts.onMonthsChange.call(this, target.value);
+                }
+
                 self.gotoMonth(target.value);
             }
             else if (target.classList.contains('lightpick__select-years')) {
+                if (typeof self._opts.onYearsChange === 'function') {
+                    self._opts.onYearsChange.call(this, target.value);
+                }
+
                 self.gotoYear(target.value);
             }
         };
@@ -872,9 +883,9 @@
                 opts.numberOfColumns = 1;
             }
 
-            opts.minDate = opts.minDate && moment(opts.minDate).isValid() ? moment(opts.minDate) : null;
+            opts.minDate = opts.minDate && moment(opts.minDate, opts.format).isValid() ? moment(opts.minDate, opts.format) : null;
 
-            opts.maxDate = opts.maxDate && moment(opts.maxDate).isValid() ? moment(opts.maxDate) : null;
+            opts.maxDate = opts.maxDate && moment(opts.maxDate, opts.format).isValid() ? moment(opts.maxDate, opts.format) : null;
 
             if (opts.lang === 'auto') {
                 var browserLang = navigator.language || navigator.userLanguage;
@@ -961,7 +972,7 @@
 
         gotoDate: function(date)
         {
-            var date = moment(date);
+            var date = moment(date, this._opts.format);
 
             if (!date.isValid()) {
                 date = moment();
@@ -1211,7 +1222,7 @@
                 }
 
                 this.syncFields();
-                
+
                 if (this._opts.secondField && this._opts.secondField === target && this._opts.endDate) {
                     this.gotoDate(this._opts.endDate);
                 }
