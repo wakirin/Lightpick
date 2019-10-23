@@ -1,3 +1,6 @@
 .idea
 .DS_Store
 node_modules/
+/.vs/VSWorkspaceState.json
+/.vs/Lightpick/v16/.suo
+/.vs
