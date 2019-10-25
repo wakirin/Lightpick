@@ -7,7 +7,7 @@
     <meta name="google-site-verification" content="nERiBNqxg1sFpetHtzwMVydsumihA9YnyytsjfzYEGI" />
     <meta name="description" content="Javascript date range picker - lightweight, no jQuery. Date Range Picker can be attached to input element to pop up one or more calendars for selecting dates.">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/lightpick@latest/css/lightpick.css">
+    <link rel="stylesheet" type="text/css" href="../css/lightpick.css">
 </head>
 <body>
     <div class="container">
@@ -98,452 +98,475 @@
                 </div>
 
                 <div id="examples" class="mt-5">
-                    <h2><span class="text-secondary">#</span> <a href="#examples">Examples</a></h2>
-                    <hr>
+                  <h2><span class="text-secondary">#</span> <a href="#examples">Examples</a></h2>
+                  <hr>
 
-                    <p class="lead">Default configuration</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-1">&nbsp;</p>
-                                    <input type="text" id="demo-1" class="form-control form-control-sm"/>
-                                </div>
-                                <div class="col-md-7" id="gist-1"></div>
-                            </div>
+                  <p class="lead">Default configuration</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-1">&nbsp;</p>
+                          <input type="text" id="demo-1" class="form-control form-control-sm" />
                         </div>
+                        <div class="col-md-7" id="gist-1"></div>
+                      </div>
                     </div>
+                  </div>
 
-                    <br>
+                  <br>
 
-                    <p class="lead">Option: singleDate = false</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-2">&nbsp;</p>
-                                    <input type="text" id="demo-2" class="form-control form-control-sm"/>
-                                </div>
-                                <div class="col-md-7" id="gist-2"></div>
-                            </div>
+                  <p class="lead">Option: singleDate = false</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-2">&nbsp;</p>
+                          <input type="text" id="demo-2" class="form-control form-control-sm" />
                         </div>
+                        <div class="col-md-7" id="gist-2"></div>
+                      </div>
                     </div>
+                  </div>
 
-                    <br>
+                  <br>
 
-                    <p class="lead">Option: secondField</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-3">&nbsp;</p>
-                                    <div class="d-flex">
-                                        <input type="text" id="demo-3_1" class="form-control form-control-sm"/>
-                                        <input type="text" id="demo-3_2" class="form-control form-control-sm"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-7" id="gist-3"></div>
-                            </div>
+                  <p class="lead">Option: secondField</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-3">&nbsp;</p>
+                          <div class="d-flex">
+                            <input type="text" id="demo-3_1" class="form-control form-control-sm" />
+                            <input type="text" id="demo-3_2" class="form-control form-control-sm" />
+                          </div>
                         </div>
+                        <div class="col-md-7" id="gist-3"></div>
+                      </div>
                     </div>
+                  </div>
 
-                    <br>
+                  <br>
 
-                    <p class="lead">Option: numberOfMonths = 6</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-4">&nbsp;</p>
-                                    <input type="text" id="demo-4" class="form-control form-control-sm"/>
-                                </div>
-                                <div class="col-md-7" id="gist-4"></div>
-                            </div>
+                  <p class="lead">Option: numberOfMonths = 6</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-4">&nbsp;</p>
+                          <input type="text" id="demo-4" class="form-control form-control-sm" />
                         </div>
+                        <div class="col-md-7" id="gist-4"></div>
+                      </div>
                     </div>
+                  </div>
 
-                    <br>
-                    <br>
+                  <br>
+                  <br>
 
-                    <p class="lead">Option: numberOfColumns = 3</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-5">&nbsp;</p>
-                                    <input type="text" id="demo-5" class="form-control form-control-sm"/>
-                                </div>
-                                <div class="col-md-7" id="gist-5"></div>
-                            </div>
+                  <p class="lead">Option: numberOfColumns = 3</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-5">&nbsp;</p>
+                          <input type="text" id="demo-5" class="form-control form-control-sm" />
                         </div>
+                        <div class="col-md-7" id="gist-5"></div>
+                      </div>
                     </div>
+                  </div>
 
-                    <br>
+                  <br>
 
-                    <p class="lead">Options: minDate, maxDate</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-6">&nbsp;</p>
-                                    <input type="text" id="demo-6" class="form-control form-control-sm"/>
-                                </div>
-                                <div class="col-md-7" id="gist-6"></div>
-                            </div>
+                  <p class="lead">Options: minDate, maxDate</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-6">&nbsp;</p>
+                          <input type="text" id="demo-6" class="form-control form-control-sm" />
                         </div>
+                        <div class="col-md-7" id="gist-6"></div>
+                      </div>
                     </div>
+                  </div>
 
-                    <br>
+                  <br>
 
-                    <p class="lead">Option: selectForward = true</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-7">&nbsp;</p>
-                                    <input type="text" id="demo-7" class="form-control form-control-sm"/>
-                                </div>
-                                <div class="col-md-7" id="gist-7"></div>
-                            </div>
+                  <p class="lead">Option: selectForward = true</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-7">&nbsp;</p>
+                          <input type="text" id="demo-7" class="form-control form-control-sm" />
                         </div>
+                        <div class="col-md-7" id="gist-7"></div>
+                      </div>
                     </div>
+                  </div>
 
-                    <br>
+                  <br>
 
-                    <p class="lead">Option: selectBackward = true</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-8">&nbsp;</p>
-                                    <input type="text" id="demo-8" class="form-control form-control-sm"/>
-                                </div>
-                                <div class="col-md-7" id="gist-8"></div>
-                            </div>
+                  <p class="lead">Option: selectBackward = true</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-8">&nbsp;</p>
+                          <input type="text" id="demo-8" class="form-control form-control-sm" />
                         </div>
+                        <div class="col-md-7" id="gist-8"></div>
+                      </div>
                     </div>
+                  </div>
 
-                    <br>
+                  <br>
 
-                    <p class="lead">Options: minDays, maxDays</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-9">&nbsp;</p>
-                                    <input type="text" id="demo-9" class="form-control form-control-sm"/>
-                                </div>
-                                <div class="col-md-7" id="gist-9"></div>
-                            </div>
+                  <p class="lead">Options: minDays, maxDays</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-9">&nbsp;</p>
+                          <input type="text" id="demo-9" class="form-control form-control-sm" />
                         </div>
+                        <div class="col-md-7" id="gist-9"></div>
+                      </div>
                     </div>
+                  </div>
 
-                    <br>
+                  <br>
 
-                    <p class="lead">Option: repick</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-11">&nbsp;</p>
-                                    <div class="d-flex">
-                                        <input type="text" id="demo-11_1" class="form-control form-control-sm"/>
-                                        <input type="text" id="demo-11_2" class="form-control form-control-sm"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-7" id="gist-11"></div>
-                            </div>
+                  <p class="lead">Option: repick</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-11">&nbsp;</p>
+                          <div class="d-flex">
+                            <input type="text" id="demo-11_1" class="form-control form-control-sm" />
+                            <input type="text" id="demo-11_2" class="form-control form-control-sm" />
+                          </div>
                         </div>
+                        <div class="col-md-7" id="gist-11"></div>
+                      </div>
                     </div>
+                  </div>
 
-                    <br>
+                  <br>
 
-                    <p class="lead">Options: lang: 'ru', custom locale</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-10">&nbsp;</p>
-                                    <input type="text" id="demo-10" class="form-control form-control-sm"/>
-                                </div>
-                                <div class="col-md-7" id="gist-10"></div>
-                            </div>
+                  <p class="lead">Options: lang: 'ru', custom locale</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-10">&nbsp;</p>
+                          <input type="text" id="demo-10" class="form-control form-control-sm" />
                         </div>
+                        <div class="col-md-7" id="gist-10"></div>
+                      </div>
                     </div>
+                  </div>
 
-                    <br>
+                  <br>
 
-                    <p class="lead">Options: footer: true</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-12">&nbsp;</p>
-                                    <input type="text" id="demo-12" class="form-control form-control-sm"/>
-                                </div>
-                                <div class="col-md-7" id="gist-12"></div>
-                            </div>
+                  <p class="lead">Options: footer: true</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-12">&nbsp;</p>
+                          <input type="text" id="demo-12" class="form-control form-control-sm" />
                         </div>
+                        <div class="col-md-7" id="gist-12"></div>
+                      </div>
                     </div>
+                  </div>
 
-                    <br>
+                  <br>
 
-                    <p class="lead">Options: inline: true</p>
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <p id="result-13">&nbsp;</p>
-                                    <input type="text" id="demo-13" class="form-control form-control-sm" style="display: none;"/>
-                                </div>
-                                <div class="col-md-7" id="gist-13"></div>
-                            </div>
+                  <p class="lead">Options: inline: true</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-13">&nbsp;</p>
+                          <input type="text" id="demo-13" class="form-control form-control-sm" style="display: none;" />
                         </div>
+                        <div class="col-md-7" id="gist-13"></div>
+                      </div>
                     </div>
-                </div>
+                  </div>
 
-                <div id="configuration" class="mt-5">
+                  <br />
+
+                  <p class="lead">Options: colorWeekend: true</p>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p id="result-14">&nbsp;</p>
+                          <input type="text" id="demo-14" class="form-control form-control-sm" />
+                        </div>
+                        <div class="col-md-7" id="gist-14"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                 
+
+                  <div id="configuration" class="mt-5">
                     <h2><span class="text-secondary">#</span> <a href="#configuration">Configuration</a></h2>
                     <hr>
 
                     <p class="lead"><code>field</code></p>
                     <ul>
-                        <li>Type: <code>Element</code></li>
-                        <li>Default: <code>null</code></li>
+                      <li>Type: <code>Element</code></li>
+                      <li>Default: <code>null</code></li>
                     </ul>
                     <p>Bind the datepicker to a form field</p>
 
                     <p class="lead"><code>secondField</code></p>
                     <ul>
-                        <li>Type: <code>Element</code></li>
-                        <li>Default: <code>null</code></li>
+                      <li>Type: <code>Element</code></li>
+                      <li>Default: <code>null</code></li>
                     </ul>
                     <p>If exists then end of date range will set here.</p>
 
                     <p class="lead"><code>firstDay</code></p>
                     <ul>
-                        <li>Type: <code>Number</code></li>
-                        <li>Default: <code>1</code></li>
+                      <li>Type: <code>Number</code></li>
+                      <li>Default: <code>1</code></li>
                     </ul>
                     <p>ISO day of the week (1: Monday, ..., 7: Sunday).</p>
 
                     <p class="lead"><code>parentEl</code></p>
                     <ul>
-                        <li>Type: <code>String</code></li>
-                        <li>Default: <code>body</code></li>
+                      <li>Type: <code>String</code></li>
+                      <li>Default: <code>body</code></li>
                     </ul>
                     <p>Selector of the parent element that the date range picker will be added to, if not provided this will be 'body'.</p>
 
                     <p class="lead"><code>lang</code></p>
                     <ul>
-                        <li>Type: <code>String</code></li>
-                        <li>Default: <code>auto</code></li>
+                      <li>Type: <code>String</code></li>
+                      <li>Default: <code>auto</code></li>
                     </ul>
-                    <p>Language code for names of days, months  by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" target="_blank">Date.prototype.toLocaleString()</a>.
-                        'auto' will try detect user browser language.</p>
+                    <p>
+                      Language code for names of days, months  by <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString" target="_blank">Date.prototype.toLocaleString()</a>.
+                      'auto' will try detect user browser language.
+                    </p>
 
                     <p class="lead"><code>format</code></p>
                     <ul>
-                        <li>Type: <code>String</code></li>
-                        <li>Default: <code>DD/MM/YYYY</code></li>
+                      <li>Type: <code>String</code></li>
+                      <li>Default: <code>DD/MM/YYYY</code></li>
                     </ul>
                     <p>The default output format.</p>
 
                     <p class="lead"><code>separator</code></p>
                     <ul>
-                        <li>Type: <code>String</code></li>
-                        <li>Default: <code>-</code></li>
+                      <li>Type: <code>String</code></li>
+                      <li>Default: <code>-</code></li>
                     </ul>
                     <p>Separator between dates when one field.</p>
 
                     <p class="lead"><code>numberOfMonths</code></p>
                     <ul>
-                        <li>Type: <code>Number</code></li>
-                        <li>Default: <code>1</code></li>
+                      <li>Type: <code>Number</code></li>
+                      <li>Default: <code>1</code></li>
                     </ul>
                     <p>Number of visible months.</p>
 
                     <p class="lead"><code>numberOfColumns</code></p>
                     <ul>
-                        <li>Type: <code>Number</code></li>
-                        <li>Default: <code>2</code></li>
+                      <li>Type: <code>Number</code></li>
+                      <li>Default: <code>2</code></li>
                     </ul>
                     <p>Number of columns months.</p>
 
                     <p class="lead"><code>singleDate</code></p>
                     <ul>
-                        <li>Type: <code>Boolean</code></li>
-                        <li>Default: <code>true</code></li>
+                      <li>Type: <code>Boolean</code></li>
+                      <li>Default: <code>true</code></li>
                     </ul>
                     <p>Choose a single date instead of a date range.</p>
 
                     <p class="lead"><code>autoclose</code></p>
                     <ul>
-                        <li>Type: <code>Boolean</code></li>
-                        <li>Default: <code>true</code></li>
+                      <li>Type: <code>Boolean</code></li>
+                      <li>Default: <code>true</code></li>
                     </ul>
                     <p>Close calendar when picked date/range.</p>
 
                     <p class="lead"><code>hideOnBodyClick</code></p>
                     <ul>
-                        <li>Type: <code>Boolean</code></li>
-                        <li>Default: <code>true</code></li>
+                      <li>Type: <code>Boolean</code></li>
+                      <li>Default: <code>true</code></li>
                     </ul>
                     <p>Close calendar when clicked outside the elements specified in <code>field</code> or <code>parentEl</code>. Recommended use when <code>autoclose</code> is set to <code>false</code>.</p>
 
                     <p class="lead"><code>repick</code></p>
                     <ul>
-                        <li>Type: <code>Boolean</code></li>
-                        <li>Default: <code>false</code></li>
+                      <li>Type: <code>Boolean</code></li>
+                      <li>Default: <code>false</code></li>
                     </ul>
                     <p>Repick start/end instead of new range. This option working only when exists `secondField`.</p>
 
                     <p class="lead"><code>minDate</code></p>
                     <ul>
-                        <li>Type: <code>moment|String|Number|Date</code></li>
-                        <li>Default: <code>null</code></li>
+                      <li>Type: <code>moment|String|Number|Date</code></li>
+                      <li>Default: <code>null</code></li>
                     </ul>
                     <p>The minimum/earliest date that can be selected. Any format: moment() or '2018-06-01' or 1527811200000, new Date() </p>
 
                     <p class="lead"><code>maxDate</code></p>
                     <ul>
-                        <li>Type: <code>moment|String|Number|Date</code></li>
-                        <li>Default: <code>null</code></li>
+                      <li>Type: <code>moment|String|Number|Date</code></li>
+                      <li>Default: <code>null</code></li>
                     </ul>
                     <p>The maximum/latest date that can be selected. Any format: moment() or '2018-06-01' or 1527811200000, new Date() </p>
 
                     <p class="lead"><code>disableDates</code></p>
                     <ul>
-                        <li>Type: <code>Array</code></li>
-                        <li>Default: <code>null</code></li>
+                      <li>Type: <code>Array</code></li>
+                      <li>Default: <code>null</code></li>
                     </ul>
                     <p>Array of disabled dates. Array can contains ranges, allowed the same format as in options minDate, maxDate. <br>Ex.: <code>[moment().startOf('month'), ['2018-06-23', '2018-06-30']]</code> </p>
 
                     <p class="lead"><code>selectForward</code></p>
                     <ul>
-                        <li>Type: <code>Boolean</code></li>
-                        <li>Default: <code>false</code></li>
+                      <li>Type: <code>Boolean</code></li>
+                      <li>Default: <code>false</code></li>
                     </ul>
                     <p>Select second date after the first selected date.</p>
 
                     <p class="lead"><code>selectBackward</code></p>
                     <ul>
-                        <li>Type: <code>Boolean</code></li>
-                        <li>Default: <code>false</code></li>
+                      <li>Type: <code>Boolean</code></li>
+                      <li>Default: <code>false</code></li>
                     </ul>
                     <p>Select second date before the first selected date.</p>
 
                     <p class="lead"><code>minDays</code></p>
                     <ul>
-                        <li>Type: <code>Number</code></li>
-                        <li>Default: <code>null</code></li>
+                      <li>Type: <code>Number</code></li>
+                      <li>Default: <code>null</code></li>
                     </ul>
                     <p>The minimum days of the selected range.</p>
 
                     <p class="lead"><code>maxDays</code></p>
                     <ul>
-                        <li>Type: <code>Number</code></li>
-                        <li>Default: <code>null</code></li>
+                      <li>Type: <code>Number</code></li>
+                      <li>Default: <code>null</code></li>
                     </ul>
                     <p>The maximum days of the selected range.</p>
 
                     <p class="lead"><code>hoveringTooltip</code></p>
                     <ul>
-                        <li>Type: <code>Boolean</code></li>
-                        <li>Default: <code>true</code></li>
+                      <li>Type: <code>Boolean</code></li>
+                      <li>Default: <code>true</code></li>
                     </ul>
                     <p>Show tooltip.</p>
 
                     <p class="lead"><code>footer</code></p>
                     <ul>
-                        <li>Type: <code>Boolean|String</code></li>
-                        <li>Default: <code>false</code></li>
+                      <li>Type: <code>Boolean|String</code></li>
+                      <li>Default: <code>false</code></li>
                     </ul>
                     <p>Footer calendar, if set to `true` will use default footer (Reset/Apply buttons) or custom string (html).</p>
 
                     <p class="lead"><code>disabledDatesInRange</code></p>
                     <ul>
-                        <li>Type: <code>Boolean</code></li>
-                        <li>Default: <code>true</code></li>
+                      <li>Type: <code>Boolean</code></li>
+                      <li>Default: <code>true</code></li>
                     </ul>
                     <p>If set to `false` then will reset selected range when disabled dates exists in selected range.</p>
 
                     <p class="lead"><code>tooltipNights</code></p>
                     <ul>
-                        <li>Type: <code>Boolean</code></li>
-                        <li>Default: <code>false</code></li>
+                      <li>Type: <code>Boolean</code></li>
+                      <li>Default: <code>false</code></li>
                     </ul>
                     <p>Calc date range in nights. (For hotels when last date doesn't include to range)</p>
 
                     <p class="lead"><code>orientation</code></p>
                     <ul>
-                        <li>Type: <code>String</code></li>
-                        <li>Default: <code>auto</code></li>
+                      <li>Type: <code>String</code></li>
+                      <li>Default: <code>auto</code></li>
                     </ul>
                     <p>A space-separated string consisting of one or two of “left” or “right”, “top” or “bottom”, and “auto” (may be omitted); for example, “top left”, “bottom” (horizontal orientation will default to “auto”), “right” (vertical orientation will default to “auto”), “auto top”. </p>
 
                     <p class="lead"><code>disableWeekends</code></p>
                     <ul>
-                        <li>Type: <code>Boolean</code></li>
-                        <li>Default: <code>false</code></li>
+                      <li>Type: <code>Boolean</code></li>
+                      <li>Default: <code>false</code></li>
                     </ul>
                     <p>Disable Saturday and Sunday.</p>
 
                     <p class="lead"><code>inline</code></p>
                     <ul>
-                        <li>Type: <code>Boolean</code></li>
-                        <li>Default: <code>false</code></li>
+                      <li>Type: <code>Boolean</code></li>
+                      <li>Default: <code>false</code></li>
                     </ul>
                     <p>Show calendar inline. If <code>true</code> and <code>parentEl</code> is not provided then will use <code>parentNode</code> of field.</p>
 
                     <p class="lead"><code>dropdowns</code></p>
                     <ul>
-                        <li>Type: <code>Object|Boolean</code></li>
-                        <li>
-                            Default: <br>
-                            <code>
-                                { <br>
-                                &nbsp;&nbsp;years: { <br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;min: 1900, <br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;max: null, <br>
-                                &nbsp;&nbsp;}, <br>
-                                &nbsp;&nbsp;months: true, <br>
-                                }
-                            </code>
-                        </li>
+                      <li>Type: <code>Object|Boolean</code></li>
+                      <li>
+                        Default: <br>
+                        <code>
+                          { <br>
+                          &nbsp;&nbsp;years: { <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;min: 1900, <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;max: null, <br>
+                          &nbsp;&nbsp;}, <br>
+                          &nbsp;&nbsp;months: true, <br>
+                          }
+                        </code>
+                      </li>
                     </ul>
-                    <p>Dropdown selections for years, months. Can be <code>false</code> for disable both dropdowns. <br>
-                        <code>years</code> <i>(Object|Boolean)</i> - Object must contains <code>min</code> and <code>max</code> range of years or can be <code>false</code> for disable dropdown of years. <br>
-                        <code>months</code> <i>(Boolean)</i> - <code>true/false</code> for enable/disable dropdown of months. </p>
+                    <p>
+                      Dropdown selections for years, months. Can be <code>false</code> for disable both dropdowns. <br>
+                      <code>years</code> <i>(Object|Boolean)</i> - Object must contains <code>min</code> and <code>max</code> range of years or can be <code>false</code> for disable dropdown of years. <br>
+                      <code>months</code> <i>(Boolean)</i> - <code>true/false</code> for enable/disable dropdown of months.
+                    </p>
 
                     <p class="lead"><code>locale</code></p>
                     <ul>
-                        <li>Type: <code>Object</code></li>
-                        <li>Default: 
-                            <code><br>
-                            { <br>
-                            &nbsp;&nbsp;buttons: { <br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;prev: '&leftarrow;', <br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;next: '&rightarrow;', <br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;close: '&times;', <br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;reset: 'Reset', <br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;apply: 'Apply'<br>
-                            &nbsp;&nbsp;}, <br>
-                            &nbsp;&nbsp;tooltip: { <br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;one: 'day',  <br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;other: 'days'<br>
-                            &nbsp;&nbsp;},<br>
-                            &nbsp;&nbsp;tooltipOnDisabled: null,<br>
-                            &nbsp;&nbsp;pluralize: function(i, locale){<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;if (typeof i === "string") i = parseInt(i, 10);<br>
-                            <br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;if (i === 1 && 'one' in locale) return locale.one;<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;if ('other' in locale) return locale.other;<br>
-                            <br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;return '';<br>
-                            &nbsp;&nbsp;}<br>
-                            }
-                            </code></li>
+                      <li>Type: <code>Object</code></li>
+                      <li>
+                        Default:
+                        <code>
+                          <br>
+                          { <br>
+                          &nbsp;&nbsp;buttons: { <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;prev: '&leftarrow;', <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;next: '&rightarrow;', <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;close: '&times;', <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;reset: 'Reset', <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;apply: 'Apply'<br>
+                          &nbsp;&nbsp;}, <br>
+                          &nbsp;&nbsp;tooltip: { <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;one: 'day',  <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;other: 'days'<br>
+                          &nbsp;&nbsp;},<br>
+                          &nbsp;&nbsp;tooltipOnDisabled: null,<br>
+                          &nbsp;&nbsp;pluralize: function(i, locale){<br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;if (typeof i === "string") i = parseInt(i, 10);<br>
+                          <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;if (i === 1 && 'one' in locale) return locale.one;<br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;if ('other' in locale) return locale.other;<br>
+                          <br>
+                          &nbsp;&nbsp;&nbsp;&nbsp;return '';<br>
+                          &nbsp;&nbsp;}<br>
+                          }
+                        </code>
+                      </li>
                     </ul>
                     <p><code>buttons</code> - Text for buttons</p>
                     <p><code>tooltip</code> - Text for tooltip (one, few, many, other)</p>
@@ -552,109 +575,109 @@
 
                     <p class="lead"><code>onSelect</code></p>
                     <ul>
-                        <li>Type: <code>Function</code></li>
-                        <li>Default: <code>null</code></li>
+                      <li>Type: <code>Function</code></li>
+                      <li>Default: <code>null</code></li>
                     </ul>
                     <p>Callback function for when a date is selected.</p>
 
                     <p class="lead"><code>onOpen</code></p>
                     <ul>
-                        <li>Type: <code>Function</code></li>
-                        <li>Default: <code>null</code></li>
+                      <li>Type: <code>Function</code></li>
+                      <li>Default: <code>null</code></li>
                     </ul>
                     <p>Callback function for when the picker becomes visible.</p>
 
                     <p class="lead"><code>onClose</code></p>
                     <ul>
-                        <li>Type: <code>Function</code></li>
-                        <li>Default: <code>null</code></li>
+                      <li>Type: <code>Function</code></li>
+                      <li>Default: <code>null</code></li>
                     </ul>
                     <p>Callback function for when the picker is hidden.</p>
-                </div>
+                  </div>
 
-                <div id="methods" class="mt-5">
+                  <div id="methods" class="mt-5">
                     <h2><span class="text-secondary">#</span> <a href="#methods">Methods</a></h2>
                     <hr>
 
                     <p class="lead"><code>picker.setDate(date)</code></p>
                     <p>
-                        Set date when singleDate is true. <code>date</code> can be moment, string, number, date.
-                        <br>Ex. <code>picker.setDate(new Date());</code>
+                      Set date when singleDate is true. <code>date</code> can be moment, string, number, date.
+                      <br>Ex. <code>picker.setDate(new Date());</code>
                     </p>
 
                     <br>
 
                     <p class="lead"><code>picker.setDateRange(start, end)</code></p>
                     <p>
-                        Set date range. <code>start, end</code> can be moment, string, number, date.
-                        <br>Ex. <code>picker.setDateRange(new Date(), moment().add(7, 'day'));</code>
+                      Set date range. <code>start, end</code> can be moment, string, number, date.
+                      <br>Ex. <code>picker.setDateRange(new Date(), moment().add(7, 'day'));</code>
                     </p>
 
                     <br>
 
                     <p class="lead"><code>picker.setDisableDates(array)</code></p>
                     <p>
-                        array of disabled dates. Array can contains ranges, allowed moment, string, number, date.
-                        <br>Ex. <code>picker.setDisableDates([ moment().startOf('month'), ['2018-06-23', '2018-06-30'] ]);</code>
+                      array of disabled dates. Array can contains ranges, allowed moment, string, number, date.
+                      <br>Ex. <code>picker.setDisableDates([ moment().startOf('month'), ['2018-06-23', '2018-06-30'] ]);</code>
                     </p>
 
                     <br>
 
                     <p class="lead"><code>picker.getDate()</code></p>
                     <p>
-                        Return current date as moment object.
+                      Return current date as moment object.
                     </p>
 
                     <br>
 
                     <p class="lead"><code>picker.getStartDate()</code></p>
                     <p>
-                        Return current start of date range as moment object.
+                      Return current start of date range as moment object.
                     </p>
 
                     <br>
 
                     <p class="lead"><code>picker.getEndDate()</code></p>
                     <p>
-                        Return current start of date range as moment object.
+                      Return current start of date range as moment object.
                     </p>
 
                     <br>
 
                     <p class="lead"><code>picker.toString('YYYY-MM-DD')</code></p>
                     <p>
-                        Returns the date in a string format.
+                      Returns the date in a string format.
                     </p>
 
                     <br>
 
                     <p class="lead"><code>picker.reloadOptions({})</code></p>
                     <p>
-                        Update picker options.
+                      Update picker options.
                     </p>
 
                     <br>
 
                     <p class="lead"><code>picker.show()</code></p>
                     <p>
-                        Make the picker visible.
+                      Make the picker visible.
                     </p>
 
                     <br>
 
                     <p class="lead"><code>picker.hide()</code></p>
                     <p>
-                        Hide the picker.
+                      Hide the picker.
                     </p>
 
                     <br>
 
                     <p class="lead"><code>picker.destroy()</code></p>
                     <p>
-                        Hide the picker and remove all event listeners.
+                      Hide the picker and remove all event listeners.
                     </p>
-                </div>
-                <div id="license" class="mt-5">
+                  </div>
+                  <div id="license" class="mt-5">
                     <h2><span class="text-secondary">#</span> <a href="#license">License</a></h2>
                     <hr>
                     <p>Copyright 2019 Rinat G.</p>
@@ -664,16 +687,16 @@
                     <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 
                     <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+                  </div>
                 </div>
-            </div>
         </div>
     </div>
 
     <script async src="https://buttons.github.io/buttons.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/lightpick@latest/lightpick.js"></script>
+    <script type="text/javascript" src="../lightpick.js"></script>
     <script type="text/javascript" src="demo.js"></script>
 </body>
 </html>
 
-uuu
+

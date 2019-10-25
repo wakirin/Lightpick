@@ -198,3 +198,17 @@ new Lightpick({
         document.getElementById('result-13').innerHTML = date.format('Do MMMM YYYY');
     }
 });
+
+// demo-14
+new Lightpick({
+    field: document.getElementById('demo-14'),
+    colorWeekend: true,
+    singleDate:false,
+    eventDays: [{ date: '2019-10-31', eventDescription: 'Halloween ', everyYear: true },
+        { date: '2019-12-31', eventDescription: 'Happy new Year!!', everyYear: true },
+        { date: moment().subtract(2, 'day'), eventDescription: 'Especial Day 1' },
+        { date: moment().add(2, 'day') }],
+    onSelect: function (date) {
+        document.getElementById('result-14').innerHTML = date.format('Do MMMM YYYY');
+    }
+});
