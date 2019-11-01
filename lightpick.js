@@ -1305,7 +1305,12 @@
 
         reloadOptions: function(options)
         {
-            this._opts = Object.assign({}, this._opts, options);
+            var dropdowns = this._opts.dropdowns;
+            var locale = this._opts.locale;
+
+            Object.assign(this._opts, this._opts, options);
+            Object.assign(this._opts.dropdowns, dropdowns, options.dropdowns);
+            Object.assign(this._opts.locale, locale, options.locale);
         }
 
     };
