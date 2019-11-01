@@ -1,8 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.4.2] - 2019-11-01
+* SCSS file added - PR #72 - Thanks @tomvanenckevort
+
 [1.4.1] - 2019-10-23
-* Fix iOS daylight savings time weekdayName issue - PR #85
+* Fix iOS daylight savings time weekdayName issue - PR #85 - Thanks @EionRobb
 
 [1.4.0] - 2019-10-22
 * Fix minDate, maxDate, disableDates and value (gotoDate) of input now respects format parameter.
