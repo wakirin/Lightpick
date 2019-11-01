@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.4.3] - 2019-11-01
+* Fix reload options for dropdowns and locale objects
+
 [1.4.2] - 2019-11-01
 * SCSS file added - PR #72 - Thanks @tomvanenckevort
 
