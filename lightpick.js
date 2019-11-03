@@ -576,7 +576,7 @@
                                 self.hide();
                             }, 100);
                         }
-                        else if (!opts.singleDate || opts.inline) {
+                        else if (!opts.singleDate || opts.inline || !opts.autoclose) {
                             updateDates(self.el, opts);
                         }
                     }
