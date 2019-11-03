@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.4.4] - 2019-11-03
+* Fix autoclose refresh date issue - #74
+
 [1.4.3] - 2019-11-01
 * Fix reload options for dropdowns and locale objects
 
