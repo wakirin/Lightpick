@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.4.5] - 2019-11-03
+* Added onSelectStart and onSelectEnd helper functions - PR #61 - Thanks @scssyworks
+
 [1.4.4] - 2019-11-03
 * Fix autoclose refresh date issue - #74
 

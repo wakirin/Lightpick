@@ -278,6 +278,18 @@ Dropdown selections for years, months. Can be `false` for disable both dropdowns
 
 Callback function for when a date is selected.
 
+### onSelectStart
+- Type: `Function`
+- Default: `null`
+
+Callback function for when a start date is selected (only when singleDate=false).
+
+### onSelectEnd
+- Type: `Function`
+- Default: `null`
+
+Callback function for when a end date is selected (only when singleDate=false).
+
 ### onOpen
 - Type: `Function`
 - Default: `null`
