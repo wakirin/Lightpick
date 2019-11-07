@@ -23,6 +23,13 @@
     "email": "lightpick@coding.kz",
     "url": "http://coding.kz"
   },
+  "contributors": [
+    {
+      "name": "Sinan Keskin",
+      "email": "sinan@kesk.in",
+      "url": "https://kesk.in"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/wakirin/lightpick/issues"
