@@ -1188,17 +1188,17 @@
 
         getStartDate: function()
         {
-            return moment(this._opts.startDate).isValid() ? this._opts.startDate : null;
+            return moment(this._opts.startDate).isValid() ? this._opts.startDate.clone() : null;
         },
 
         getEndDate: function()
         {
-            return moment(this._opts.endDate).isValid() ? this._opts.endDate : null;
+            return moment(this._opts.endDate).isValid() ? this._opts.endDate.clone() : null;
         },
 
         getDate: function()
         {
-            return moment(this._opts.startDate).isValid() ? this._opts.startDate : null;
+            return moment(this._opts.startDate).isValid() ? this._opts.startDate.clone() : null;
         },
 
         toString: function(format)
