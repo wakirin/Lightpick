@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+[1.5.0] - 2019-11-12
+* All getX methods returns clone dates now - PR #75 - Thanks @StevenGastroSophy
+
 [1.4.5] - 2019-11-03
 * Added onSelectStart and onSelectEnd helper functions - PR #61 - Thanks @scssyworks
 
