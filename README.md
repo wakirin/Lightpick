@@ -1,4 +1,4 @@
-## (unmaintained) See a new date picker: [Litepicker](https://github.com/wakirin/Litepicker)
+## (unmaintained) Check out the new date picker: [Litepicker](https://github.com/wakirin/Litepicker)
   
 ---  
   
