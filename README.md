@@ -1,3 +1,7 @@
+## (unmaintained) See a new date picker: [Litepicker](https://github.com/wakirin/Litepicker)
+  
+---  
+  
 [![npm version](https://badge.fury.io/js/lightpick.svg)](https://www.npmjs.com/package/lightpick) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/wakirin/lightpick/blob/master/LICENSE)
 
 
@@ -7,7 +11,6 @@ Lightpick
 
 Javascript date range picker - lightweight, no jQuery
 -----------------------------------------------------
-![screenshot](https://wakirin.github.io/Lightpick_new_style.gif)
 
 ## [Demo & Docs](https://wakirin.github.io/Lightpick)
 
