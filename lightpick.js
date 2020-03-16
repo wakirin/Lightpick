@@ -54,6 +54,7 @@
         orientation: 'auto',
         disableWeekends: false,
         inline: false,
+        weekdayStyle: 'short',
         dropdowns: {
             years: {
                 min: 1900,
@@ -85,27 +86,28 @@
         },
 
         onSelect: null,
+        onSelectStart: null,
+        onSelectEnd: null,
         onOpen: null,
         onClose: null,
         onError: null,
+        onMonthsChange: null,
+        onYearsChange: null
     },
 
     renderTopButtons = function(opts)
     {
-        var prevDisabled = (opts.minDate && opts.minDate > opts.calendar[0]) ? 'disabled="disabled"' : '';
-        var nextDisabled = (opts.maxDate && opts.maxDate < opts.calendar[0].clone().add(opts.numberOfMonths, 'months').startOf('month')) ? 'disabled="disabled"' : '';
-        return [
-            '<div class="lightpick__toolbar">',
-                '<button type="button" class="lightpick__action lightpick__action-previous" ' + prevDisabled + '>' + opts.locale.buttons.prev + '</button>',
-                '<button type="button" class="lightpick__action lightpick__action-next" ' + nextDisabled + '>' + opts.locale.buttons.next + '</button>',
-                (!opts.autoclose && !opts.inline ? '<button type="button" class="lightpick__action lightpick__action-close">' + opts.locale.buttons.close + '</button>'  : ''),
-            '</div>',
-        ].join('');
+        return '<div class="lightpick__toolbar">'
+            + ''
+            + '<button type="button" class="lightpick__previous-action">' + opts.locale.buttons.prev + '</button>'
+            + '<button type="button" class="lightpick__next-action">' + opts.locale.buttons.next + '</button>'
+            + (!opts.autoclose && !opts.inline ? '<button type="button" class="lightpick__close-action">' + opts.locale.buttons.close + '</button>'  : '')
+            + '</div>';
     },
 
-    weekdayName = function(opts, day, short)
+    weekdayName = function(opts, day, weekdayStyle)
     {
-        return new Date(1970, 0, day).toLocaleString(opts.lang, { weekday: short ? 'short' : 'long' })
+        return new Date(1970, 0, day, 12, 0, 0, 0).toLocaleString(opts.lang, { weekday: weekdayStyle || opts.weekdayStyle });
     },
 
     renderDay = function(opts, date, dummy, extraClass)
@@ -134,14 +136,14 @@
         if (opts.disableDates) {
             for (var i = 0; i < opts.disableDates.length; i++) {
                 if (opts.disableDates[i] instanceof Array || Object.prototype.toString.call(opts.disableDates[i]) === '[object Array]') {
-                    var _from = moment(opts.disableDates[i][0]),
-                        _to = moment(opts.disableDates[i][1]);
+                    var _from = moment(opts.disableDates[i][0], opts.format),
+                        _to = moment(opts.disableDates[i][1], opts.format);
 
                     if (_from.isValid() && _to.isValid() && date.isBetween(_from, _to, 'day', '[]')){
                         day.className.push('is-disabled');
                     }
                 }
-                else if (moment(opts.disableDates[i]).isValid() && moment(opts.disableDates[i]).isSame(date, 'day')) {
+                else if (moment(opts.disableDates[i], opts.format).isValid() && moment(opts.disableDates[i], opts.format).isSame(date, 'day')) {
                     day.className.push('is-disabled');
                 }
 
@@ -356,7 +358,7 @@
 
             html += '<div class="lightpick__days-of-the-week">';
             for (var w = opts.firstDay + 4; w < 7 + opts.firstDay + 4; ++w) {
-                html += '<div class="lightpick__day-of-the-week" title="' + weekdayName(opts, w) + '">' + weekdayName(opts, w, true) + '</div>';
+                html += '<div class="lightpick__day-of-the-week" title="' + weekdayName(opts, w, 'long') + '">' + weekdayName(opts, w) + '</div>';
             }
             html += '</div>'; // lightpick__days-of-the-week
 
@@ -576,7 +578,7 @@
                                 self.hide();
                             }, 100);
                         }
-                        else if (!opts.singleDate || opts.inline) {
+                        else if (!opts.singleDate || opts.inline || !opts.autoclose) {
                             updateDates(self.el, opts);
                         }
                     }
@@ -625,17 +627,11 @@
                     }
                 }
             }
-            else if (target.classList.contains('lightpick__action-previous') && !target.classList.contains('is-disabled')) {
+            else if (target.classList.contains('lightpick__previous-action')) {
                 self.prevMonth();
-                if (opts.numberOfMonths > 1) {
-                    self.reRenderTopButtons();
-                }
             }
-            else if (target.classList.contains('lightpick__action-next') && !target.classList.contains('is-disabled')) {
+            else if (target.classList.contains('lightpick__next-action')) {
                 self.nextMonth();
-                if (opts.numberOfMonths > 1) {
-                    self.reRenderTopButtons();
-                }
             }
             else if (target.classList.contains('lightpick__close-action') || target.classList.contains('lightpick__apply-action')) {
                 self.hide();
@@ -755,16 +751,18 @@
             }
 
             if (target.classList.contains('lightpick__select-months')) {
-                self.gotoMonth(target.value);
-                if (opts.numberOfMonths > 1) {
-                    self.reRenderTopButtons();
+                if (typeof self._opts.onMonthsChange === 'function') {
+                    self._opts.onMonthsChange.call(this, target.value);
                 }
+
+                self.gotoMonth(target.value);
             }
             else if (target.classList.contains('lightpick__select-years')) {
-                self.gotoYear(target.value);
-                if (opts.numberOfMonths > 1) {
-                    self.reRenderTopButtons();
+                if (typeof self._opts.onYearsChange === 'function') {
+                    self._opts.onYearsChange.call(this, target.value);
                 }
+
+                self.gotoYear(target.value);
             }
         };
 
@@ -853,7 +851,6 @@
 
         self.el.addEventListener('click', self._onMouseDown, true);
         self.el.addEventListener('mouseenter', self._onMouseEnter, true);
-        self.el.addEventListener('touchend', self._onMouseDown, true);
         self.el.addEventListener('change', self._onChange, true);
 
         if (opts.inline) {
@@ -887,9 +884,9 @@
                 opts.numberOfColumns = 1;
             }
 
-            opts.minDate = opts.minDate && moment(opts.minDate).isValid() ? moment(opts.minDate) : null;
+            opts.minDate = opts.minDate && moment(opts.minDate, opts.format).isValid() ? moment(opts.minDate, opts.format) : null;
 
-            opts.maxDate = opts.maxDate && moment(opts.maxDate).isValid() ? moment(opts.maxDate) : null;
+            opts.maxDate = opts.maxDate && moment(opts.maxDate, opts.format).isValid() ? moment(opts.maxDate, opts.format) : null;
 
             if (opts.lang === 'auto') {
                 var browserLang = navigator.language || navigator.userLanguage;
@@ -976,7 +973,7 @@
 
         gotoDate: function(date)
         {
-            var date = moment(date);
+            var date = moment(date, this._opts.format);
 
             if (!date.isValid()) {
                 date = moment();
@@ -1009,10 +1006,6 @@
             this._opts.calendar[0].set('year', year);
 
             renderCalendar(this.el, this._opts);
-        },
-
-        reRenderTopButtons: function () {
-            this.el.querySelector('.lightpick__toolbar').outerHTML = renderTopButtons(this._opts);
         },
 
         prevMonth: function()
@@ -1112,6 +1105,10 @@
             if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
                 this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
             }
+
+            if (!preventOnSelect && !this._opts.singleDate && typeof this._opts.onSelectStart === 'function') {
+                this._opts.onSelectStart.call(this, this.getStartDate());
+            }
         },
 
         setEndDate: function(date, preventOnSelect)
@@ -1143,6 +1140,10 @@
 
             if (!preventOnSelect && typeof this._opts.onSelect === 'function') {
                 this._opts.onSelect.call(this, this.getStartDate(), this.getEndDate());
+            }
+
+            if (!preventOnSelect && !this._opts.singleDate && typeof this._opts.onSelectEnd === 'function') {
+                this._opts.onSelectEnd.call(this, this.getEndDate());
             }
         },
 
@@ -1186,17 +1187,17 @@
 
         getStartDate: function()
         {
-            return moment(this._opts.startDate).isValid() ? this._opts.startDate : null;
+            return moment(this._opts.startDate).isValid() ? this._opts.startDate.clone() : null;
         },
 
         getEndDate: function()
         {
-            return moment(this._opts.endDate).isValid() ? this._opts.endDate : null;
+            return moment(this._opts.endDate).isValid() ? this._opts.endDate.clone() : null;
         },
 
         getDate: function()
         {
-            return moment(this._opts.startDate).isValid() ? this._opts.startDate : null;
+            return moment(this._opts.startDate).isValid() ? this._opts.startDate.clone() : null;
         },
 
         toString: function(format)
@@ -1238,7 +1239,7 @@
                     this.gotoDate(this._opts.startDate);
                 }
 
-                document.addEventListener('mousedown', this._onClick);
+                document.addEventListener('click', this._onClick);
 
                 this.updatePosition();
 
@@ -1259,7 +1260,7 @@
             if (this.isShowing) {
                 this.isShowing = false;
 
-                document.removeEventListener('mousedown', this._onClick);
+                document.removeEventListener('click', this._onClick);
 
                 this.el.classList.add('is-hidden');
 
@@ -1277,9 +1278,8 @@
 
             this.hide();
 
-            this.el.removeEventListener('mousedown', self._onMouseDown, true);
+            this.el.removeEventListener('click', self._onMouseDown, true);
             this.el.removeEventListener('mouseenter', self._onMouseEnter, true);
-            this.el.removeEventListener('touchend', self._onMouseDown, true);
             this.el.removeEventListener('change', self._onChange, true);
 
             opts.field.removeEventListener('change', this._onInputChange);
@@ -1313,7 +1313,12 @@
 
         reloadOptions: function(options)
         {
-            this._opts = Object.assign({}, this._opts, options);
+            var dropdowns = this._opts.dropdowns;
+            var locale = this._opts.locale;
+
+            Object.assign(this._opts, this._opts, options);
+            Object.assign(this._opts.dropdowns, dropdowns, options.dropdowns);
+            Object.assign(this._opts.locale, locale, options.locale);
         }
 
     };
