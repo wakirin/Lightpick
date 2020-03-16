@@ -851,7 +851,7 @@
             tooltip.style.visibility = 'hidden';
         };
 
-        self.el.addEventListener('mousedown', self._onMouseDown, true);
+        self.el.addEventListener('click', self._onMouseDown, true);
         self.el.addEventListener('mouseenter', self._onMouseEnter, true);
         self.el.addEventListener('touchend', self._onMouseDown, true);
         self.el.addEventListener('change', self._onChange, true);
