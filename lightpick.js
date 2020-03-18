@@ -34,6 +34,7 @@
         separator: ' - ',
         numberOfMonths: 1,
         numberOfColumns: 2,
+        mobileFriendly: true,
         singleDate: true,
         autoclose: true,
         repick: false,
@@ -910,7 +911,7 @@
                 opts.locale = Object.assign({}, defaults.locale, options.locale);
             }
 
-            if (window.innerWidth < 480 && opts.numberOfMonths > 1) {
+            if (opts.mobileFriendly && window.innerWidth < 480 && opts.numberOfMonths > 1) {
                 opts.numberOfMonths = 1;
                 opts.numberOfColumns = 1;
             }
