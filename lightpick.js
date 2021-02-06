@@ -34,6 +34,7 @@
         separator: ' - ',
         numberOfMonths: 1,
         numberOfColumns: 2,
+        mobileFriendly: true,
         singleDate: true,
         autoclose: true,
         repick: false,
@@ -849,9 +850,8 @@
             tooltip.style.visibility = 'hidden';
         };
 
-        self.el.addEventListener('mousedown', self._onMouseDown, true);
+        self.el.addEventListener('click', self._onMouseDown, true);
         self.el.addEventListener('mouseenter', self._onMouseEnter, true);
-        self.el.addEventListener('touchend', self._onMouseDown, true);
         self.el.addEventListener('change', self._onChange, true);
 
         if (opts.inline) {
@@ -911,7 +911,7 @@
                 opts.locale = Object.assign({}, defaults.locale, options.locale);
             }
 
-            if (window.innerWidth < 480 && opts.numberOfMonths > 1) {
+            if (opts.mobileFriendly && window.innerWidth < 480 && opts.numberOfMonths > 1) {
                 opts.numberOfMonths = 1;
                 opts.numberOfColumns = 1;
             }
@@ -1279,9 +1279,8 @@
 
             this.hide();
 
-            this.el.removeEventListener('mousedown', self._onMouseDown, true);
+            this.el.removeEventListener('click', self._onMouseDown, true);
             this.el.removeEventListener('mouseenter', self._onMouseEnter, true);
-            this.el.removeEventListener('touchend', self._onMouseDown, true);
             this.el.removeEventListener('change', self._onChange, true);
 
             opts.field.removeEventListener('change', this._onInputChange);
