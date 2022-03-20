@@ -1,3 +1,1 @@
-# Project unmaintained
----
-## Check out the new date picker: [Litepicker](https://github.com/wakirin/Litepicker)
+# Project closed in favor of [easepick](https://github.com/easepick/easepick)
